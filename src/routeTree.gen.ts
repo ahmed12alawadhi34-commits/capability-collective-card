@@ -10,31 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as ActivitiesRouteImport } from './routes/activities'
-import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as PartnersRouteImport } from './routes/partners'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ActivitiesRoute = ActivitiesRouteImport.update({
-  id: '/activities',
-  path: '/activities',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CompaniesRoute = CompaniesRouteImport.update({
-  id: '/companies',
-  path: '/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -42,83 +22,31 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PartnersRoute = PartnersRouteImport.update({
-  id: '/partners',
-  path: '/partners',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/activities': typeof ActivitiesRoute
-  '/companies': typeof CompaniesRoute
   '/contact': typeof ContactRoute
-  '/history': typeof HistoryRoute
-  '/partners': typeof PartnersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/activities': typeof ActivitiesRoute
-  '/companies': typeof CompaniesRoute
   '/contact': typeof ContactRoute
-  '/history': typeof HistoryRoute
-  '/partners': typeof PartnersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/activities': typeof ActivitiesRoute
-  '/companies': typeof CompaniesRoute
   '/contact': typeof ContactRoute
-  '/history': typeof HistoryRoute
-  '/partners': typeof PartnersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/activities'
-    | '/companies'
-    | '/contact'
-    | '/history'
-    | '/partners'
+  fullPaths: '/' | '/contact'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/activities'
-    | '/companies'
-    | '/contact'
-    | '/history'
-    | '/partners'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/activities'
-    | '/companies'
-    | '/contact'
-    | '/history'
-    | '/partners'
+  to: '/' | '/contact'
+  id: '__root__' | '/' | '/contact'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ActivitiesRoute: typeof ActivitiesRoute
-  CompaniesRoute: typeof CompaniesRoute
   ContactRoute: typeof ContactRoute
-  HistoryRoute: typeof HistoryRoute
-  PartnersRoute: typeof PartnersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -130,27 +58,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/activities': {
-      id: '/activities'
-      path: '/activities'
-      fullPath: '/activities'
-      preLoaderRoute: typeof ActivitiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/companies': {
-      id: '/companies'
-      path: '/companies'
-      fullPath: '/companies'
-      preLoaderRoute: typeof CompaniesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -158,31 +65,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/history': {
-      id: '/history'
-      path: '/history'
-      fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partners': {
-      id: '/partners'
-      path: '/partners'
-      fullPath: '/partners'
-      preLoaderRoute: typeof PartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ActivitiesRoute: ActivitiesRoute,
-  CompaniesRoute: CompaniesRoute,
   ContactRoute: ContactRoute,
-  HistoryRoute: HistoryRoute,
-  PartnersRoute: PartnersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
