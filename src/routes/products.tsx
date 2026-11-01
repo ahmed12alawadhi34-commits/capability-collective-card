@@ -27,7 +27,7 @@ function Products() {
             <div className="grid h-14 w-14 place-items-center rounded-2xl bg-primary/15 text-primary"><ProductIcon name={p.icon} size={28} /></div>
             <h2 className="mt-6 text-2xl font-bold">{t(p.name)}</h2>
             <p className="mt-3 text-muted-foreground leading-relaxed">{t(p.desc)}</p>
-            <Link to="/quote" search={{ product: p.icon }} className="mt-6 inline-block text-sm text-primary">{t({ ar: "اطلب عرض سعر ←", en: "Request a quote →" })}</Link>
+            <Link to="/quote" className="mt-6 inline-block text-sm text-primary">{t({ ar: "اطلب عرض سعر ←", en: "Request a quote →" })}</Link>
           </article>
         ))}
       </section>

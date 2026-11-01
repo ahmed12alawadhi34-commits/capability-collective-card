@@ -49,7 +49,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled || open ? "glass" : ""}`}>
         <div className="mx-auto max-w-7xl px-5 h-18 py-3 flex items-center justify-between gap-4">
           <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
-            <img src={mark} alt={t(brand)} width={260} height={130} className="h-10 w-auto" />
+            <img src={mark} alt={t(brand)} width={388} height={191} className="h-10 w-auto" />
             <span className="text-sm font-bold leading-tight hidden sm:block">{t(brand)}</span>
           </Link>
           <nav className="hidden lg:flex items-center gap-7 text-sm">

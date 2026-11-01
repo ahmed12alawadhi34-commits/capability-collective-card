@@ -5,7 +5,6 @@ import { useLang } from "@/lib/i18n";
 import { products, WHATSAPP } from "@/lib/content";
 
 export const Route = createFileRoute("/quote")({
-  validateSearch: (s: Record<string, unknown>): { product?: string } => ({ product: typeof s["product"] === "string" ? (s["product"] as string) : undefined }),
   head: () => ({
     meta: [
       { title: "طلب عرض سعر | العواضي لصناعة الزجاج" },
@@ -21,8 +20,7 @@ const field = "w-full rounded-xl bg-input/40 border border-border px-4 py-3 plac
 
 function Quote() {
   const { t } = useLang();
-  const { product } = Route.useSearch();
-  const [f, setF] = useState({ name: "", company: "", phone: "", email: "", product: product ?? products[0].icon, size: "", message: "" });
+  const [f, setF] = useState({ name: "", company: "", phone: "", email: "", product: products[0].icon as string, size: "", message: "" });
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
