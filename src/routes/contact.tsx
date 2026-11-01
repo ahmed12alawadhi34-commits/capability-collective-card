@@ -26,7 +26,7 @@ function Contact() {
   return (
     <>
       <PageHeader eyebrow={t({ ar: "تواصل معنا", en: "Contact" })} title={t({ ar: "زورونا في صنعاء", en: "Visit us in Sana'a" })} />
-      <section className="mx-auto max-w-7xl px-5 py-16 grid gap-6 lg:grid-cols-2">
+      <section className="section-light"><div className="mx-auto max-w-7xl px-5 py-16 grid gap-6 lg:grid-cols-2">
         <div className="grid gap-4 content-start">
           {rows.map((r, i) => (
             <div key={i} className="glass rounded-2xl p-5 flex gap-4">
@@ -48,7 +48,7 @@ function Contact() {
         <div className="glass rounded-3xl overflow-hidden min-h-96">
           <iframe title="map" className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" src="https://www.google.com/maps?q=Al-Nasr+Station+Qa'a+Al-Qaidi+Sana'a+Yemen&output=embed" />
         </div>
-      </section>
+      </div></section>
     </>
   );
 }
