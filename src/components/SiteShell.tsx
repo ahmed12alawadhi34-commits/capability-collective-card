@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n";
 import { nav, brand, STAFF_LOGIN, WHATSAPP, PHONES, EMAIL, address } from "@/lib/content";
 import logo from "@/assets/logo-white.png";
 import mark from "@/assets/mark-white.png";
+import { initSmoothScroll } from "@/lib/motion";
 
 function Loader() {
   const [hide, setHide] = useState(false);
@@ -38,6 +39,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useReveal();
+  useEffect(() => { initSmoothScroll(); }, []);
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 20);
     f(); window.addEventListener("scroll", f);
@@ -46,10 +48,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Loader />
-      <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled || open ? "glass" : ""}`}>
-        <div className="mx-auto max-w-7xl px-5 h-18 py-3 flex items-center justify-between gap-4">
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled || open ? "glass mx-3 mt-3 rounded-full lg:mx-auto lg:max-w-6xl" : ""}`}>
+        <div className={`mx-auto max-w-7xl px-5 flex transition-all duration-500 ${scrolled ? "py-2" : "py-5"} items-center justify-between gap-4">
           <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
-            <img src={mark} alt={t(brand)} width={388} height={191} className="h-10 w-auto" />
+            <img src={mark} alt={t(brand)} width={388} height={191} className={`w-auto transition-all duration-500 ${scrolled ? "h-7" : "h-10"}`} />
             <span className="text-sm font-bold leading-tight hidden sm:block">{t(brand)}</span>
           </Link>
           <nav className="hidden lg:flex items-center gap-7 text-sm">
