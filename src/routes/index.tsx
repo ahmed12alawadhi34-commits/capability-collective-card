@@ -199,6 +199,25 @@ function Index() {
         </div>
       </div></section>
 
+      {/* SERVICES */}
+      <section className="py-28">
+        <div className="mx-auto max-w-7xl px-5">
+          <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "خدماتنا", en: "Our services" })}</Line></h2>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {services.map((s, i) => {
+              const I = { truck: Truck, check: ClipboardCheck, crate: Package }[s.icon];
+              return (
+                <div key={s.icon} className="reveal glass shine rounded-3xl p-8" style={{ transitionDelay: `${i * 90}ms` }}>
+                  <div className="grid h-14 w-14 place-items-center rounded-2xl bg-primary/15 text-primary"><I size={28} strokeWidth={1.4} /></div>
+                  <h3 className="mt-6 text-xl font-bold">{t(s.name)}</h3>
+                  <p className="mt-3 text-muted-foreground leading-relaxed">{t(s.desc)}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* PROCESS */}
       <section className="bg-night py-28">
         <div className="mx-auto max-w-7xl px-5">
@@ -217,14 +236,19 @@ function Index() {
 
       {/* GROUP */}
       <section className="mx-auto max-w-7xl px-5 py-28">
-        <div className="reveal glass shine rounded-3xl p-10 md:p-14 grid gap-8 md:grid-cols-[1.5fr_1fr] items-center">
-          <div>
-            <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "مجموعتنا", en: "Our group" })}</p>
-            <h2 className="mt-3 text-2xl md:text-3xl font-bold">{t({ ar: "جزء من مجموعة العوضي للتجارة والصناعة", en: "Part of Al-Awadhi Group for Trading and Manufacturing" })}</h2>
-          </div>
-          <div className="flex flex-col gap-3">
-            <a href="https://www.alawadhigroup.net" target="_blank" rel="noreferrer" className="glass rounded-full px-6 py-3 flex justify-between items-center">alawadhigroup.net <ArrowUpRight size={16} /></a>
-            <a href="https://www.yemenglass.com" target="_blank" rel="noreferrer" className="glass rounded-full px-6 py-3 flex justify-between items-center">yemenglass.com <ArrowUpRight size={16} /></a>
+        <div className="reveal glass shine rounded-3xl p-10 md:p-14">
+          <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "مجموعتنا", en: "Our group" })}</p>
+          <h2 className="mt-3 text-2xl md:text-3xl font-bold">{t({ ar: "جزء من مجموعة العوضي للتجارة والصناعة", en: "Part of Al-Awadhi Group for Trading and Manufacturing" })}</h2>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {groupCompanies.map((c) =>
+              c.url ? (
+                <a key={c.url} href={c.url} target="_blank" rel="noreferrer" className="glass rounded-full px-6 py-3 flex justify-between items-center gap-3 text-sm font-medium hover:border-primary/50 transition">
+                  <span className="truncate">{t(c.name)}</span> <ArrowUpRight size={16} className="shrink-0 text-primary" />
+                </a>
+              ) : (
+                <span key={t(c.name)} className="glass rounded-full px-6 py-3 text-sm font-medium text-muted-foreground truncate">{t(c.name)}</span>
+              )
+            )}
           </div>
         </div>
       </section>
