@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, type MouseEvent } from "react";
-import { Check, ArrowUpRight, Truck, ClipboardCheck, Package } from "lucide-react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { Check, ArrowUpRight, Truck, ClipboardCheck, Package, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { products, reasons, steps, services, groupCompanies, slogan } from "@/lib/content";
 import { ProductIcon } from "@/components/ProductIcon";
@@ -58,6 +58,22 @@ function Index() {
     { src: factory, t: { ar: "خط التقسية", en: "Tempering line" } },
     { src: p4, t: { ar: "وحدات زجاج مزدوج", en: "Insulated glass units" } },
   ];
+  const track = useRef<HTMLDivElement>(null);
+  const [slide, setSlide] = useState(0);
+  const cards = () => Array.from(track.current?.children ?? []) as HTMLElement[];
+  const onTrackScroll = () => {
+    const el = track.current; if (!el) return;
+    const mid = el.getBoundingClientRect().left + el.clientWidth / 2;
+    let best = 0, d = Infinity;
+    cards().forEach((c, i) => { const r = c.getBoundingClientRect(); const x = Math.abs(r.left + r.width / 2 - mid); if (x < d) { d = x; best = i; } });
+    // last card can't reach center; treat end of scroll as last
+    if (Math.abs(Math.abs(el.scrollLeft) - (el.scrollWidth - el.clientWidth)) < 4) best = cards().length - 1;
+    setSlide(best);
+  };
+  const go = (i: number) => {
+    const list = cards(), n = Math.max(0, Math.min(list.length - 1, i));
+    list[n]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -79,11 +95,6 @@ function Index() {
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) =>
         gsap.fromTo(el, { yPercent: -10 }, { yPercent: 10, ease: "none", scrollTrigger: { trigger: el.parentElement, scrub: true } }));
 
-      const track = document.querySelector<HTMLElement>("[data-track]");
-      if (track) {
-        const dist = () => track.scrollWidth - window.innerWidth + 40;
-        gsap.to(track, { x: () => (lang === "ar" ? dist() : -dist()), ease: "none", scrollTrigger: { trigger: "[data-hscroll]", start: "top top", end: () => `+=${dist()}`, scrub: 1, pin: true, invalidateOnRefresh: true } });
-      }
     }, root);
     const r = setTimeout(() => ScrollTrigger.refresh(), 500);
     return () => { clearTimeout(r); ctx.revert(); };
@@ -177,19 +188,28 @@ function Index() {
         </div>
       </section>
 
-      {/* HORIZONTAL GALLERY */}
-      <section data-hscroll className="h-screen flex flex-col justify-center overflow-hidden">
-        <div className="mx-auto max-w-7xl w-full px-5 mb-10">
+      {/* GALLERY: native swipe carousel */}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl w-full px-5 mb-8 flex items-end justify-between gap-4">
           <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "أعمال نفخر بها", en: "Work we're proud of" })}</Line></h2>
+          <div className="hidden md:flex gap-2">
+            <button type="button" aria-label={t({ ar: "السابق", en: "Previous" })} onClick={() => go(slide - 1)} className="glass grid h-11 w-11 place-items-center rounded-full text-primary"><ChevronLeft className="rtl:rotate-180" /></button>
+            <button type="button" aria-label={t({ ar: "التالي", en: "Next" })} onClick={() => go(slide + 1)} className="glass grid h-11 w-11 place-items-center rounded-full text-primary"><ChevronRight className="rtl:rotate-180" /></button>
+          </div>
         </div>
-        <div data-track className="flex gap-6 px-5 w-max">
+        <div ref={track} onScroll={onTrackScroll} className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pb-2 [touch-action:pan-x_pan-y] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain">
           {gallery.map((g, i) => (
-            <figure key={i} className="relative h-[55vh] w-[78vw] sm:w-[48vw] lg:w-[36vw] shrink-0 overflow-hidden rounded-3xl">
-              <img data-parallax src={g.src} alt={t(g.t)} loading="lazy" className="absolute inset-0 w-full h-[120%] -top-[10%] object-cover" />
+            <figure key={i} className="relative h-[55vh] max-h-[560px] w-[82vw] sm:w-[48vw] lg:w-[36vw] shrink-0 snap-start overflow-hidden rounded-3xl">
+              <img src={g.src} alt={t(g.t)} loading="lazy" draggable={false} className="absolute inset-0 w-full h-full object-cover" />
               <figcaption className="absolute inset-x-4 bottom-4 glass rounded-2xl px-5 py-3 font-semibold">{t(g.t)}</figcaption>
             </figure>
           ))}
-          <Link to="/projects" className="glass h-[55vh] w-[60vw] sm:w-[30vw] shrink-0 rounded-3xl grid place-items-center text-xl font-semibold text-primary">{t({ ar: "كل المشاريع", en: "All projects" })} <ArrowUpRight /></Link>
+          <Link to="/projects" className="glass h-[55vh] max-h-[560px] w-[60vw] sm:w-[30vw] shrink-0 snap-start rounded-3xl grid place-items-center text-xl font-semibold text-primary">{t({ ar: "كل المشاريع", en: "All projects" })} <ArrowUpRight /></Link>
+        </div>
+        <div className="mt-5 flex justify-center gap-2">
+          {[...gallery, null].map((_, i) => (
+            <button key={i} type="button" aria-label={`${i + 1}`} onClick={() => go(i)} className={`h-2 rounded-full transition-all ${i === slide ? "w-6 bg-primary" : "w-2 bg-primary/35"}`} />
+          ))}
         </div>
       </section>
 
