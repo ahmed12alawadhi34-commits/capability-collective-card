@@ -5,7 +5,7 @@ import { useLang } from "@/lib/i18n";
 import { products, WHATSAPP } from "@/lib/content";
 
 export const Route = createFileRoute("/quote")({
-  validateSearch: (s: Record<string, unknown>) => ({ product: typeof s.product === "string" ? s.product : undefined }),
+  validateSearch: (s: Record<string, unknown>): { product?: string } => ({ product: typeof s["product"] === "string" ? (s["product"] as string) : undefined }),
   head: () => ({
     meta: [
       { title: "طلب عرض سعر | العواضي لصناعة الزجاج" },
