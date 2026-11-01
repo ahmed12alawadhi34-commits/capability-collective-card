@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { Menu, X, LogIn, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { nav, brand, STAFF_LOGIN, WHATSAPP, PHONES, EMAIL, address } from "@/lib/content";
+import { nav, brand, STAFF_LOGIN, WHATSAPP, PHONES, EMAIL, address, contactReady } from "@/lib/content";
 import logo from "@/assets/logo-white.png";
 import mark from "@/assets/mark-white.png";
 import { initSmoothScroll } from "@/lib/motion";
