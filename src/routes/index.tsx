@@ -10,18 +10,13 @@ import p1 from "@/assets/p1.jpg";
 import p3 from "@/assets/p3.jpg";
 import p4 from "@/assets/p4.jpg";
 import { SequenceVideo } from "@/components/SequenceVideo";
+import { BgVideo } from "@/components/BgVideo";
 import asm from "@/assets/glass-assembly.mp4.asset.json";
 import asmM from "@/assets/glass-assembly-m.mp4.asset.json";
 import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
 import fin from "@/assets/glass-finished.mp4.asset.json";
 import finM from "@/assets/glass-finished-m.mp4.asset.json";
 import finP from "@/assets/glass-finished-poster.jpg.asset.json";
-import hr from "@/assets/hero-rollers.mp4.asset.json";
-import hrM from "@/assets/hero-rollers-m.mp4.asset.json";
-import hrP from "@/assets/hero-rollers-poster.jpg.asset.json";
-import hp from "@/assets/hero-polish.mp4.asset.json";
-import hpM from "@/assets/hero-polish-m.mp4.asset.json";
-import hpP from "@/assets/hero-polish-poster.jpg.asset.json";
 import furnace from "@/assets/hero-factory.mp4.asset.json";
 import furnaceM from "@/assets/hero-factory-m.mp4.asset.json";
 import furnacePoster from "@/assets/hero-factory-poster.jpg.asset.json";
@@ -109,7 +104,7 @@ function Index() {
     <div ref={root} className="overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }, { desktop: hp.url, mobile: hpM.url, poster: hpP.url }]} /></div>
+        <div className="absolute inset-0"><BgVideo desktop={furnace.url} mobile={furnaceM.url} poster={furnacePoster.url} /></div>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
