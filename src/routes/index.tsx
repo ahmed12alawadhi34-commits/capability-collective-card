@@ -13,9 +13,9 @@ import p4 from "@/assets/p4.jpg";
 import rollers from "@/assets/glass-rollers.mp4.asset.json";
 import rollersM from "@/assets/glass-rollers-m.mp4.asset.json";
 import rollersPoster from "@/assets/glass-rollers-poster.jpg.asset.json";
-import polish from "@/assets/glass-polish.mp4.asset.json";
-import polishM from "@/assets/glass-polish-m.mp4.asset.json";
-import polishPoster from "@/assets/glass-polish-poster.jpg.asset.json";
+import furnace from "@/assets/factory-furnace.mp4.asset.json";
+import furnaceM from "@/assets/factory-furnace-m.mp4.asset.json";
+import furnacePoster from "@/assets/factory-furnace-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -63,10 +63,7 @@ function Index() {
       gsap.utils.toArray<HTMLElement>("[data-lines]").forEach((g) =>
         gsap.from(g.querySelectorAll("[data-line]"), { yPercent: 105, duration: 1, ease: "power4.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%" } }));
 
-      // Pinned video card grows to full-bleed
-      const tl = gsap.timeline({ scrollTrigger: { trigger: "[data-pin]", start: "top top", end: "+=140%", scrub: 1, pin: true } });
-      tl.fromTo("[data-frame]", { width: "min(56vw, 640px)", height: "62vh", borderRadius: 32 }, { width: "100%", height: "100vh", borderRadius: 0, ease: "none" })
-        .from("[data-edge] [data-line]", { yPercent: 110, stagger: 0.15, ease: "power3.out" }, 0.35);
+      gsap.from("[data-frame]", { opacity: 0, y: 40, duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%" } });
 
       gsap.from("[data-card]", { x: lang === "ar" ? -80 : 80, rotateY: lang === "ar" ? 25 : -25, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%" } });
 
@@ -92,7 +89,7 @@ function Index() {
     <div ref={root} className="overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><BgVideo desktop={rollers.url} mobile={rollersM.url} poster={rollersPoster.url} /></div>
+        <div className="absolute inset-0"><BgVideo desktop={furnace.url} mobile={furnaceM.url} poster={furnacePoster.url} /></div>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
@@ -101,7 +98,7 @@ function Index() {
             <h1 className="relative mt-5 text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.1]" aria-label={headline}>
               {headline.split(" ").map((w, i) => (
                 <span key={lang + i} className="inline-block overflow-hidden align-bottom pb-2 me-[0.25em]" aria-hidden>
-                  <span data-word className="inline-block text-silver">{w}</span>
+                  <span data-word className={`inline-block ${i === (lang === "ar" ? 4 : 2) ? "text-highlight" : "text-silver"}`}>{w}</span>
                 </span>
               ))}
             </h1>
@@ -117,15 +114,15 @@ function Index() {
         <div className="absolute bottom-6 inset-x-0 flex justify-center"><span className="h-12 w-px bg-gradient-to-b from-primary to-transparent animate-pulse" /></div>
       </section>
 
-      {/* PINNED PRECISION VIDEO */}
-      <section data-pin className="relative h-screen grid place-items-center overflow-hidden bg-background">
-        <div data-frame className="relative overflow-hidden glass" style={{ width: "min(56vw, 640px)", height: "62vh", borderRadius: 32 }}>
-          <BgVideo desktop={polish.url} mobile={polishM.url} poster={polishPoster.url} />
-          <div className="absolute inset-0 bg-hero-overlay opacity-70" />
-          <div data-edge className="absolute inset-0 grid place-items-center text-center px-5">
+      {/* ROLLERS VIDEO CARD */}
+      <section className="relative px-5 py-20">
+        <div data-frame className="relative mx-auto max-w-[1200px] h-[60vh] min-h-[360px] overflow-hidden rounded-3xl glass">
+          <BgVideo desktop={rollers.url} mobile={rollersM.url} poster={rollersPoster.url} preload="metadata" />
+          <div className="absolute inset-0 bg-hero-overlay" />
+          <div data-lines className="absolute inset-0 grid place-items-center text-center px-5">
             <h2 className="text-4xl md:text-7xl font-extrabold">
-              <Line className="text-silver">{t({ ar: "دقة في", en: "Precision in" })}</Line>
-              <Line className="text-silver">{t({ ar: "كل حافة", en: "every edge" })}</Line>
+              <Line>{t({ ar: "دقة في", en: "Precision in" })}</Line>
+              <Line className="text-highlight">{t({ ar: "كل حافة", en: "every edge" })}</Line>
             </h2>
           </div>
         </div>
@@ -155,7 +152,7 @@ function Index() {
       </section>
 
       {/* PRODUCTS */}
-      <section className="bg-night py-28 overflow-hidden">
+      <section className="section-light py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "منتجاتنا", en: "Our products" })}</Line></h2>
@@ -189,7 +186,7 @@ function Index() {
       </section>
 
       {/* WHY */}
-      <section className="mx-auto max-w-7xl px-5 py-28">
+      <section className="section-light py-28"><div className="mx-auto max-w-7xl px-5">
         <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "لماذا العواضي؟", en: "Why choose us" })}</Line></h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((r, i) => (
@@ -199,7 +196,7 @@ function Index() {
             </div>
           ))}
         </div>
-      </section>
+      </div></section>
 
       {/* PROCESS */}
       <section className="bg-night py-28">
