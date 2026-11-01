@@ -13,6 +13,9 @@ import { SequenceVideo } from "@/components/SequenceVideo";
 import hr from "@/assets/hero-rollers.mp4.asset.json";
 import hrM from "@/assets/hero-rollers-m.mp4.asset.json";
 import hrP from "@/assets/hero-rollers-poster.jpg.asset.json";
+import hp from "@/assets/hero-polish.mp4.asset.json";
+import hpM from "@/assets/hero-polish-m.mp4.asset.json";
+import hpP from "@/assets/hero-polish-poster.jpg.asset.json";
 import furnace from "@/assets/hero-furnace.mp4.asset.json";
 import furnaceM from "@/assets/hero-furnace-m.mp4.asset.json";
 import furnacePoster from "@/assets/hero-furnace-poster.jpg.asset.json";
@@ -106,7 +109,7 @@ function Index() {
     <div ref={root} className="overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }]} /></div>
+        <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }, { desktop: hp.url, mobile: hpM.url, poster: hpP.url }]} /></div>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
