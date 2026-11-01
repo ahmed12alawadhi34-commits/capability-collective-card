@@ -98,7 +98,7 @@ function Index() {
             <h1 className="relative mt-5 text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.1]" aria-label={headline}>
               {headline.split(" ").map((w, i) => (
                 <span key={lang + i} className="inline-block overflow-hidden align-bottom pb-2 me-[0.25em]" aria-hidden>
-                  <span data-word className={`inline-block ${i === (lang === "ar" ? 4 : 2) ? "text-highlight" : "text-silver"}`}>{w}</span>
+                  <span data-word className={`inline-block ${i === 4 ? "text-highlight" : "text-silver"}`}>{w}</span>
                 </span>
               ))}
             </h1>
