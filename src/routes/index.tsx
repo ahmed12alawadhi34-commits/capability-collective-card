@@ -10,9 +10,13 @@ import factory from "@/assets/p2.jpg";
 import p1 from "@/assets/p1.jpg";
 import p3 from "@/assets/p3.jpg";
 import p4 from "@/assets/p4.jpg";
-import rollers from "@/assets/glass-rollers.mp4.asset.json";
-import rollersM from "@/assets/glass-rollers-m.mp4.asset.json";
-import rollersPoster from "@/assets/glass-rollers-poster.jpg.asset.json";
+import { SequenceVideo } from "@/components/SequenceVideo";
+import asm from "@/assets/glass-assembly.mp4.asset.json";
+import asmM from "@/assets/glass-assembly-m.mp4.asset.json";
+import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
+import fin from "@/assets/glass-finished.mp4.asset.json";
+import finM from "@/assets/glass-finished-m.mp4.asset.json";
+import finP from "@/assets/glass-finished-poster.jpg.asset.json";
 import furnace from "@/assets/hero-factory.mp4.asset.json";
 import furnaceM from "@/assets/hero-factory-m.mp4.asset.json";
 import furnacePoster from "@/assets/hero-factory-poster.jpg.asset.json";
@@ -117,8 +121,11 @@ function Index() {
       {/* ROLLERS VIDEO CARD */}
       <section className="relative px-5 py-20">
         <div data-frame className="relative mx-auto max-w-[1200px] h-[60vh] min-h-[360px] overflow-hidden rounded-3xl glass">
-          <BgVideo desktop={rollers.url} mobile={rollersM.url} poster={rollersPoster.url} preload="metadata" />
-          <div className="absolute inset-0 bg-hero-overlay" />
+          <SequenceVideo clips={[
+            { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
+            { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
+          ]} />
+          <div className="absolute inset-0 bg-hero-overlay pointer-events-none" />
           <div data-lines className="absolute inset-0 grid place-items-center text-center px-5">
             <h2 className="text-4xl md:text-7xl font-extrabold">
               <Line>{t({ ar: "دقة في", en: "Precision in" })}</Line>
