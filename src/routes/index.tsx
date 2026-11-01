@@ -155,7 +155,7 @@ function Index() {
       </section>
 
       {/* PRODUCTS */}
-      <section className="bg-night py-28">
+      <section className="bg-night py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "منتجاتنا", en: "Our products" })}</Line></h2>
