@@ -11,7 +11,7 @@ export function SequenceVideo({ clips, preload = "metadata" }: { clips: Clip[]; 
 
   useEffect(() => {
     const small = window.matchMedia("(max-width: 767px)").matches;
-    vids.current.forEach((v, i) => { if (v) v.src = small ? clips[i]!.mobile : clips[i]!.desktop; });
+    vids.current.forEach((v, i) => { if (v) { v.src = small ? clips[i]!.mobile : clips[i]!.desktop; v.playbackRate = 1.3; } });
     const io = new IntersectionObserver(([e]) => {
       visible.current = !!e?.isIntersecting;
       vids.current.forEach((v, i) => { if (!v) return; if (visible.current && i === activeRef.current) v.play().catch(() => {}); else v.pause(); });
