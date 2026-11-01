@@ -133,8 +133,9 @@ function Index() {
 
       {/* ROLLERS VIDEO CARD */}
       <section className="relative px-5 py-20">
-        <div data-frame className="relative mx-auto aspect-[9/16] max-h-[88vh] w-full max-w-[760px] overflow-hidden rounded-3xl glass">
-          <SequenceVideo clips={[
+        <div data-frame className="relative mx-auto h-[80vh] min-h-[420px] w-full max-w-[820px] overflow-hidden rounded-3xl glass">
+          <div aria-hidden className="absolute inset-0 bg-center bg-no-repeat blur-2xl scale-125 opacity-60" style={{ backgroundImage: `url(${furnacePoster.url})` }} />
+          <SequenceVideo fit="contain" clips={[
             { desktop: furnace.url, mobile: furnaceM.url, poster: furnacePoster.url, label: t({ ar: "الفرن والتقسية", en: "Tempering furnace" }) },
             { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
             { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
