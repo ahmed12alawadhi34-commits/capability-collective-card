@@ -17,9 +17,9 @@ import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
 import fin from "@/assets/glass-finished.mp4.asset.json";
 import finM from "@/assets/glass-finished-m.mp4.asset.json";
 import finP from "@/assets/glass-finished-poster.jpg.asset.json";
-import furnace from "@/assets/hero-factory.mp4.asset.json";
-import furnaceM from "@/assets/hero-factory-m.mp4.asset.json";
-import furnacePoster from "@/assets/hero-factory-poster.jpg.asset.json";
+import furnace from "@/assets/hero-furnace.mp4.asset.json";
+import furnaceM from "@/assets/hero-furnace-m.mp4.asset.json";
+import furnacePoster from "@/assets/hero-furnace-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
