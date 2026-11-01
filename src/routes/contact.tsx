@@ -1,57 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Phone } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-import { branches } from "@/lib/content";
+import { address, hours, PHONES, EMAIL, WHATSAPP } from "@/lib/content";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "الفروع والتواصل | مجموعة العوضي" },
-      { name: "description", content: "فروع مجموعة العوضي في صنعاء وعدن والمكلا والرياض ومسقط وأرقام التواصل." },
-      { property: "og:title", content: "الفروع والتواصل | مجموعة العوضي" },
-      { property: "og:description", content: "Al-Awadhi Group branches and contact numbers." },
+      { title: "تواصل معنا | العواضي لصناعة الزجاج" },
+      { name: "description", content: "Visit Alawadhi for Glass Industry in Qa'a Al-Qaidi, Sana'a, or contact us by phone and WhatsApp." },
+      { property: "og:title", content: "تواصل معنا | العواضي لصناعة الزجاج" },
+      { property: "og:description", content: "Address, phone, WhatsApp and working hours." },
     ],
   }),
   component: Contact,
 });
 
-const WHATSAPP = "967778888111";
-
 function Contact() {
   const { t } = useLang();
-  const [name, setName] = useState("");
-  const [msg, setMsg] = useState("");
-  const send = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = encodeURIComponent(`${name}\n${msg}`);
-    window.open(`https://wa.me/${WHATSAPP}?text=${text}`, "_blank");
-  };
+  const rows = [
+    { icon: MapPin, label: t({ ar: "العنوان", en: "Address" }), body: t(address) },
+    { icon: Clock, label: t({ ar: "ساعات العمل", en: "Working hours" }), body: t(hours) },
+    { icon: Mail, label: t({ ar: "البريد", en: "Email" }), body: <a href={`mailto:${EMAIL}`}>{EMAIL}</a> },
+  ];
   return (
     <>
-      <PageHeader eyebrow={t({ ar: "الفروع والتواصل", en: "Branches & contact" })} title={t({ ar: "نسعد بخدمتكم", en: "We're happy to serve you" })} />
-      <section className="mx-auto max-w-6xl px-5 py-16 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {branches.map((b, i) => (
-            <div key={i} className="border bg-card p-5">
-              <h2 className="font-semibold leading-relaxed">{t(b.name)}</h2>
-              <div className="mt-3 space-y-1">
-                {b.phones.map((p) => (
-                  <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="flex items-center gap-2 text-sm text-accent" dir="ltr">
-                    <Phone size={14} /> {p}
-                  </a>
-                ))}
-              </div>
+      <PageHeader eyebrow={t({ ar: "تواصل معنا", en: "Contact" })} title={t({ ar: "زورونا في صنعاء", en: "Visit us in Sana'a" })} />
+      <section className="mx-auto max-w-7xl px-5 py-16 grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-4 content-start">
+          {rows.map((r, i) => (
+            <div key={i} className="glass rounded-2xl p-5 flex gap-4">
+              <r.icon className="text-primary shrink-0" />
+              <div><p className="text-xs text-muted-foreground">{r.label}</p><div className="mt-1 font-medium">{r.body}</div></div>
             </div>
           ))}
+          <div className="glass rounded-2xl p-5 flex gap-4">
+            <Phone className="text-primary shrink-0" />
+            <div className="flex flex-col gap-1">
+              <p className="text-xs text-muted-foreground">{t({ ar: "الهاتف", en: "Phone" })}</p>
+              {PHONES.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, "")}`} dir="ltr" className="font-medium text-start">{p}</a>)}
+            </div>
+          </div>
+          <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" className="rounded-full bg-primary text-primary-foreground py-3.5 font-semibold flex justify-center items-center gap-2">
+            <MessageCircle size={20} /> {t({ ar: "راسلنا على واتساب", en: "Chat on WhatsApp" })}
+          </a>
         </div>
-        <form onSubmit={send} className="bg-primary text-primary-foreground p-6 h-fit space-y-4">
-          <h2 className="text-xl font-bold">{t({ ar: "راسلنا عبر واتساب", en: "Message us on WhatsApp" })}</h2>
-          <input required value={name} onChange={(e) => setName(e.target.value)} placeholder={t({ ar: "الاسم", en: "Name" })} className="w-full rounded-sm bg-primary-foreground/10 border border-primary-foreground/20 px-4 py-3 placeholder:text-primary-foreground/50" />
-          <textarea required rows={5} value={msg} onChange={(e) => setMsg(e.target.value)} placeholder={t({ ar: "رسالتك", en: "Your message" })} className="w-full rounded-sm bg-primary-foreground/10 border border-primary-foreground/20 px-4 py-3 placeholder:text-primary-foreground/50" />
-          <button className="w-full rounded-sm bg-accent text-accent-foreground py-3 font-semibold">{t({ ar: "إرسال", en: "Send" })}</button>
-        </form>
+        <div className="glass rounded-3xl overflow-hidden min-h-96">
+          <iframe title="map" className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" src="https://www.google.com/maps?q=Al-Nasr+Station+Qa'a+Al-Qaidi+Sana'a+Yemen&output=embed" />
+        </div>
       </section>
     </>
   );
