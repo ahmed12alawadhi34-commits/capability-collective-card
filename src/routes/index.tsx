@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, type MouseEvent } from "react";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check, ArrowUpRight, Truck, ClipboardCheck, Package } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { products, reasons, steps } from "@/lib/content";
+import { products, reasons, steps, services, groupCompanies, slogan } from "@/lib/content";
 import { ProductIcon } from "@/components/ProductIcon";
 import { BgVideo } from "@/components/BgVideo";
 import { gsap, ScrollTrigger } from "@/lib/motion";
@@ -13,9 +13,9 @@ import p4 from "@/assets/p4.jpg";
 import rollers from "@/assets/glass-rollers.mp4.asset.json";
 import rollersM from "@/assets/glass-rollers-m.mp4.asset.json";
 import rollersPoster from "@/assets/glass-rollers-poster.jpg.asset.json";
-import furnace from "@/assets/factory-furnace.mp4.asset.json";
-import furnaceM from "@/assets/factory-furnace-m.mp4.asset.json";
-import furnacePoster from "@/assets/factory-furnace-poster.jpg.asset.json";
+import furnace from "@/assets/hero-factory.mp4.asset.json";
+import furnaceM from "@/assets/hero-factory-m.mp4.asset.json";
+import furnacePoster from "@/assets/hero-factory-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -137,6 +137,7 @@ function Index() {
             <Line>{t({ ar: "في قلب صنعاء", en: "in the heart of Sana'a" })}</Line>
           </h2>
           <p className="reveal mt-5 text-muted-foreground leading-loose">{t({ ar: "تأسس مصنع العواضي لصناعة الزجاج عام 2021 كأحد أذرع مجموعة العوضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974. نلتزم بأعلى معايير الجودة العالمية، ونخدم المقاولين ومصنّعي الألمنيوم والمشاريع في جميع أنحاء اليمن.", en: "Founded in 2021 as part of Al-Awadhi Group — a leader in the glass trade since 1974 — we work to international quality standards, serving contractors, aluminium fabricators and projects across Yemen." })}</p>
+          <p className="reveal mt-4 text-highlight font-semibold leading-relaxed">«{t(slogan)}»</p>
           <div className="mt-8 grid grid-cols-3 gap-3">
             {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], [7, { ar: "فروع", en: "Branches" }]] as const).map(([n, l]) => (
               <div key={n} className="glass rounded-2xl p-4 text-center">
@@ -158,7 +159,7 @@ function Index() {
             <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "منتجاتنا", en: "Our products" })}</Line></h2>
             <Link to="/products" className="text-primary text-sm inline-flex items-center gap-1">{t({ ar: "التفاصيل", en: "Details" })} <ArrowUpRight size={16} /></Link>
           </div>
-          <div data-cards className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 [perspective:1000px]">
+          <div data-cards className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [perspective:1000px]">
             {products.map((p) => (
               <div key={p.icon} data-card onMouseMove={tilt} onMouseLeave={untilt} className="glass glare rounded-2xl p-6 min-h-48 transition-transform duration-200 ease-out will-change-transform">
                 <div className="text-primary"><ProductIcon name={p.icon} /></div>
