@@ -2,13 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-import { address, hours, PHONES, EMAIL, WHATSAPP } from "@/lib/content";
+import { address, hours, PHONES, EMAIL, WHATSAPP, contactReady } from "@/lib/content";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "تواصل معنا | العواضي لصناعة الزجاج" },
-      { name: "description", content: "Visit Alawadhi for Glass Industry in Qa'a Al-Qaidi, Sana'a, or contact us by phone and WhatsApp." },
+      { name: "description", content: "Visit Alawadhi for Glass Industry in Al-Qaidi Industrial Area, Sana'a, or contact us by phone and WhatsApp." },
       { property: "og:title", content: "تواصل معنا | العواضي لصناعة الزجاج" },
       { property: "og:description", content: "Address, phone, WhatsApp and working hours." },
     ],
@@ -21,7 +21,7 @@ function Contact() {
   const rows = [
     { icon: MapPin, label: t({ ar: "العنوان", en: "Address" }), body: t(address) },
     { icon: Clock, label: t({ ar: "ساعات العمل", en: "Working hours" }), body: t(hours) },
-    { icon: Mail, label: t({ ar: "البريد", en: "Email" }), body: <a href={`mailto:${EMAIL}`}>{EMAIL}</a> },
+    { icon: Mail, label: t({ ar: "البريد", en: "Email" }), body: contactReady ? <a href={`mailto:${EMAIL}`}>{EMAIL}</a> : <span dir="ltr">{EMAIL}</span> },
   ];
   return (
     <>
@@ -38,15 +38,28 @@ function Contact() {
             <Phone className="text-primary shrink-0" />
             <div className="flex flex-col gap-1">
               <p className="text-xs text-muted-foreground">{t({ ar: "الهاتف", en: "Phone" })}</p>
-              {PHONES.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, "")}`} dir="ltr" className="font-medium text-start">{p}</a>)}
+              {PHONES.map((p) =>
+                contactReady ? (
+                  <a key={p} href={`tel:${p.replace(/\s/g, "")}`} dir="ltr" className="font-medium text-start">{p}</a>
+                ) : (
+                  <span key={p} dir="ltr" className="font-medium text-start">{p}</span>
+                )
+              )}
             </div>
           </div>
-          <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" className="rounded-full bg-primary text-primary-foreground py-3.5 font-semibold flex justify-center items-center gap-2">
-            <MessageCircle size={20} /> {t({ ar: "راسلنا على واتساب", en: "Chat on WhatsApp" })}
-          </a>
+          {contactReady ? (
+            <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" className="rounded-full bg-primary text-primary-foreground py-3.5 font-semibold flex justify-center items-center gap-2">
+              <MessageCircle size={20} /> {t({ ar: "راسلنا على واتساب", en: "Chat on WhatsApp" })}
+            </a>
+          ) : (
+            <div className="glass rounded-2xl p-5 flex gap-4 items-center">
+              <MessageCircle className="text-primary shrink-0" size={20} />
+              <div><p className="text-xs text-muted-foreground">WhatsApp</p><p dir="ltr" className="mt-1 font-medium">{WHATSAPP}</p></div>
+            </div>
+          )}
         </div>
         <div className="glass rounded-3xl overflow-hidden min-h-96">
-          <iframe title="map" className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" src="https://www.google.com/maps?q=Al-Nasr+Station+Qa'a+Al-Qaidi+Sana'a+Yemen&output=embed" />
+          <iframe title="map" className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" src="https://www.google.com/maps?q=Al-Qaidi+Industrial+Area+Sana'a+Yemen&output=embed" />
         </div>
       </div></section>
     </>
