@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-import { products, WHATSAPP } from "@/lib/content";
+import { products, WHATSAPP, contactReady } from "@/lib/content";
 
 export const Route = createFileRoute("/quote")({
   head: () => ({
@@ -21,9 +21,11 @@ const field = "w-full rounded-xl bg-input/40 border border-border px-4 py-3 plac
 function Quote() {
   const { t } = useLang();
   const [f, setF] = useState({ name: "", company: "", phone: "", email: "", product: products[0].icon as string, size: "", message: "" });
+  const [sent, setSent] = useState(false);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!contactReady) { setSent(true); return; }
     const p = products.find((x) => x.icon === f.product);
     const lines = [
       "طلب عرض سعر / Quote request",
@@ -35,7 +37,9 @@ function Quote() {
   return (
     <>
       <PageHeader eyebrow={t({ ar: "طلب عرض سعر", en: "Request a quote" })} title={t({ ar: "أخبرنا عن مشروعك", en: "Tell us about your project" })}>
-        {t({ ar: "سيُرسل طلبك مباشرة إلى فريق المبيعات عبر واتساب.", en: "Your request goes straight to our sales team on WhatsApp." })}
+        {contactReady
+          ? t({ ar: "سيُرسل طلبك مباشرة إلى فريق المبيعات عبر واتساب.", en: "Your request goes straight to our sales team on WhatsApp." })
+          : t({ ar: "املأ النموذج وسنتواصل معك — قنوات التواصل قيد التحديث.", en: "Fill in the form and we'll get back to you — contact channels are being updated." })}
       </PageHeader>
       <section className="mx-auto max-w-3xl px-5 py-16">
         <form onSubmit={submit} className="glass rounded-3xl p-6 md:p-10 grid gap-4 md:grid-cols-2">
@@ -49,6 +53,7 @@ function Quote() {
           <input maxLength={200} className={`${field} md:col-span-2`} placeholder={t({ ar: "المقاس / الكمية", en: "Size / quantity" })} value={f.size} onChange={set("size")} />
           <textarea rows={5} maxLength={1000} className={`${field} md:col-span-2`} placeholder={t({ ar: "رسالتك", en: "Message" })} value={f.message} onChange={set("message")} />
           <button className="md:col-span-2 rounded-full bg-primary text-primary-foreground py-3.5 font-semibold">{t({ ar: "إرسال الطلب", en: "Send request" })}</button>
+          {sent && <p className="md:col-span-2 text-center text-sm text-primary">{t({ ar: "استلمنا طلبك — سيتم تفعيل الإرسال المباشر قريباً.", en: "Request noted — direct sending will be enabled soon." })}</p>}
         </form>
       </section>
     </>

@@ -92,16 +92,28 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="flex flex-col gap-2 text-muted-foreground">
             <p className="font-semibold mb-1 text-foreground">{t({ ar: "تواصل", en: "Contact" })}</p>
             <span className="flex gap-2"><MapPin size={16} className="shrink-0 mt-0.5" />{t(address)}</span>
-            {PHONES.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></a>)}
-            <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>
+            {PHONES.map((p) =>
+              contactReady ? (
+                <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></a>
+              ) : (
+                <span key={p} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></span>
+              )
+            )}
+            {contactReady ? (
+              <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>
+            ) : (
+              <span className="flex gap-2"><Mail size={16} /><span dir="ltr">{EMAIL}</span></span>
+            )}
           </div>
         </div>
         <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Alawadhi for Glass Industry</div>
       </footer>
 
-      <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition">
-        <MessageCircle size={26} />
-      </a>
+      {contactReady && (
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition">
+          <MessageCircle size={26} />
+        </a>
+      )}
     </div>
   );
 }
