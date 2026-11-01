@@ -137,3 +137,20 @@
 @utility animate-rays { animation: rays 60s linear infinite; }
 @utility reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; &.in { opacity: 1; transform: none; } }
 @layer base { html { scroll-behavior: smooth; } body { font-family: var(--font-sans); } html[lang="ar"] body, html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { font-family: "Cairo", sans-serif; } h1,h2,h3 { font-family: var(--font-display); } }
+@utility bg-hero-overlay { background: linear-gradient(to top, oklch(0.16 0.03 255) 0%, oklch(0.16 0.03 255 / 0.55) 45%, oklch(0.16 0.04 255 / 0.75) 100%); }
+@utility orbit-ring {
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, transparent 0deg, oklch(0.82 0.08 225 / 0.55) 60deg, transparent 140deg, transparent 360deg);
+  -webkit-mask: radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 70%);
+  mask: radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 70%);
+  filter: blur(14px);
+  animation: rays 14s linear infinite;
+}
+@utility glare {
+  position: relative; overflow: hidden;
+  &::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 22%), transparent 55%); }
+  &:hover::before { opacity: 1; }
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+html, body { overflow-x: clip; }
