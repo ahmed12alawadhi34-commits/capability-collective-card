@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-type Clip = { desktop: string; mobile: string; poster: string; label: string };
+type Clip = { desktop: string; mobile: string; poster: string; label?: string };
 
 /** Plays clips one after another with a crossfade, loops, and pauses off screen. */
-export function SequenceVideo({ clips }: { clips: Clip[] }) {
+export function SequenceVideo({ clips, preload = "metadata" }: { clips: Clip[]; preload?: "auto" | "metadata" }) {
   const wrap = useRef<HTMLDivElement>(null);
   const vids = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
@@ -39,15 +39,15 @@ export function SequenceVideo({ clips }: { clips: Clip[] }) {
   return (
     <div ref={wrap} className="absolute inset-0">
       {clips.map((c, i) => (
-        <video key={i} ref={(el) => { vids.current[i] = el; }} poster={c.poster} muted playsInline preload="metadata" aria-hidden
+        <video key={i} ref={(el) => { vids.current[i] = el; }} poster={c.poster} muted playsInline preload={preload} aria-hidden
           onEnded={() => next(i)} onTimeUpdate={(e) => nearEnd(i, e.currentTarget)}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`} />
       ))}
-      <div className="absolute bottom-5 inset-x-0 z-10 flex justify-center gap-2">
+      {clips.some((c) => c.label) && <div className="absolute bottom-5 inset-x-0 z-10 flex justify-center gap-2">
         {clips.map((c, i) => (
           <span key={i} className={`glass rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-500 ${i === active ? "text-primary" : "text-muted-foreground"}`}>{c.label}</span>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

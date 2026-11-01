@@ -4,7 +4,6 @@ import { Check, ArrowUpRight, Truck, ClipboardCheck, Package, ChevronLeft, Chevr
 import { useLang } from "@/lib/i18n";
 import { products, reasons, steps, services, groupCompanies, slogan } from "@/lib/content";
 import { ProductIcon } from "@/components/ProductIcon";
-import { BgVideo } from "@/components/BgVideo";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import factory from "@/assets/p2.jpg";
 import p1 from "@/assets/p1.jpg";
@@ -17,6 +16,12 @@ import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
 import fin from "@/assets/glass-finished.mp4.asset.json";
 import finM from "@/assets/glass-finished-m.mp4.asset.json";
 import finP from "@/assets/glass-finished-poster.jpg.asset.json";
+import hr from "@/assets/hero-rollers.mp4.asset.json";
+import hrM from "@/assets/hero-rollers-m.mp4.asset.json";
+import hrP from "@/assets/hero-rollers-poster.jpg.asset.json";
+import hp from "@/assets/hero-polish.mp4.asset.json";
+import hpM from "@/assets/hero-polish-m.mp4.asset.json";
+import hpP from "@/assets/hero-polish-poster.jpg.asset.json";
 import furnace from "@/assets/hero-factory.mp4.asset.json";
 import furnaceM from "@/assets/hero-factory-m.mp4.asset.json";
 import furnacePoster from "@/assets/hero-factory-poster.jpg.asset.json";
@@ -104,7 +109,7 @@ function Index() {
     <div ref={root} className="overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><BgVideo desktop={furnace.url} mobile={furnaceM.url} poster={furnacePoster.url} /></div>
+        <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }, { desktop: hp.url, mobile: hpM.url, poster: hpP.url }]} /></div>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
@@ -133,6 +138,7 @@ function Index() {
       <section className="relative px-5 py-20">
         <div data-frame className="relative mx-auto max-w-[1200px] h-[60vh] min-h-[360px] overflow-hidden rounded-3xl glass">
           <SequenceVideo clips={[
+            { desktop: furnace.url, mobile: furnaceM.url, poster: furnacePoster.url, label: t({ ar: "الفرن والتقسية", en: "Tempering furnace" }) },
             { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
             { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
           ]} />
