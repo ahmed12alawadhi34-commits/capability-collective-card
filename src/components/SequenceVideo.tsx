@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 type Clip = { desktop: string; mobile: string; poster: string; label?: string };
 
 /** Plays clips one after another with a crossfade, loops, and pauses off screen. */
-export function SequenceVideo({ clips, preload = "metadata" }: { clips: Clip[]; preload?: "auto" | "metadata" }) {
+export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { clips: Clip[]; preload?: "auto" | "metadata"; fit?: "cover" | "contain" }) {
   const wrap = useRef<HTMLDivElement>(null);
   const vids = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
@@ -41,7 +41,7 @@ export function SequenceVideo({ clips, preload = "metadata" }: { clips: Clip[]; 
       {clips.map((c, i) => (
         <video key={i} ref={(el) => { vids.current[i] = el; }} poster={c.poster} muted playsInline preload={preload} aria-hidden
           onEnded={() => next(i)} onTimeUpdate={(e) => nearEnd(i, e.currentTarget)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`} />
+          className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-in-out ${fit === "cover" ? "object-cover" : "object-contain"} ${i === active ? "opacity-100" : "opacity-0"}`} />
       ))}
       {clips.some((c) => c.label) && <div className="absolute bottom-5 inset-x-0 z-10 flex justify-center gap-2">
         {clips.map((c, i) => (
