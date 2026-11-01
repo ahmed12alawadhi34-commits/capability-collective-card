@@ -65,7 +65,7 @@ function Index() {
 
       // Pinned video card grows to full-bleed
       const tl = gsap.timeline({ scrollTrigger: { trigger: "[data-pin]", start: "top top", end: "+=140%", scrub: 1, pin: true } });
-      tl.fromTo("[data-frame]", { width: "min(56vw, 640px)", height: "62vh", borderRadius: 32 }, { width: "100vw", height: "100vh", borderRadius: 0, ease: "none" })
+      tl.fromTo("[data-frame]", { width: "min(56vw, 640px)", height: "62vh", borderRadius: 32 }, { width: "100%", height: "100vh", borderRadius: 0, ease: "none" })
         .from("[data-edge] [data-line]", { yPercent: 110, stagger: 0.15, ease: "power3.out" }, 0.35);
 
       gsap.from("[data-card]", { x: lang === "ar" ? -80 : 80, rotateY: lang === "ar" ? 25 : -25, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%" } });
@@ -89,7 +89,7 @@ function Index() {
   }, [lang]);
 
   return (
-    <div ref={root}>
+    <div ref={root} className="overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
         <div className="absolute inset-0"><BgVideo desktop={rollers.url} mobile={rollersM.url} poster={rollersPoster.url} /></div>
