@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { Check, ArrowUpRight, Truck, ClipboardCheck, Package, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { products, reasons, steps, services, slogan, groupStats } from "@/lib/content";
@@ -48,14 +48,14 @@ function Line({ children, className = "" }: { children: string; className?: stri
   return <span className={`block overflow-hidden pb-1 ${className}`}><span data-line className="block">{children}</span></span>;
 }
 
-function tilt(e: MouseEvent<HTMLDivElement>) {
-  if (navigator.maxTouchPoints > 0 || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
+function tilt(e: PointerEvent<HTMLDivElement>) {
+  if (e.pointerType !== "mouse" || navigator.maxTouchPoints > 0 || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
   const el = e.currentTarget, r = el.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
   el.style.transform = `perspective(800px) rotateY(${(x - 0.5) * 14}deg) rotateX(${(0.5 - y) * 14}deg) translateZ(0)`;
   el.style.setProperty("--mx", `${x * 100}%`); el.style.setProperty("--my", `${y * 100}%`);
 }
-function untilt(e: MouseEvent<HTMLDivElement>) { e.currentTarget.style.transform = ""; }
+function untilt(e: PointerEvent<HTMLDivElement>) { e.currentTarget.style.transform = ""; }
 
 function Index() {
   const { t, lang } = useLang();
@@ -173,7 +173,7 @@ function Index() {
           </div>
           <div data-cards className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [perspective:1000px]">
             {products.map((p) => (
-              <div key={p.icon} data-card data-quote-product={p.icon} onMouseMove={tilt} onMouseLeave={untilt} className="product-card glass glare rounded-2xl p-6 min-h-48">
+              <div key={p.icon} data-card data-quote-product={p.icon} onPointerMove={tilt} onPointerLeave={untilt} onPointerCancel={untilt} className="product-card glass glare rounded-2xl p-6 min-h-48">
                 <div className="text-primary"><ProductIcon name={p.icon} /></div>
                 <h3 className="mt-5 font-semibold leading-snug">{t(p.name)}</h3>
               </div>
