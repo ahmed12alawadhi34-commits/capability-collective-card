@@ -22,9 +22,9 @@
 - [x] Verify available changes in Arabic/English on desktop and iPhone sizes: company spacing, order, no page overflow or browser errors, Products comparison, menu destinations; build and 8 tests pass. Safety-video checks await upload.
 
 # Homepage bug fixes
-- [ ] Clear entrance transforms and enable hover tilt only on fine pointers after intro.
-- [ ] Correct stats to six companies in three countries and 50+ years in glass.
-- [ ] Use only verified factory photography and Factory gallery title.
-- [ ] Add alternating navy bands, spacing and glass dividers without reordering.
-- [ ] Keep four layer labels visible and non-overlapping after reassembly.
-- [ ] Verify animations, cards, labels and overflow in Arabic/English on desktop/iPhone.
+- [x] Clear entrance transforms and enable mouse hover tilt only on fine pointers after intro; ignore touch pointer events.
+- [x] Correct stats to six companies in three countries and 50+ years in glass; three concrete group-fact tests pass.
+- [x] Retain only the owner-designated factory tempering-line photo on both gallery paths and use Factory gallery title.
+- [x] Add alternating navy bands, spacing and glass dividers without reordering.
+- [x] Keep four layer labels visible in a non-overlapping legend after reassembly.
+- [x] Verify animations, neutral transforms, hover reset, touch events, labels and no overflow/browser errors in Arabic/English at 1280 desktop and 440 iPhone sizes; build and 11 tests pass.
