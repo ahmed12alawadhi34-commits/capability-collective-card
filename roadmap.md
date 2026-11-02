@@ -36,3 +36,8 @@
 - [x] Add alternating navy bands, spacing and glass dividers without reordering.
 - [x] Keep four layer labels visible in a non-overlapping legend after reassembly.
 - [x] Verify animations, neutral transforms, hover reset, touch events, labels and no overflow/browser errors in Arabic/English at 1280 desktop and 440 iPhone sizes; build and 11 tests pass.
+# About page and phone motion update
+- [ ] Keep core layers/marquees moving with Reduce Motion; retry blocked videos on interaction.
+- [ ] Move full factory/company sections to About; add short homepage sections and navigation.
+- [ ] Use dark partners band with uniform light logo tiles; show five non-factory companies.
+- [ ] Verify bilingual desktop/phone, reduced motion, links, tests and errors.
