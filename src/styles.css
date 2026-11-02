@@ -263,7 +263,7 @@ html, body { overflow-x: clip; }
 .why-grid > .why-card:last-child { grid-column: 1 / -1; }
 .why-big { grid-column: 1 / -1; min-height: 280px; display: flex; align-items: flex-end; }
 @media (min-width: 1024px) {
-  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(200px, auto); }
+  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(164px, auto); }
   .why-big { grid-column: span 2; grid-row: span 2; min-height: 0; }
   .why-grid > .why-card:last-child { grid-column: auto; }
 }
@@ -274,6 +274,10 @@ html, body { overflow-x: clip; }
 @keyframes why-drift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
 .why-num { position: absolute; top: 10px; inset-inline-end: 18px; font-size: 4.5rem; font-weight: 800; line-height: 1; color: var(--foreground); opacity: .05; pointer-events: none; }
 .why-big .why-num { font-size: 9rem; }
+@media (max-width: 767px) {
+  .why-num { top: auto; bottom: 4px; inset-inline-end: 12px; font-size: 2.6rem; }
+  .why-card:not(.why-big) { padding-bottom: 16px; }
+}
 .why-icon { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 9999px; color: var(--primary); background: color-mix(in oklab, var(--primary) 15%, transparent); box-shadow: 0 0 24px color-mix(in oklab, var(--primary) 35%, transparent); }
 .why-shine { display: none; }
 @media (hover: hover) and (pointer: fine) {

@@ -54,7 +54,6 @@ export function WhyChooseUs() {
         <h2 className="mt-3 text-4xl md:text-6xl font-extrabold">{t({ ar: "لماذا العواضي؟", en: "Why choose us" })}</h2>
         <div className="why-grid mt-12">
           <article data-why onPointerMove={spot} className="why-card why-big">
-            <span className="why-num" aria-hidden>06</span>
             <div className="relative">
               <div className="text-7xl md:text-[9rem] font-extrabold leading-none text-highlight tabular-nums" dir="ltr">
                 +<span data-why-count>50</span>
