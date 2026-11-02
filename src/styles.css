@@ -257,3 +257,31 @@ html, body { overflow-x: clip; }
 :root { --cta-reflection: linear-gradient(115deg, transparent 20%, oklch(0.95 0.01 230 / 9%) 35%, transparent 48%, oklch(0.82 0.08 225 / 6%) 76%, transparent 85%); --cta-shadow: 0 0 60px -25px oklch(0.82 0.08 225 / 35%); }
 .final-quote { background-image: var(--cta-reflection); box-shadow: var(--shadow-glass), var(--cta-shadow); }
 @media (max-width: 767px) { .home-sections > section:not(:first-child), .home-sections > .who-we-are { padding-block: 88px; } }
+
+/* Why choose us bento */
+.why-grid { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.why-grid > .why-card:last-child { grid-column: 1 / -1; }
+.why-big { grid-column: 1 / -1; min-height: 280px; display: flex; align-items: flex-end; }
+@media (min-width: 1024px) {
+  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(200px, auto); }
+  .why-big { grid-column: span 2; grid-row: span 2; min-height: 0; }
+  .why-grid > .why-card:last-child { grid-column: span 2; }
+}
+.why-card { position: relative; overflow: hidden; border-radius: 1.5rem; padding: 28px; border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent); background: color-mix(in oklab, var(--card) 70%, transparent); }
+.why-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--primary) 18%, transparent), transparent 70%); }
+.why-big { background: linear-gradient(140deg, color-mix(in oklab, var(--primary) 22%, var(--section-dark)), var(--section-dark) 55%, color-mix(in oklab, var(--primary) 14%, var(--section-dark))); background-size: 220% 220%; animation: why-drift 14s ease-in-out infinite alternate; }
+.why-big::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 30%, color-mix(in oklab, var(--foreground) 8%, transparent) 45%, transparent 60%); }
+@keyframes why-drift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+.why-num { position: absolute; top: 10px; inset-inline-end: 18px; font-size: 4.5rem; font-weight: 800; line-height: 1; color: var(--foreground); opacity: .05; pointer-events: none; }
+.why-big .why-num { font-size: 9rem; }
+.why-icon { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 9999px; color: var(--primary); background: color-mix(in oklab, var(--primary) 15%, transparent); box-shadow: 0 0 24px color-mix(in oklab, var(--primary) 35%, transparent); }
+.why-shine { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .why-card[data-ready="true"] { transition: transform .35s ease, border-color .35s, box-shadow .35s; }
+  .why-card[data-ready="true"]:hover { transform: translateY(-6px); border-color: color-mix(in oklab, var(--primary) 55%, transparent); box-shadow: 0 18px 40px -18px color-mix(in oklab, var(--primary) 50%, transparent); }
+  .why-card:hover::after { opacity: 1; }
+  .why-card:not(.why-big)::before { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; pointer-events: none; background: linear-gradient(100deg, transparent, color-mix(in oklab, var(--foreground) 12%, transparent), transparent); transform: skewX(-18deg); }
+  .why-card:not(.why-big):hover::before { animation: why-shine .9s ease forwards; }
+}
+@keyframes why-shine { to { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .why-big { animation: none; } .why-card::before { animation: none !important; } }
