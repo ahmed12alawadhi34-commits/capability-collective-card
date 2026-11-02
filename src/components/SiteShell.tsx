@@ -43,7 +43,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   useEffect(() => { initSmoothScroll(); }, []);
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 20);
-    f(); window.addEventListener("scroll", f);
+    f(); window.addEventListener("scroll", f, { passive: true });
     return () => window.removeEventListener("scroll", f);
   }, []);
   return (
@@ -62,7 +62,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </nav>
           <div className="flex items-center gap-2">
             <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} className="glass rounded-full px-3 py-1.5 text-xs font-semibold">{lang === "ar" ? "EN" : "ع"}</button>
-            <a href={STAFF_LOGIN} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-primary/40 px-3 py-1.5 text-xs text-primary hover:bg-primary/10">
+            <a href={STAFF_LOGIN} target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-primary/40 px-3 py-1.5 text-xs text-primary hover:bg-primary/10">
               <LogIn size={14} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}
             </a>
             <button className="lg:hidden p-1" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
@@ -73,7 +73,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             {nav.map((n) => (
               n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); setOpen(false); }} className="py-3 border-b border-border">{n[lang]}</a> : <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-3 border-b border-border" activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
             ))}
-            <a href={STAFF_LOGIN} target="_blank" rel="noreferrer" className="py-3 text-primary flex items-center gap-2"><LogIn size={16} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}</a>
+            <a href={STAFF_LOGIN} target="_blank" rel="noopener noreferrer" className="py-3 text-primary flex items-center gap-2"><LogIn size={16} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}</a>
           </nav>
         )}
       </header>
