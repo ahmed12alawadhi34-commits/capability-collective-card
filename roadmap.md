@@ -14,9 +14,9 @@
 - [x] Verify Arabic/English, desktop/iPhone layouts, videos and links.
 
 # Final presentation update
-- [ ] Reorder homepage: hero, lower video, partners, products, layers, gallery, continuous About/Companies block, why, services, process, existing footer contacts/quote links.
+- [x] Reorder homepage: hero, lower video, partners, products, layers, gallery, continuous About/Companies block, why, services, process, existing footer contacts/quote links.
 - [x] Remove fixed company name heights and align bilingual names together; retain equal-height cards and bottom links.
 - [ ] Replace lower three-clip sequence with compressed 16:9 safety video, physical-side labels and caption — safety video not attached.
-- [ ] Remove homepage image comparison; preserve Products comparison and both hero clips.
+- [x] Remove homepage image comparison; preserve Products comparison and both hero clips.
 - [ ] Replace MAB logo with verified official coloured artwork — no official coloured combined asset verified; user artwork needed.
-- [ ] Verify final changes in Arabic/English on desktop and iPhone sizes.
+- [x] Verify available changes in Arabic/English on desktop and iPhone sizes: company spacing, order, no page overflow or browser errors, Products comparison, menu destinations; build and 8 tests pass. Safety-video checks await upload.
