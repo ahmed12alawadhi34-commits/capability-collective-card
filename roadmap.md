@@ -20,3 +20,11 @@
 - [x] Remove homepage image comparison; preserve Products comparison and both hero clips.
 - [ ] Replace MAB logo with verified official coloured artwork — no official coloured combined asset verified; user artwork needed.
 - [x] Verify available changes in Arabic/English on desktop and iPhone sizes: company spacing, order, no page overflow or browser errors, Products comparison, menu destinations; build and 8 tests pass. Safety-video checks await upload.
+
+# Homepage bug fixes
+- [ ] Clear entrance transforms and enable hover tilt only on fine pointers after intro.
+- [ ] Correct stats to six companies in three countries and 50+ years in glass.
+- [ ] Use only verified factory photography and Factory gallery title.
+- [ ] Add alternating navy bands, spacing and glass dividers without reordering.
+- [ ] Keep four layer labels visible and non-overlapping after reassembly.
+- [ ] Verify animations, cards, labels and overflow in Arabic/English on desktop/iPhone.
