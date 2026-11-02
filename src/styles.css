@@ -215,8 +215,7 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .partners-track { animation: none; } .partners-window { overflow-x: auto; } }
 .company-card { box-shadow: var(--shadow-glass); transition: transform .3s ease; }
 .company-card:hover { transform: translateY(-6px); }
-.company-main-name { min-height: 3.75rem; }
-.company-secondary-name { min-height: 2.5rem; }
+.company-main-name, .company-secondary-name { text-align: start; }
 .company-logo-bg { background: oklch(0.97 0.01 240 / .92); }
 .company-line { background: linear-gradient(to bottom, var(--primary), transparent); }
 .video-label { background: var(--glass-mobile); border: 1px solid var(--glass-border); }
