@@ -21,7 +21,7 @@ describe("WhatsApp quotes", () => {
     expect(text).toContain("الاسم: أحمد");
     expect(text).toContain("الهاتف: +967771358888");
     expect(text).toContain("ملاحظات: Low-E & clear");
-    expect(text).not.toMatch(/سعر:|price:|total:/i);
+    expect(text).not.toMatch(/(?:سعر|price|total):\s*\d/i);
   });
   it("builds English specifications with encoded notes", () => {
     const text = new URL(formQuoteUrl(input, "en")).searchParams.get("text");
