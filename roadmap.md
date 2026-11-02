@@ -1,8 +1,8 @@
 # Requested additions
-- [ ] Reorder homepage to uploaded structure; restore full-size comparison and preserve Products page.
-- [ ] Replace homepage product cards with seven linked compact chips and add final quote/WhatsApp panel.
-- [ ] Restore connected layer labels, permanent visibility, mobile vertical spread and clear section bands.
-- [ ] Verify new order, animations, comparison, swipe row and CTA in AR/EN on iPhone/desktop.
+- [x] Reorder homepage to uploaded structure; restore full-size comparison and preserve Products page.
+- [x] Replace homepage product cards with seven linked compact chips and add final quote/WhatsApp panel.
+- [x] Restore connected layer labels, permanent visibility, mobile vertical spread and clear section bands.
+- [x] Verify AR/EN at 440/1280: requested heading order, neutral entrance transforms, no overflow/errors, connected labels with no pane/label overlap, comparison slider, mobile swipe, quote page and encoded WhatsApp links; 13 tests and build pass.
 - [x] Remove homepage gallery, retain factory photo only in Who we are, and prepare hidden Projects page with quote action.
 - [x] Compact homepage products to two mobile columns and four desktop columns with centred final row.
 - [x] Assign explicit lighter navy bands to Products, Who we are/Companies and Services; preserve white partners and dividers.
