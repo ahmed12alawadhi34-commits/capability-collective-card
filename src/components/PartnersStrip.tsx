@@ -20,7 +20,7 @@ const partners: { name: string; slug?: string }[] = [
   { name: "Dormate", slug: "dormate" },
   { name: "hi-tech", slug: "hi-tech" },
   { name: "Mr. Build", slug: "mrbuild" },
-  { name: "Profilglass" },
+  { name: "Profilglass", slug: "profilglass" },
 ];
 
 export function PartnersStrip() {

@@ -28,6 +28,7 @@ import finP from "@/assets/glass-finished-poster.jpg.asset.json";
 import { GlassLayers } from "@/components/GlassLayers";
 import { GlassComparison } from "@/components/GlassComparison";
 import { PartnersStrip } from "@/components/PartnersStrip";
+import { OurCompanies } from "@/components/OurCompanies";
 import { QuoteLink } from "@/components/QuoteLink";
 
 export const Route = createFileRoute("/")({
@@ -205,6 +206,7 @@ function Index() {
       <GlassLayers />
       <GlassComparison />
       <PartnersStrip />
+      <OurCompanies />
       <section className="py-24">
         <div className="mx-auto max-w-7xl w-full px-5 mb-8 flex items-end justify-between gap-4">
           <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "أعمال نفخر بها", en: "Work we're proud of" })}</Line></h2>
