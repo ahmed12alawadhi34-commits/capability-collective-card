@@ -9,7 +9,7 @@ const icons = [ShieldCheck, Factory, Truck, Ruler, Headset];
 export function WhyChooseUs() {
   const { t, lang } = useLang();
   const root = useRef<HTMLElement>(null);
-  const big = reasons[5];
+  const big = reasons[5]!;
   const small = reasons.slice(0, 5);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export function WhyChooseUs() {
             </div>
           </article>
           {small.map((r, i) => {
-            const I = icons[i];
+            const I = icons[i] ?? ShieldCheck;
             return (
               <article key={i} data-why onPointerMove={spot} className="why-card">
                 <span className="why-num" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
