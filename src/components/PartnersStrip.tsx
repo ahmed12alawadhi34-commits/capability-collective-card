@@ -5,8 +5,6 @@ type Asset = { url: string };
 const files = import.meta.glob<Asset>("../assets/partners/*.png.asset.json", { eager: true, import: "default" });
 const url = (slug: string, variant: "color" | "white") => files[`../assets/partners/${slug}-${variant}.png.asset.json`]?.url;
 
-/** Logos too dark for the navy background use their white version. */
-const whiteLogos = new Set(["alcobond", "assaabloy", "casma", "guardianglass", "hi-tech", "speedy", "taiwanglass", "wacker"]);
 
 const partners: { name: string; slug?: string }[] = [
   { name: "Saint-Gobain", slug: "saint-gobain" },
@@ -34,8 +32,7 @@ export function PartnersStrip() {
     <h2 className="px-5 text-center text-2xl md:text-3xl font-bold">{t({ ar: "شركاؤنا العالميون", en: "Our global partners" })}</h2>
     <div className="partners-window mt-10" dir="ltr" tabIndex={0} aria-label={t({ ar: "شركاؤنا العالميون", en: "Our global partners" })}>
       <div ref={track} className="partners-track">{[0, 1].map((copy) => <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="partners-group">{partners.map((p) => {
-        const variant = p.slug && whiteLogos.has(p.slug) ? "white" : "color";
-        const src = p.slug && url(p.slug, variant);
+        const src = p.slug ? url(p.slug, "color") : undefined;
         return <li key={p.name} className={`partner-item ${["yale", "assaabloy", "obeikan", "casma"].includes(p.slug ?? "") ? "partner-compact" : ""}`}>
           {src ? <img src={src} alt={copy === 1 ? "" : p.name} loading="lazy" decoding="async" draggable={false} className="partner-logo" /> : <span className="partner-name">{p.name}</span>}
         </li>;
