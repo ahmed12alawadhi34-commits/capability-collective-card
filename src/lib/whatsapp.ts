@@ -12,12 +12,12 @@ export function quoteUrl(lang: Lang, product?: string) {
 
 export function visibleProduct() {
   const focused = document.activeElement?.closest<HTMLElement>("[data-quote-product]");
-  if (focused?.dataset.quoteProduct) return focused.dataset.quoteProduct;
+  if (focused?.dataset['quoteProduct']) return focused.dataset['quoteProduct'];
   const visible = Array.from(document.querySelectorAll<HTMLElement>("[data-quote-product]")).filter((el) => {
     const r = el.getBoundingClientRect();
     return r.top < window.innerHeight * .8 && r.bottom > window.innerHeight * .2;
   });
-  return visible.sort((a, b) => Math.abs(a.getBoundingClientRect().top - window.innerHeight / 2) - Math.abs(b.getBoundingClientRect().top - window.innerHeight / 2))[0]?.dataset.quoteProduct;
+  return visible.sort((a, b) => Math.abs(a.getBoundingClientRect().top - window.innerHeight / 2) - Math.abs(b.getBoundingClientRect().top - window.innerHeight / 2))[0]?.dataset['quoteProduct'];
 }
 
 const measurement = z.coerce.number().finite().positive().max(100000);

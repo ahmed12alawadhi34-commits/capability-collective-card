@@ -88,7 +88,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-semibold mb-1">{t({ ar: "روابط", en: "Links" })}</p>
-            {nav.map((n) => <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground">{n[lang]}</Link>)}
+            {nav.map((n) => n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">{n[lang]}</a> : <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground">{n[lang]}</Link>)}
             <Link to="/quote" className="text-primary">{t({ ar: "نموذج مواصفات الزجاج", en: "Glass specifications form" })}</Link>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">

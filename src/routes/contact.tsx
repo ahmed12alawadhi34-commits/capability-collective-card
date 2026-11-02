@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } from "@/lib/content";
+import { quoteUrl } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -13,13 +14,15 @@ export const Route = createFileRoute("/contact")({
       { property: "og:description", content: "Address, phone, WhatsApp and working hours." },
       { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Contact,
 });
 
 function Contact() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const rows = [
     { icon: MapPin, label: t({ ar: "العنوان", en: "Address" }), body: t(address) },
     { icon: Clock, label: t({ ar: "ساعات العمل", en: "Working hours" }), body: t(hours) },
@@ -50,7 +53,7 @@ function Contact() {
             </div>
           </div>
           {contactReady ? (
-            <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" className="rounded-full bg-primary text-primary-foreground py-3.5 font-semibold flex justify-center items-center gap-2">
+            <a href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary text-primary-foreground py-3.5 font-semibold flex justify-center items-center gap-2">
               <MessageCircle size={20} /> {t({ ar: "راسلنا على واتساب", en: "Chat on WhatsApp" })}
             </a>
           ) : (

@@ -17,17 +17,17 @@ export function GlassLayers() {
     const media = gsap.matchMedia();
     media.add({ desktop: "(min-width: 768px)", mobile: "(max-width: 767px)", reduce: "(prefers-reduced-motion: reduce)" }, (ctx) => {
       const root = section.current; if (!root) return;
-      const desktop = ctx.conditions?.desktop;
-      const reduced = ctx.conditions?.reduce;
+      const desktop = ctx.conditions?.['desktop'];
+      const reduced = ctx.conditions?.['reduce'];
       const panes = root.querySelectorAll<HTMLElement>(".glass-layer");
       const spread = desktop ? [-250, -82, 82, 250] : [-135, -45, 45, 135];
       if (reduced) {
-        panes.forEach((pane, i) => gsap.set(pane, desktop ? { x: spread[i] } : { y: spread[i] }));
+        panes.forEach((pane, i) => gsap.set(pane, desktop ? { x: spread[i] ?? 0 } : { y: spread[i] ?? 0 }));
         gsap.set(root.querySelectorAll(".layer-label"), { opacity: 1 });
         return;
       }
       const timeline = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 72%", end: "bottom 30%", scrub: .6 } });
-      timeline.to(panes, { x: (i) => desktop ? spread[i] : 0, y: (i) => desktop ? 0 : spread[i], duration: 1, ease: "power2.inOut" }, 0)
+      timeline.to(panes, { x: (i: number) => desktop ? (spread[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread[i] ?? 0), duration: 1, ease: "power2.inOut" }, 0)
         .to(root.querySelectorAll(".layer-label"), { opacity: 1, duration: .35 }, .25)
         .to({}, { duration: .5 })
         .to(panes, { x: 0, y: 0, duration: .8, ease: "power2.inOut" })
