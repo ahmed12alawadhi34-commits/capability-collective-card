@@ -122,7 +122,7 @@ function Index() {
             { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
           ]} />
           <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-          <div data-lines className="absolute bottom-16 end-6 z-10 text-end md:end-10">
+          <div data-lines className="absolute bottom-16 start-6 z-10 text-start md:start-10">
             <h2 className="text-[32px] md:text-5xl font-extrabold leading-tight">
               <Line>{t({ ar: "دقة في", en: "Precision in" })}</Line>
               <Line className="text-highlight">{t({ ar: "كل حافة", en: "every edge" })}</Line>
