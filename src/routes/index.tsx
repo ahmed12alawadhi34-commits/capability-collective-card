@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { Check, Truck, ClipboardCheck, Package } from "lucide-react";
+import { Truck, ClipboardCheck, Package } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { reasons, steps, services, slogan, groupStats } from "@/lib/content";
+import { steps, services, slogan, groupStats } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import factory from "@/assets/p2.jpg";
 import { SequenceVideo } from "@/components/SequenceVideo";
@@ -27,6 +27,7 @@ import { OurCompanies } from "@/components/OurCompanies";
 import { QuoteLink } from "@/components/QuoteLink";
 import { GlassComparison } from "@/components/GlassComparison";
 import { HomeProductStrip } from "@/components/HomeProductStrip";
+import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { FinalQuote } from "@/components/FinalQuote";
 
 export const Route = createFileRoute("/")({
@@ -159,18 +160,7 @@ function Index() {
         <OurCompanies />
       </div>
 
-      {/* WHY */}
-      <section className="py-28"><div className="mx-auto max-w-7xl px-5">
-        <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "لماذا العواضي؟", en: "Why choose us" })}</Line></h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {reasons.map((r, i) => (
-            <div key={i} className="reveal glass rounded-2xl p-6 flex items-center gap-4" style={{ transitionDelay: `${i * 70}ms` }}>
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check size={20} /></span>
-              <span className="font-medium">{t(r)}</span>
-            </div>
-          ))}
-        </div>
-      </div></section>
+      <WhyChooseUs />
 
       <PartnersStrip />
 
