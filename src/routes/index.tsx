@@ -113,18 +113,17 @@ function Index() {
         <div className="absolute bottom-6 inset-x-0 flex justify-center"><span className="h-12 w-px bg-gradient-to-b from-primary to-transparent animate-pulse" /></div>
       </section>
 
-      {/* ROLLERS VIDEO CARD */}
-      <section className="relative px-5 py-20">
-        <div data-frame className="relative mx-auto h-[80vh] min-h-[420px] w-full max-w-[820px] overflow-hidden rounded-3xl glass">
-          <div aria-hidden className="absolute inset-0 bg-center bg-no-repeat video-poster-backdrop scale-125 opacity-60" style={{ backgroundImage: `url(${furnacePoster.url})` }} />
-          <SequenceVideo fit="contain" clips={[
+      {/* FACTORY VIDEO — wide cinematic frame */}
+      <section className="relative px-4 py-20">
+        <div data-frame className="relative mx-auto h-[75vh] w-full max-w-[1280px] overflow-hidden rounded-3xl glass md:h-auto md:aspect-video">
+          <SequenceVideo fit="cover" clips={[
             { desktop: furnace.url, mobile: furnaceM.url, poster: furnacePoster.url, label: t({ ar: "الفرن والتقسية", en: "Tempering furnace" }) },
             { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
             { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
           ]} />
-          <div className="absolute inset-0 bg-hero-overlay pointer-events-none" />
-          <div data-lines className="absolute inset-0 grid place-items-center text-center px-5">
-            <h2 className="text-4xl md:text-7xl font-extrabold">
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+          <div data-lines className="absolute bottom-16 end-6 z-10 text-end md:end-10">
+            <h2 className="text-[32px] md:text-5xl font-extrabold leading-tight">
               <Line>{t({ ar: "دقة في", en: "Precision in" })}</Line>
               <Line className="text-highlight">{t({ ar: "كل حافة", en: "every edge" })}</Line>
             </h2>
