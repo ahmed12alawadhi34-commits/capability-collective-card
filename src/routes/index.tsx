@@ -49,7 +49,7 @@ function Line({ children, className = "" }: { children: string; className?: stri
 }
 
 function tilt(e: MouseEvent<HTMLDivElement>) {
-  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
+  if (navigator.maxTouchPoints > 0 || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
   const el = e.currentTarget, r = el.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
   el.style.transform = `perspective(800px) rotateY(${(x - 0.5) * 14}deg) rotateX(${(0.5 - y) * 14}deg) translateZ(0)`;
@@ -98,7 +98,7 @@ function Index() {
 
       gsap.fromTo("[data-frame]", { opacity: 0, y: 40 }, { opacity: 1, y: 0, clearProps: "transform", duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%", once: true } });
 
-      const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      const finePointer = navigator.maxTouchPoints === 0 && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
       gsap.fromTo(productCards, { x: finePointer ? (lang === "ar" ? -80 : 80) : 0, rotateY: finePointer ? (lang === "ar" ? 25 : -25) : 0, opacity: 0 }, { x: 0, rotateY: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%", once: true }, onComplete: () => productCards.forEach((card) => card.setAttribute("data-intro-ready", "true")) });
 
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {

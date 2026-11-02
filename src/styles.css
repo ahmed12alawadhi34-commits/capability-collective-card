@@ -233,6 +233,7 @@ html, body { overflow-x: clip; }
 .home-sections > section:not(:first-child), .home-sections > .who-we-are { position: relative; padding-block: 112px; }
 .home-sections > section:not(:first-child)::before, .home-sections > .who-we-are::before { content: ""; position: absolute; inset-inline: 20px; top: 0; height: 1px; background: var(--section-divider); }
 .home-sections > section:not(:first-child):not(.partners-section) { background: var(--section-dark); }
-.home-sections > section:nth-child(even):not(.partners-section), .home-sections > .who-we-are { background: var(--section-raised); }
+.home-sections > section:nth-child(even):not(.partners-section) { background: var(--section-raised); }
+.home-sections > .who-we-are { background: var(--section-dark); }
 @media (hover: hover) and (pointer: fine) { .product-card[data-intro-ready="true"] { transition: transform .2s ease-out; } }
 @media (max-width: 767px) { .home-sections > section:not(:first-child), .home-sections > .who-we-are { padding-block: 88px; } }
