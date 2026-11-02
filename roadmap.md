@@ -6,8 +6,9 @@
 - [x] Verify desktop/mobile flows and existing routes.
 
 # Companies and partners cleanup
-- [ ] Move companies above partners and remove duplicate group section/data.
-- [ ] Unify six company cards and bilingual names/location/descriptions.
-- [ ] Show original-colour balanced partner logos; start/pause 38-second loop with visibility.
-- [ ] Reduce blur and off-screen video/animation work; remove unused company SVGs.
-- [ ] Verify Arabic/English, desktop/iPhone layouts, videos and links.
+- [x] Move companies above partners and remove duplicate group section/data.
+- [x] Unify six company cards and bilingual names/location/descriptions.
+- [x] Show supplied original-colour balanced logos; start/pause 38-second loop with visibility.
+- [ ] Replace black MAB combined logo with official coloured artwork — awaiting verified source or user upload; no invented recolouring.
+- [x] Reduce blur and off-screen video/animation work; remove unused company SVGs.
+- [x] Verify Arabic/English, desktop/iPhone layouts, videos and links.

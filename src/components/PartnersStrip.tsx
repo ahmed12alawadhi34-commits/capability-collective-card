@@ -50,7 +50,7 @@ export function PartnersStrip() {
     <div className="partners-window mt-10" dir="ltr" tabIndex={0} onPointerDown={(e) => { if (e.pointerType !== "mouse") pauseTouch(); }} aria-label={t({ ar: "شركاؤنا العالميون", en: "Our global partners" })}>
       <div className={`partners-track ${started ? "partners-started" : ""} ${!visible || paused ? "partners-paused" : ""}`}>{[0, 1].map((copy) => <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="partners-group">{partners.map((p) => {
         const color = p.slug && url(p.slug);
-        return <li key={p.name} className={`partner-item ${["yale", "assaabloy", "obeikan"].includes(p.slug ?? "") ? "partner-compact" : ""}`}>
+        return <li key={p.name} className={`partner-item ${["yale", "assaabloy", "obeikan", "casma"].includes(p.slug ?? "") ? "partner-compact" : ""}`}>
           {color ? <img src={color} alt={copy === 1 ? "" : p.name} loading="lazy" decoding="async" draggable={false} className="partner-logo" /> : <span className="partner-name">{p.name}</span>}
         </li>;
       })}</ul>)}</div>
