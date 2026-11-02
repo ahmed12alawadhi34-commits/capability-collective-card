@@ -20,18 +20,38 @@ export function GlassLayers() {
       const desktop = ctx.conditions?.['desktop'];
       const reduced = ctx.conditions?.['reduce'];
       const panes = root.querySelectorAll<HTMLElement>(".glass-layer");
-      const spread = desktop ? [-250, -82, 82, 250] : [-135, -45, 45, 135];
+      const stage = root.querySelector<HTMLElement>(".glass-layer-stage");
+      if (!stage) return;
+      const labels = root.querySelectorAll<HTMLElement>(".layer-label");
+      const paths = root.querySelectorAll<SVGPathElement>(".layer-connector");
+      const spread = () => desktop ? [-.375, -.125, .125, .375].map((n) => n * stage.clientWidth) : [-315, -105, 105, 315];
+      const drawConnectors = () => {
+        const bounds = stage.getBoundingClientRect();
+        panes.forEach((pane, i) => {
+          const label = labels[i], path = paths[i], surface = pane.querySelector(".layer-surface");
+          if (!label || !path || !surface) return;
+          const p = surface.getBoundingClientRect(), l = label.getBoundingClientRect();
+          const x1 = desktop ? l.left + l.width / 2 : l.left;
+          const y1 = desktop ? (i % 2 === 0 ? l.bottom : l.top) : l.top + l.height / 2;
+          const x2 = desktop ? p.left + p.width / 2 : p.right;
+          const y2 = desktop ? (i % 2 === 0 ? p.top : p.bottom) : p.top + p.height / 2;
+          path.setAttribute("d", `M ${x1 - bounds.left} ${y1 - bounds.top} L ${x2 - bounds.left} ${y2 - bounds.top}`);
+        });
+      };
+      const resize = new ResizeObserver(drawConnectors);
+      resize.observe(stage);
       if (reduced) {
-        panes.forEach((pane, i) => gsap.set(pane, desktop ? { x: spread[i] ?? 0 } : { y: spread[i] ?? 0 }));
-        gsap.set(root.querySelectorAll(".layer-label"), { opacity: 1 });
-        return;
+        panes.forEach((pane, i) => gsap.set(pane, desktop ? { x: spread()[i] ?? 0 } : { y: spread()[i] ?? 0 }));
+        drawConnectors();
+        return () => resize.disconnect();
       }
-      const timeline = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 72%", end: "bottom 30%", scrub: .6 } });
-      gsap.fromTo(root.querySelectorAll(".layer-label"), { opacity: 0 }, { opacity: 1, duration: .5, stagger: .08, scrollTrigger: { trigger: root, start: "top 72%", once: true } });
-      timeline.to(panes, { x: (i: number) => desktop ? (spread[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread[i] ?? 0), duration: 1, ease: "power2.inOut" }, 0)
+      const timeline = gsap.timeline({ onUpdate: drawConnectors, scrollTrigger: { trigger: stage, start: "top 85%", end: "bottom 25%", scrub: .6, invalidateOnRefresh: true, onRefresh: drawConnectors } });
+      timeline.to(panes, { x: (i: number) => desktop ? (spread()[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread()[i] ?? 0), duration: 1, ease: "power2.inOut" }, 0)
         .to({}, { duration: .5 })
         .to(panes, { x: 0, y: 0, duration: .8, ease: "power2.inOut" })
         .to(root.querySelector(".unit-flash"), { opacity: .65, duration: .1 }).to(root.querySelector(".unit-flash"), { opacity: 0, duration: .25 });
+      drawConnectors();
+      return () => resize.disconnect();
     }, section);
     return () => media.revert();
   }, [lang]);
@@ -40,13 +60,14 @@ export function GlassLayers() {
       <p className="text-primary text-xs uppercase">{t({ ar: "هندسة الزجاج المزدوج", en: "Inside double glazing" })}</p>
       <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "كل طبقة… مصنوعة بدقة", en: "EVERY LAYER. ENGINEERED." })}</h2>
       <div className="glass-layer-stage" dir="ltr" role="img" aria-label={t({ ar: "وحدة الزجاج المزدوج: زجاج خارجي، فاصل ألمنيوم، عزل مزدوج، وزجاج داخلي", en: "Double glazing: outer pane, aluminium spacer, double seal and inner pane" })}>
+        <svg className="layer-connectors" aria-hidden>{layers.map((layer) => <path key={layer.kind} className="layer-connector" />)}</svg>
         <div className="glass-unit">{layers.map((layer) => <div key={layer.kind} className={`glass-layer layer-${layer.kind}`}>
           <div className="layer-surface" />
         </div>)}<div className="unit-flash" /></div>
-      </div>
-      <div className="layer-labels">{layers.map((layer, i) => <div key={layer.kind} className="layer-label" dir={lang === "ar" ? "rtl" : "ltr"}>
+        {layers.map((layer, i) => <div key={layer.kind} className={`layer-label layer-callout-${i}`} dir={lang === "ar" ? "rtl" : "ltr"}>
         <span className="text-primary text-xs">0{i + 1}</span><h3 className="font-semibold mt-1">{t(layer.title)}</h3><p className="text-muted-foreground mt-1 text-xs leading-relaxed">{t(layer.note)}</p>
-      </div>)}</div>
+        </div>)}
+      </div>
       <QuoteLink product="panels" className="px-0">{t({ ar: "اطلب عرض سعر للزجاج المزدوج ←", en: "Request a double glazing quote →" })}</QuoteLink>
     </div>
   </section>;
