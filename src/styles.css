@@ -105,7 +105,7 @@
   --shadow-glass: 0 20px 50px -24px rgb(0 0 0 / 70%), inset 0 1px 0 rgb(255 255 255 / 10%);
   --glow: 0 0 22px rgb(143 194 232 / 35%);
   --section-dark: oklch(0.16 0.03 255);
-  --section-raised: oklch(0.25 0.035 252);
+  --section-raised: oklch(0.256 0.047 258);
   --section-divider: linear-gradient(to right, transparent, var(--glass-border) 20%, var(--primary) 50%, var(--glass-border) 80%, transparent);
 }
 
@@ -233,7 +233,9 @@ html, body { overflow-x: clip; }
 .home-sections > section:not(:first-child), .home-sections > .who-we-are { position: relative; padding-block: 112px; }
 .home-sections > section:not(:first-child)::before, .home-sections > .who-we-are::before { content: ""; position: absolute; inset-inline: 20px; top: 0; height: 1px; background: var(--section-divider); }
 .home-sections > section:not(:first-child):not(.partners-section) { background: var(--section-dark); }
-.home-sections > section:nth-child(even):not(.partners-section) { background: var(--section-raised); }
-.home-sections > .who-we-are { background: var(--section-dark); }
+.home-sections > section.section-light, .home-sections > .who-we-are { background: var(--section-raised); }
+.home-product-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.home-product-grid > .product-card { flex: 0 0 calc((100% - 16px) / 2); min-width: 0; min-height: 136px; }
+@media (min-width: 1024px) { .home-product-grid > .product-card { flex-basis: calc((100% - 48px) / 4); min-height: 192px; } }
 @media (hover: hover) and (pointer: fine) { .product-card[data-intro-ready="true"] { transition: transform .2s ease-out; } }
 @media (max-width: 767px) { .home-sections > section:not(:first-child), .home-sections > .who-we-are { padding-block: 88px; } }

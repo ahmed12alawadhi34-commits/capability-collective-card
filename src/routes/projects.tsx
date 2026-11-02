@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/SiteShell";
+import { QuoteLink } from "@/components/QuoteLink";
+import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import p2 from "@/assets/p2.jpg";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "معرض المصنع | العواضي لصناعة الزجاج" },
-      { name: "description", content: "The factory tempering line at Alawadhi for Glass Industry, Sana'a." },
-      { property: "og:title", content: "معرض المصنع | العواضي لصناعة الزجاج" },
-      { property: "og:description", content: "Our factory — glass production and tempering line." },
+      { title: "معرض المشاريع قريباً | العواضي لصناعة الزجاج" },
+      { name: "description", content: "Coming soon — the project gallery of Alawadhi for Glass Industry is being prepared. Request a glass quote today." },
+      { property: "og:title", content: "معرض المشاريع قريباً | Alawadhi Glass — Projects coming soon" },
+      { property: "og:description", content: "نعمل على تجهيز معرض مشاريعنا — Our project gallery is being prepared." },
       { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { property: "og:type", content: "website" },
@@ -19,23 +19,17 @@ export const Route = createFileRoute("/projects")({
   component: Projects,
 });
 
-const items = [
-  { src: p2, w: 1200, h: 800, t: { ar: "مصنعنا – خط التقسية", en: "Our factory – tempering line" } },
-];
-
 function Projects() {
   const { t } = useLang();
   return (
-    <>
-      <PageHeader eyebrow={t({ ar: "المصنع", en: "The factory" })} title={t({ ar: "معرض المصنع", en: "Factory gallery" })} />
-      <section className="mx-auto max-w-7xl px-5 py-20">
-        {items.map((it, i) => (
-          <figure key={i} className="reveal group relative overflow-hidden rounded-3xl break-inside-avoid">
-            <img src={it.src} alt={t(it.t)} width={it.w} height={it.h} loading="lazy" className="w-full transition duration-700 group-hover:scale-105" />
-            <figcaption className="absolute inset-x-4 bottom-4 glass rounded-2xl px-5 py-3 font-semibold opacity-90 group-hover:opacity-100">{t(it.t)}</figcaption>
-          </figure>
-        ))}
+    <section className="bg-night min-h-[70vh] px-5 pt-40 pb-24 flex items-center justify-center">
+      <div className="max-w-2xl text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-silver">{t({ ar: "قريباً", en: "Coming soon" })}</h1>
+        <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed">{t({ ar: "نعمل على تجهيز معرض مشاريعنا", en: "Our project gallery is being prepared" })}</p>
+        <QuoteLink className="mt-9 rounded-full bg-primary text-primary-foreground h-auto px-7 py-3.5 font-semibold hover:no-underline">
+          {t({ ar: "اطلب عرض سعر", en: "Request a quote" })}<ArrowUpRight size={18} aria-hidden />
+        </QuoteLink>
+      </div>
       </section>
-    </>
   );
 }
