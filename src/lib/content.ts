@@ -9,7 +9,6 @@ export const contactReady = !WHATSAPP.startsWith("[");
 export const nav = [
   { to: "/", ar: "الرئيسية", en: "Home" },
   { to: "/products", ar: "المنتجات", en: "Products" },
-  { to: "/projects", ar: "المشاريع", en: "Projects" },
   { to: "/quote", ar: "طلب عرض سعر", en: "Request a Quote" },
   { to: "/contact", ar: "تواصل معنا", en: "Contact" },
 ] as const;

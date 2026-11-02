@@ -16,3 +16,5 @@
 - Video visibility is coordinated by one shared observer in src/lib/video-visibility.ts; only the most visible video section plays, with overlap reserved for clip crossfades.
 - Homepage entrance tweens use explicit neutral end states and clear transforms; CSS hover transitions activate only after entrance completion to prevent GSAP/CSS transform conflicts.
 - Double-glazing labels live in a separate unframed legend rather than moving panes so reassembly cannot overlap or hide labels.
+- Homepage section backgrounds use explicit semantic section classes rather than positional selectors so reordering cannot change the requested band colours.
+- Homepage product rows use a wrapping, fixed-basis flex layout so incomplete rows stay centred without changing card width.
