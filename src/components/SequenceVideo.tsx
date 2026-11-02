@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { watchVideoVisibility } from "@/lib/video-visibility";
 
 type Clip = { desktop: string; mobile: string; poster: string; label?: string };
 
@@ -11,18 +12,19 @@ export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { 
 
   useEffect(() => {
     const small = window.matchMedia("(max-width: 767px)").matches;
-    vids.current.forEach((v, i) => { if (v) { v.src = small ? clips[i]!.mobile : clips[i]!.desktop; v.playbackRate = 1; } });
-    const io = new IntersectionObserver(([e]) => {
-      visible.current = !!e?.isIntersecting;
+    const element = wrap.current;
+    if (!element) return;
+    return watchVideoVisibility(element, (onScreen) => {
+      visible.current = onScreen;
+      if (onScreen) vids.current.forEach((v, i) => { const clip = clips[i]; if (v && clip) { const src = small ? clip.mobile : clip.desktop; if (v.getAttribute("src") !== src) v.src = src; v.playbackRate = 1; } });
       vids.current.forEach((v, i) => { if (!v) return; if (visible.current && i === activeRef.current) v.play().catch(() => {}); else v.pause(); });
-    }, { threshold: 0.1 });
-    if (wrap.current) io.observe(wrap.current);
-    return () => io.disconnect();
+    });
   }, [clips]);
 
   const activeRef = useRef(0);
   useEffect(() => {
     activeRef.current = active;
+    vids.current.forEach((video, i) => { if (i !== active) video?.pause(); });
     const v = vids.current[active];
     if (v && visible.current) { v.currentTime = 0; v.play().catch(() => {}); }
   }, [active]);
@@ -45,7 +47,7 @@ export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { 
       ))}
       {clips.some((c) => c.label) && <div className="absolute bottom-5 inset-x-0 z-10 flex justify-center gap-2">
         {clips.map((c, i) => (
-          <span key={i} className={`glass rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-500 ${i === active ? "text-primary" : "text-muted-foreground"}`}>{c.label}</span>
+          <span key={i} className={`video-label rounded-full px-4 py-1.5 text-sm font-semibold transition-opacity duration-500 ${i === active ? "text-primary" : "text-muted-foreground"}`}>{c.label}</span>
         ))}
       </div>}
     </div>

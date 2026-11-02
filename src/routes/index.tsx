@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Check, ArrowUpRight, Truck, ClipboardCheck, Package, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { products, reasons, steps, services, groupCompanies, slogan } from "@/lib/content";
+import { products, reasons, steps, services, slogan } from "@/lib/content";
 import { ProductIcon } from "@/components/ProductIcon";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import factory from "@/assets/p2.jpg";
@@ -144,7 +144,7 @@ function Index() {
       {/* ROLLERS VIDEO CARD */}
       <section className="relative px-5 py-20">
         <div data-frame className="relative mx-auto h-[80vh] min-h-[420px] w-full max-w-[820px] overflow-hidden rounded-3xl glass">
-          <div aria-hidden className="absolute inset-0 bg-center bg-no-repeat blur-2xl scale-125 opacity-60" style={{ backgroundImage: `url(${furnacePoster.url})` }} />
+          <div aria-hidden className="absolute inset-0 bg-center bg-no-repeat video-poster-backdrop scale-125 opacity-60" style={{ backgroundImage: `url(${furnacePoster.url})` }} />
           <SequenceVideo fit="contain" clips={[
             { desktop: furnace.url, mobile: furnaceM.url, poster: furnacePoster.url, label: t({ ar: "الفرن والتقسية", en: "Tempering furnace" }) },
             { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
@@ -205,8 +205,8 @@ function Index() {
       {/* GALLERY: native swipe carousel */}
       <GlassLayers />
       <GlassComparison />
-      <PartnersStrip />
       <OurCompanies />
+      <PartnersStrip />
       <section className="py-24">
         <div className="mx-auto max-w-7xl w-full px-5 mb-8 flex items-end justify-between gap-4">
           <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "أعمال نفخر بها", en: "Work we're proud of" })}</Line></h2>
@@ -279,24 +279,6 @@ function Index() {
         </div>
       </section>
 
-      {/* GROUP */}
-      <section className="mx-auto max-w-7xl px-5 py-28">
-        <div className="reveal glass shine rounded-3xl p-10 md:p-14">
-          <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "مجموعتنا", en: "Our group" })}</p>
-          <h2 className="mt-3 text-2xl md:text-3xl font-bold">{t({ ar: "جزء من مجموعة العواضي للتجارة والصناعة", en: "Part of Al-Awadhi Group for Trading and Manufacturing" })}</h2>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {groupCompanies.map((c) =>
-              c.url ? (
-                <a key={c.url} href={c.url} target="_blank" rel="noreferrer" className="glass rounded-full px-6 py-3 flex justify-between items-center gap-3 text-sm font-medium hover:border-primary/50 transition">
-                  <span className="truncate">{t(c.name)}</span> <ArrowUpRight size={16} className="shrink-0 text-primary" />
-                </a>
-              ) : (
-                <span key={t(c.name)} className="glass rounded-full px-6 py-3 text-sm font-medium text-muted-foreground truncate">{t(c.name)}</span>
-              )
-            )}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

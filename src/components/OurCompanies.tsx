@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { gsap } from "@/lib/motion";
+import { gsap, ScrollTrigger } from "@/lib/motion";
 import groupLogo from "@/assets/companies/group.webp";
 import trading from "@/assets/companies/trading.webp";
 import aden from "@/assets/companies/aden.webp";
@@ -21,12 +21,14 @@ const countries: { flag: string; name: L; companies: Company[] }[] = [
     { name: { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" }, city: { ar: "صنعاء", en: "Sana'a" }, since: 2021, desc: { ar: "مصنع الزجاج المقسّى (سكوريت) والمزدوج", en: "Tempered (Securit) & double-glazed glass factory" }, logo: industry, here: true },
   ] },
   { flag: "🇴🇲", name: { ar: "عُمان", en: "Oman" }, companies: [
-    { name: { ar: "شركة العواضي للتجارة والوكالات", en: "Al-Awadhi Trading and Agencies Company" }, city: { ar: "مسقط", en: "Muscat" }, since: 2018, url: "https://www.alawadhiom.com", logo: oman },
+    { name: { ar: "شركة العواضي للتجارة والوكالات", en: "Al-Awadhi Trading and Agencies Company" }, city: { ar: "مسقط", en: "Muscat" }, since: 2018, desc: { ar: "التجارة والوكالات في سلطنة عُمان", en: "Trading & agencies in Oman" }, url: "https://www.alawadhiom.com", logo: oman },
   ] },
   { flag: "🇸🇦", name: { ar: "السعودية", en: "Saudi Arabia" }, companies: [
-    { name: { ar: "شركة العواضي التجارية", en: "Al-Awadhi Trading Company" }, city: { ar: "الرياض", en: "Riyadh" }, since: 2024, url: "https://www.alawadhi.sa", logo: saudi },
+    { name: { ar: "شركة العواضي التجارية", en: "Al-Awadhi Trading Company" }, city: { ar: "الرياض", en: "Riyadh" }, since: 2024, desc: { ar: "التجارة ومواد البناء في السعودية", en: "Trading & building materials in Saudi Arabia" }, url: "https://www.alawadhi.sa", logo: saudi },
   ] },
 ];
+
+const companies = countries.flatMap((country) => country.companies.map((c) => ({ ...c, country: country.name, flag: country.flag })));
 
 function Logo({ c, alt }: { c: Company; alt: string }) {
   return <div className="company-logo-bg flex h-28 items-center justify-center overflow-hidden rounded-2xl p-4">
@@ -44,8 +46,9 @@ export function OurCompanies() {
     const ctx = gsap.context(() => {
       gsap.from("[data-co-parent]", { y: 40, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "[data-co-parent]", start: "top 85%" } });
       gsap.from("[data-co-line]", { scaleY: 0, transformOrigin: "top", duration: 1, ease: "power2.inOut", scrollTrigger: { trigger: "[data-co-line]", start: "top 85%" } });
-      gsap.utils.toArray<HTMLElement>("[data-co-group]").forEach((g) =>
-        gsap.from(g.querySelectorAll("[data-co-card]"), { y: 50, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.1, scrollTrigger: { trigger: g, start: "top 85%" } }));
+      const cards = gsap.utils.toArray<HTMLElement>("[data-co-card]");
+      gsap.set(cards, { y: 32, opacity: 0 });
+      ScrollTrigger.batch(cards, { start: "top 90%", once: true, onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" }) });
     }, root);
     return () => ctx.revert();
   }, [lang]);
@@ -64,24 +67,21 @@ export function OurCompanies() {
 
     <div aria-hidden className="flex justify-center"><span data-co-line className="company-line block h-16 w-px" /></div>
 
-    <div className="space-y-12">
-      {countries.map((country) => <div key={country.name.en} data-co-group>
-        <h3 className="mb-5 flex items-center gap-3 text-lg font-semibold"><span aria-hidden className="text-2xl">{country.flag}</span>{t(country.name)}<span className="h-px flex-1 bg-border" /></h3>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {country.companies.map((c) => <article key={c.name.en} data-co-card className={`company-card glass relative flex flex-col rounded-3xl p-5 ${c.here ? "ring-1 ring-primary/60" : ""}`}>
-            <Logo c={c} alt={`${c.name.ar} – ${c.name.en}`} />
-            <div className="mt-4 flex flex-wrap gap-2 text-xs">
-              <span className="rounded-full bg-primary/15 px-3 py-1 font-semibold text-primary">{t({ ar: `منذ ${c.since}`, en: `Since ${c.since}` })}</span>
-              {c.here && <span className="rounded-full bg-primary px-3 py-1 font-semibold text-primary-foreground">{t({ ar: "أنت هنا", en: "You are here" })}</span>}
-            </div>
-            <h4 className="mt-3 text-lg font-bold leading-snug">{c.name.ar}</h4>
-            <p className="text-sm text-muted-foreground" dir="ltr" style={{ textAlign: lang === "ar" ? "right" : "left" }}>{c.name.en}</p>
-            <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground"><MapPin size={14} className="text-primary" />{t(c.city)}</p>
-            {c.desc && <p className="mt-2 text-sm leading-relaxed">{t(c.desc)}</p>}
-            {c.url && <a href={c.url} target="_blank" rel="noopener noreferrer" className="mt-auto pt-4 inline-flex items-center gap-1 self-start text-sm font-semibold text-primary">{t({ ar: "زيارة الموقع", en: "Visit website" })} <ArrowUpRight size={16} /></a>}
-          </article>)}
+    <div className="company-grid grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {companies.map((c) => <article key={c.name.en} data-co-card className={`company-card glass relative flex min-w-0 flex-col rounded-3xl p-5 ${c.here ? "ring-1 ring-primary/60" : ""}`}>
+        <Logo c={c} alt={t(c.name)} />
+        <h3 className="company-main-name mt-4 text-lg font-bold leading-snug">{t(c.name)}</h3>
+        <p className="company-secondary-name mt-1 text-xs leading-relaxed text-muted-foreground" dir={lang === "ar" ? "ltr" : "rtl"}>{lang === "ar" ? c.name.en : c.name.ar}</p>
+        <p className="mt-3 text-sm text-muted-foreground"><span aria-hidden>{c.flag}</span> {t(c.city)}{lang === "ar" ? "، " : ", "}{t(c.country)}</p>
+        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <span className="rounded-full bg-primary/15 px-3 py-1 font-semibold text-primary">{t({ ar: `منذ ${c.since}`, en: `Since ${c.since}` })}</span>
+          {c.here && <span className="rounded-full bg-primary px-3 py-1 font-semibold text-primary-foreground">{t({ ar: "أنت هنا", en: "You are here" })}</span>}
         </div>
-      </div>)}
+        <p className="mt-3 text-sm leading-relaxed">{c.desc && t(c.desc)}</p>
+        <div className="mt-auto min-h-12 pt-4">
+          {c.url && <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-primary">{t({ ar: "زيارة الموقع", en: "Visit website" })} <ArrowUpRight size={16} /></a>}
+        </div>
+      </article>)}
     </div>
   </section>;
 }

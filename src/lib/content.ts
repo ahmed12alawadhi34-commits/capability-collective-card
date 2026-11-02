@@ -44,16 +44,6 @@ export const services = [
   { icon: "crate", name: { ar: "تغليف احترافي", en: "Professional packing" }, desc: { ar: "تغليف في صناديق خشبية متينة يحمي الزجاج أثناء النقل والتخزين.", en: "Sturdy wooden-crate packing that protects glass during transport and storage." } },
 ] as const;
 
-export const groupCompanies = [
-  { name: { ar: "مجموعة العواضي للتجارة والصناعة", en: "Al-Awadhi Group for Trading and Manufacturing" }, url: "https://www.alawadhigroup.net" },
-  { name: { ar: "شركة العواضي للتجارة المحدودة (صنعاء)", en: "AL-AWADHI TRADING CO. LTD (Sana'a)" }, url: "https://www.yemenglass.com" },
-  { name: { ar: "العواضي للزجاج والتجارة (عدن)", en: "Al-Awadhi Glass and Trading (Aden)" }, url: "" },
-  { name: { ar: "البناء والتعمير للتجارة", en: "Construction & Development for Trading" }, url: "https://www.cdfortrading.com" },
-  { name: { ar: "شركة العواضي للتجارة والوكالات (عُمان)", en: "Al-Awadhi Trading and Agencies Company (Oman)" }, url: "" },
-  { name: { ar: "شركة العواضي للتجارة (السعودية)", en: "Al-Awadhi Trading Company (Saudi Arabia)" }, url: "https://www.alawadhi.sa" },
-  { name: { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" }, url: "https://www.alawadhi-ind.com" },
-] as const;
-
 export const reasons = [
   { ar: "رقابة صارمة على الجودة", en: "Strict quality control" },
   { ar: "آلات وخطوط إنتاج حديثة", en: "Modern machinery & lines" },
