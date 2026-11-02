@@ -6,6 +6,7 @@ import { nav, brand, STAFF_LOGIN, WHATSAPP, PHONES, EMAIL, address, contactReady
 import logo from "@/assets/logo-white.png";
 import mark from "@/assets/mark-white.png";
 import { initSmoothScroll } from "@/lib/motion";
+import { quoteUrl, visibleProduct } from "@/lib/whatsapp";
 
 function Loader() {
   const [hide, setHide] = useState(false);
@@ -56,7 +57,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
           <nav className="hidden lg:flex items-center gap-7 text-sm">
             {nav.map((n) => (
-              <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground transition" activeProps={{ className: "!text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
+              n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} className="text-muted-foreground hover:text-foreground transition">{n[lang]}</a> : <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground transition" activeProps={{ className: "!text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
             ))}
           </nav>
           <div className="flex items-center gap-2">
@@ -70,7 +71,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         {open && (
           <nav className="lg:hidden px-5 pb-5 flex flex-col">
             {nav.map((n) => (
-              <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-3 border-b border-border" activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
+              n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); setOpen(false); }} className="py-3 border-b border-border">{n[lang]}</a> : <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-3 border-b border-border" activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
             ))}
             <a href={STAFF_LOGIN} target="_blank" rel="noreferrer" className="py-3 text-primary flex items-center gap-2"><LogIn size={16} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}</a>
           </nav>
@@ -87,7 +88,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-semibold mb-1">{t({ ar: "روابط", en: "Links" })}</p>
-            {nav.map((n) => <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground">{n[lang]}</Link>)}
+            {nav.map((n) => n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">{n[lang]}</a> : <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground">{n[lang]}</Link>)}
+            <Link to="/quote" className="text-primary">{t({ ar: "نموذج مواصفات الزجاج", en: "Glass specifications form" })}</Link>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
             <p className="font-semibold mb-1 text-foreground">{t({ ar: "تواصل", en: "Contact" })}</p>
@@ -106,7 +108,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </footer>
 
       {contactReady && (
-        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition">
+        <a href={quoteUrl(lang)} onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition">
           <MessageCircle size={26} />
         </a>
       )}

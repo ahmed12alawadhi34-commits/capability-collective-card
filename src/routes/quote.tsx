@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
+import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
-import { products, WHATSAPP, contactReady } from "@/lib/content";
+import { products } from "@/lib/content";
+import { quoteSchema, formQuoteUrl } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/quote")({
   head: () => ({
@@ -13,6 +16,8 @@ export const Route = createFileRoute("/quote")({
       { property: "og:description", content: "Request a glass quote in minutes." },
       { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Quote,
@@ -21,43 +26,42 @@ export const Route = createFileRoute("/quote")({
 const field = "w-full rounded-xl bg-input/40 border border-border px-4 py-3 placeholder:text-muted-foreground focus:outline-none focus:border-primary";
 
 function Quote() {
-  const { t } = useLang();
-  const [f, setF] = useState({ name: "", company: "", phone: "", email: "", product: products[0].icon as string, size: "", message: "" });
-  const [sent, setSent] = useState(false);
-  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
+  const { t, lang } = useLang();
+  const [f, setF] = useState({ product: products[0].icon as string, thickness: "", width: "", height: "", quantity: "1", city: "", name: "", phone: "", notes: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const set = (key: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => { setF((old) => ({ ...old, [key]: e.target.value })); setErrors((old) => ({ ...old, [key]: "" })); };
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactReady) { setSent(true); return; }
-    const p = products.find((x) => x.icon === f.product);
-    const lines = [
-      "طلب عرض سعر / Quote request",
-      `Name: ${f.name}`, `Company: ${f.company}`, `Phone: ${f.phone}`, `Email: ${f.email}`,
-      `Product: ${p?.name.en}`, `Size/Qty: ${f.size}`, `Message: ${f.message}`,
-    ];
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
+    const parsed = quoteSchema.safeParse(f);
+    if (!parsed.success) {
+      const next: Record<string, string> = {};
+      parsed.error.issues.forEach((issue) => { next[String(issue.path[0])] = t({ ar: "يرجى إدخال قيمة صحيحة", en: "Please enter a valid value" }); });
+      setErrors(next); return;
+    }
+    window.open(formQuoteUrl(parsed.data, lang), "_blank", "noopener,noreferrer");
   };
-  return (
-    <>
-      <PageHeader eyebrow={t({ ar: "طلب عرض سعر", en: "Request a quote" })} title={t({ ar: "أخبرنا عن مشروعك", en: "Tell us about your project" })}>
-        {contactReady
-          ? t({ ar: "سيُرسل طلبك مباشرة إلى فريق المبيعات عبر واتساب.", en: "Your request goes straight to our sales team on WhatsApp." })
-          : t({ ar: "املأ النموذج وسنتواصل معك — قنوات التواصل قيد التحديث.", en: "Fill in the form and we'll get back to you — contact channels are being updated." })}
-      </PageHeader>
-      <section className="mx-auto max-w-3xl px-5 py-16">
-        <form onSubmit={submit} className="glass rounded-3xl p-6 md:p-10 grid gap-4 md:grid-cols-2">
-          <input required maxLength={100} className={field} placeholder={t({ ar: "الاسم *", en: "Name *" })} value={f.name} onChange={set("name")} />
-          <input maxLength={100} className={field} placeholder={t({ ar: "الشركة", en: "Company" })} value={f.company} onChange={set("company")} />
-          <input required type="tel" maxLength={30} className={field} placeholder={t({ ar: "الهاتف *", en: "Phone *" })} value={f.phone} onChange={set("phone")} />
-          <input type="email" maxLength={150} className={field} placeholder={t({ ar: "البريد الإلكتروني", en: "Email" })} value={f.email} onChange={set("email")} />
-          <select className={`${field} md:col-span-2`} value={f.product} onChange={set("product")}>
-            {products.map((p) => <option key={p.icon} value={p.icon} className="bg-popover">{t(p.name)}</option>)}
-          </select>
-          <input maxLength={200} className={`${field} md:col-span-2`} placeholder={t({ ar: "المقاس / الكمية", en: "Size / quantity" })} value={f.size} onChange={set("size")} />
-          <textarea rows={5} maxLength={1000} className={`${field} md:col-span-2`} placeholder={t({ ar: "رسالتك", en: "Message" })} value={f.message} onChange={set("message")} />
-          <button className="md:col-span-2 rounded-full bg-primary text-primary-foreground py-3.5 font-semibold">{t({ ar: "إرسال الطلب", en: "Send request" })}</button>
-          {sent && <p className="md:col-span-2 text-center text-sm text-primary">{t({ ar: "استلمنا طلبك — سيتم تفعيل الإرسال المباشر قريباً.", en: "Request noted — direct sending will be enabled soon." })}</p>}
-        </form>
-      </section>
-    </>
-  );
+  const input = (key: Exclude<keyof typeof f, "product" | "notes">, label: { ar: string; en: string }, type = "text", unit = false) => <label className="grid gap-2 text-sm" key={key}>
+    <span>{t(label)}{unit ? t({ ar: " (مم)", en: " (mm)" }) : ""} *</span>
+    <input name={key} type={type} required min={type === "number" ? (key === "quantity" ? 1 : .1) : undefined} max={type === "number" ? (key === "thickness" ? 200 : 100000) : undefined} step={type === "number" ? (key === "quantity" ? 1 : "any") : undefined} maxLength={type === "tel" ? 30 : 100} dir={type === "tel" ? "ltr" : undefined} className={field} value={f[key]} onChange={set(key)} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} />
+    {errors[key] && <span id={`error-${key}`} className="text-destructive" role="alert">{errors[key]}</span>}
+  </label>;
+  return <>
+    <PageHeader eyebrow={t({ ar: "طلب عرض سعر", en: "Request a quote" })} title={t({ ar: "أخبرنا عن مشروعك", en: "Tell us about your project" })} />
+    <section className="mx-auto max-w-3xl px-5 py-16">
+      <form onSubmit={submit} className="glass rounded-3xl p-6 md:p-10 grid gap-5 md:grid-cols-2">
+        <label className="grid gap-2 text-sm md:col-span-2"><span>{t({ ar: "نوع الزجاج *", en: "Glass type *" })}</span>
+          <select name="product" className={field} value={f.product} onChange={set("product")} required>{products.map((p) => <option key={p.icon} value={p.icon} className="bg-popover">{t(p.name)}</option>)}</select>
+        </label>
+        {input("thickness", { ar: "السماكة", en: "Thickness" }, "number", true)}
+        {input("quantity", { ar: "الكمية", en: "Quantity" }, "number")}
+        {input("width", { ar: "العرض", en: "Width" }, "number", true)}
+        {input("height", { ar: "الارتفاع", en: "Height" }, "number", true)}
+        {input("city", { ar: "المدينة", en: "City" })}
+        {input("name", { ar: "الاسم", en: "Name" })}
+        {input("phone", { ar: "رقم الهاتف", en: "Phone" }, "tel")}
+        <label className="grid gap-2 text-sm md:col-span-2"><span>{t({ ar: "ملاحظات", en: "Notes" })}</span><textarea name="notes" rows={4} maxLength={1000} className={field} value={f.notes} onChange={set("notes")} /></label>
+        <Button type="submit" className="md:col-span-2 h-auto rounded-full py-3.5 font-semibold"><MessageCircle />{t({ ar: "إرسال عبر واتساب", en: "Send via WhatsApp" })}</Button>
+      </form>
+    </section>
+  </>;
 }

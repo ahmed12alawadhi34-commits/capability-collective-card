@@ -25,6 +25,10 @@ import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
 import fin from "@/assets/glass-finished.mp4.asset.json";
 import finM from "@/assets/glass-finished-m.mp4.asset.json";
 import finP from "@/assets/glass-finished-poster.jpg.asset.json";
+import { GlassLayers } from "@/components/GlassLayers";
+import { GlassComparison } from "@/components/GlassComparison";
+import { PartnersStrip } from "@/components/PartnersStrip";
+import { QuoteLink } from "@/components/QuoteLink";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -129,7 +133,7 @@ function Index() {
             </p>
             <div data-hero-fade className="relative mt-9 flex flex-wrap gap-3">
               <Link to="/products" className="rounded-full bg-primary text-primary-foreground px-7 py-3.5 font-semibold">{t({ ar: "منتجاتنا", en: "Our Products" })}</Link>
-              <Link to="/quote" className="glass rounded-full px-7 py-3.5 font-semibold">{t({ ar: "اطلب عرض سعر", en: "Request a Quote" })}</Link>
+              <QuoteLink className="glass rounded-full h-auto px-7 py-3.5 font-semibold text-foreground hover:no-underline">{t({ ar: "اطلب عرض سعر", en: "Request a Quote" })}</QuoteLink>
             </div>
           </div>
         </div>
@@ -188,7 +192,7 @@ function Index() {
           </div>
           <div data-cards className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [perspective:1000px]">
             {products.map((p) => (
-              <div key={p.icon} data-card onMouseMove={tilt} onMouseLeave={untilt} className="glass glare rounded-2xl p-6 min-h-48 transition-transform duration-200 ease-out will-change-transform">
+              <div key={p.icon} data-card data-quote-product={p.icon} onMouseMove={tilt} onMouseLeave={untilt} className="glass glare rounded-2xl p-6 min-h-48 transition-transform duration-200 ease-out will-change-transform">
                 <div className="text-primary"><ProductIcon name={p.icon} /></div>
                 <h3 className="mt-5 font-semibold leading-snug">{t(p.name)}</h3>
               </div>
@@ -198,6 +202,9 @@ function Index() {
       </section>
 
       {/* GALLERY: native swipe carousel */}
+      <GlassLayers />
+      <GlassComparison />
+      <PartnersStrip />
       <section className="py-24">
         <div className="mx-auto max-w-7xl w-full px-5 mb-8 flex items-end justify-between gap-4">
           <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "أعمال نفخر بها", en: "Work we're proud of" })}</Line></h2>

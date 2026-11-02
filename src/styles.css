@@ -160,3 +160,48 @@
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 html, body { overflow-x: clip; }
+
+/* Additive glass demonstrations; the approved site palette stays unchanged. */
+:root {
+  --layer-reflection: linear-gradient(125deg, transparent 10%, oklch(0.95 0.01 230 / 28%) 28%, transparent 38%, oklch(0.82 0.08 225 / 10%) 70%);
+  --layer-metal: linear-gradient(135deg, var(--accent), var(--muted-foreground), var(--accent));
+  --layer-seal: oklch(0.1 0.01 250);
+  --layer-shadow: 0 15px 45px oklch(0.1 0.02 250 / 25%);
+}
+.glass-layer-stage { height: 540px; display: grid; place-items: center; perspective: 1600px; overflow: hidden; }
+.glass-unit { position: relative; width: 280px; height: 320px; transform-style: preserve-3d; }
+.glass-layer { position: absolute; inset: 0; will-change: transform; }
+.layer-surface { position: absolute; inset: 0; transform: rotateY(-28deg) rotateX(8deg); border-radius: 4px; }
+.layer-outer { z-index: 4; }
+.layer-spacer { z-index: 3; }
+.layer-seal { z-index: 2; }
+.layer-inner { z-index: 1; }
+.layer-outer .layer-surface, .layer-inner .layer-surface { background: var(--layer-reflection), var(--glass); border: 2px solid var(--primary); box-shadow: var(--layer-shadow), inset 0 0 25px var(--glass); }
+.layer-spacer .layer-surface { border: 13px solid var(--accent); border-image: var(--layer-metal) 1; box-shadow: var(--layer-shadow); }
+.layer-seal .layer-surface { border: 9px solid var(--layer-seal); outline: 1px solid var(--muted-foreground); }
+.layer-label { position: absolute; top: calc(100% + 24px); left: 50%; transform: translateX(-50%); width: 165px; text-align: center; opacity: 0; }
+.layer-label-1, .layer-label-3 { top: auto; bottom: calc(100% + 20px); }
+.unit-flash { position: absolute; inset: 0; pointer-events: none; background: var(--layer-reflection); opacity: 0; z-index: 5; }
+.glass-comparison { aspect-ratio: 3 / 2; }
+.comparison-divider { position: absolute; inset-block: 0; width: 2px; background: var(--foreground); pointer-events: none; transform: translateX(-50%); }
+.comparison-divider span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: var(--primary-foreground); border: 2px solid var(--foreground); }
+.comparison-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; touch-action: pan-y; margin: 0; }
+.glass-comparison:focus-within { outline: 2px solid var(--ring); outline-offset: 4px; }
+.partners-window { overflow: hidden; }
+.partners-track { display: flex; width: max-content; animation: partners-scroll 55s linear infinite; }
+.partners-group { display: flex; align-items: center; gap: 70px; padding-inline: 35px; flex-shrink: 0; }
+.partner-name { color: var(--accent); font-size: 24px; font-weight: 600; white-space: nowrap; }
+.partner-name-0, .partner-name-2 { font-weight: 400; }
+.partner-name-4 { font-family: Georgia, serif; }
+.partner-name-5, .partner-name-6 { font-weight: 800; }
+.partners-window:hover .partners-track, .partners-window:focus .partners-track { animation-play-state: paused; }
+@keyframes partners-scroll { to { transform: translateX(-50%); } }
+@media (max-width: 767px) {
+  .glass-layer-stage { height: 640px; }
+  .glass-unit { width: 140px; height: 170px; margin-inline-end: 155px; }
+  .layer-surface { transform: rotateY(-18deg) rotateX(28deg); }
+  .layer-label, .layer-label-1, .layer-label-3 { top: 36px; bottom: auto; left: calc(100% + 15px); transform: none; width: 130px; text-align: start; }
+  .partner-name { font-size: 20px; }
+  .partners-group { gap: 40px; padding-inline: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .partners-track { animation: none; } .partners-window { overflow-x: auto; } }

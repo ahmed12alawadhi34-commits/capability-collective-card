@@ -15,6 +15,8 @@ export const Route = createFileRoute("/projects")({
       { property: "og:description", content: "Facades, interiors and insulated glazing projects." },
       { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Projects,
