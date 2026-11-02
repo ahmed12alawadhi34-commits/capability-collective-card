@@ -12,3 +12,10 @@
 - [ ] Replace black MAB combined logo with official coloured artwork — awaiting verified source or user upload; no invented recolouring.
 - [x] Reduce blur and off-screen video/animation work; remove unused company SVGs.
 - [x] Verify Arabic/English, desktop/iPhone layouts, videos and links.
+
+# Final presentation update
+- [x] Remove fixed company name heights and align bilingual names together; retain equal-height cards and bottom links.
+- [ ] Replace lower three-clip sequence with compressed 16:9 safety video, physical-side labels and caption — safety video not attached.
+- [ ] Remove home comparison only once replacement safety video is available; preserve Products comparison and both hero clips.
+- [ ] Replace MAB logo with verified official coloured artwork — researching official source.
+- [ ] Verify final changes in Arabic/English on desktop and iPhone sizes.

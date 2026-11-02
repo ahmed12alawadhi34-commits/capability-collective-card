@@ -71,7 +71,7 @@ export function OurCompanies() {
       {companies.map((c) => <article key={c.name.en} data-co-card className={`company-card glass relative flex min-w-0 flex-col rounded-3xl p-5 ${c.here ? "ring-1 ring-primary/60" : ""}`}>
         <Logo c={c} alt={t(c.name)} />
         <h3 className="company-main-name mt-4 text-lg font-bold leading-snug">{t(c.name)}</h3>
-        <p className="company-secondary-name mt-1 text-xs leading-relaxed text-muted-foreground" dir={lang === "ar" ? "ltr" : "rtl"}>{lang === "ar" ? c.name.en : c.name.ar}</p>
+        <p className="company-secondary-name mt-1 text-xs leading-relaxed text-muted-foreground"><span dir={lang === "ar" ? "ltr" : "rtl"}>{lang === "ar" ? c.name.en : c.name.ar}</span></p>
         <p className="mt-3 text-sm text-muted-foreground"><span aria-hidden>{c.flag}</span> {t(c.city)}{lang === "ar" ? "، " : ", "}{t(c.country)}</p>
         <div className="mt-3 flex flex-wrap gap-2 text-xs">
           <span className="rounded-full bg-primary/15 px-3 py-1 font-semibold text-primary">{t({ ar: `منذ ${c.since}`, en: `Since ${c.since}` })}</span>
