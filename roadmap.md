@@ -42,3 +42,8 @@
 - [x] Use dark partners band with uniform light logo tiles; show five non-factory companies.
 - [x] Verify AR/EN in Chromium at 390/1280 with reduced motion ON/OFF: moving marquees/layers, five cards, timeline, no overflow/errors, menu links and simulated blocked-autoplay gesture retry; 19 tests pass.
 - [ ] Verify on physical iPhone Safari and WhatsApp in-app browser with Low Power Mode — unavailable in sandbox.
+
+# Partners strip tap fix and title rename
+- [x] Remove the partners window's keyboard focus target and stop pausing the shared marquee on focus, so a finger tap only pauses ~1.8s and the strip resumes.
+- [x] Rename the section to "شركاء النجاح / Partners of Success" in the heading and its accessible label.
+- [x] Verify AR/EN at 390 touch and 1280 desktop: tap pauses then resumes in ~2s, both strips keep moving, no overflow or console errors; 22 tests pass.
