@@ -202,7 +202,7 @@ html, body { overflow-x: clip; }
 
 
 .partners-group { display: flex; align-items: center; gap: 52px; padding-inline: 26px; flex-shrink: 0; }
-.partner-item { border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: center; height: 72px; width: 190px; flex-shrink: 0; }
+.partner-item { border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: center; height: 72px; width: 190px; flex-shrink: 0; background: var(--partners-surface); box-shadow: 0 2px 12px oklch(0.12 0.03 255 / 20%); }
 .partner-logo { height: 48px; width: auto; max-width: 100%; object-fit: contain; user-select: none; filter: drop-shadow(0 2px 10px rgb(0 0 0 / 35%)); }
 .partner-compact .partner-logo { height: 64px; max-width: 100%; }
 .partner-name { color: var(--foreground); font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 26px; white-space: nowrap; }
@@ -228,7 +228,7 @@ html, body { overflow-x: clip; }
 .company-card { box-shadow: var(--shadow-glass); transition: transform .3s ease; }
 .company-card:hover { transform: translateY(-6px); }
 .company-main-name, .company-secondary-name { text-align: start; }
-.company-logo-bg { }
+.company-logo-bg { background: var(--partners-surface); box-shadow: 0 2px 12px oklch(0.12 0.03 255 / 20%); }
 .company-line { background: linear-gradient(to bottom, var(--primary), transparent); }
 .video-label { background: var(--glass-mobile); border: 1px solid var(--glass-border); }
 .video-poster-backdrop { filter: blur(8px); }
@@ -291,7 +291,7 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .why-big { animation: none; } .why-card::before { animation: none !important; } }
 
 /* Shared About presentation and logo tiles. */
-.logo-tile { display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+.logo-tile { display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--partners-surface); box-shadow: 0 2px 12px oklch(0.12 0.03 255 / 20%); }
 .group-logo-tile { width: 190px; height: 88px; padding: 12px; }
 .home-sections > section.group-companies-row { padding-block: 48px; }
 .company-grid { grid-template-columns: minmax(0, 1fr); }
