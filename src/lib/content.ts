@@ -1,8 +1,9 @@
 export const STAFF_LOGIN = "http://132.145.55.226:8182/apex/f?p=factory:LOGIN_DESKTOP";
 // Placeholders — to be filled in by the owner
-export const WHATSAPP = "[WHATSAPP]";
-export const PHONES = ["[PHONE]"];
-export const EMAIL = "[EMAIL]";
+export const WHATSAPP = "967771358888";
+export const PHONES = ["+967 1 601700", "+967 771358888", "+967 770658888"];
+export const EMAIL = "";
+export const emailReady = EMAIL !== "";
 export const contactReady = !WHATSAPP.startsWith("[");
 
 export const nav = [
@@ -44,12 +45,12 @@ export const services = [
 ] as const;
 
 export const groupCompanies = [
-  { name: { ar: "مجموعة العوضي للتجارة والصناعة", en: "Al-Awadhi Group for Trading and Manufacturing" }, url: "https://www.alawadhigroup.net" },
-  { name: { ar: "شركة العوضي للتجارة المحدودة (صنعاء)", en: "AL-AWADHI TRADING CO. LTD (Sana'a)" }, url: "https://www.yemenglass.com" },
-  { name: { ar: "العوضي للزجاج والتجارة (عدن)", en: "Al-Awadhi Glass and Trading (Aden)" }, url: "" },
-  { name: { ar: "البناء والتطوير للتجارة", en: "Construction & Development for Trading" }, url: "https://www.cdfortrading.com" },
-  { name: { ar: "شركة العوضي للتجارة والوكالات (عُمان)", en: "Al-Awadhi Trading and Agencies Company (Oman)" }, url: "" },
-  { name: { ar: "شركة العوضي للتجارة (السعودية)", en: "Al-Awadhi Trading Company (Saudi Arabia)" }, url: "https://www.alawadhi.sa" },
+  { name: { ar: "مجموعة العواضي للتجارة والصناعة", en: "Al-Awadhi Group for Trading and Manufacturing" }, url: "https://www.alawadhigroup.net" },
+  { name: { ar: "شركة العواضي للتجارة المحدودة (صنعاء)", en: "AL-AWADHI TRADING CO. LTD (Sana'a)" }, url: "https://www.yemenglass.com" },
+  { name: { ar: "العواضي للزجاج والتجارة (عدن)", en: "Al-Awadhi Glass and Trading (Aden)" }, url: "" },
+  { name: { ar: "البناء والتعمير للتجارة", en: "Construction & Development for Trading" }, url: "https://www.cdfortrading.com" },
+  { name: { ar: "شركة العواضي للتجارة والوكالات (عُمان)", en: "Al-Awadhi Trading and Agencies Company (Oman)" }, url: "" },
+  { name: { ar: "شركة العواضي للتجارة (السعودية)", en: "Al-Awadhi Trading Company (Saudi Arabia)" }, url: "https://www.alawadhi.sa" },
   { name: { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" }, url: "https://www.alawadhi-ind.com" },
 ] as const;
 

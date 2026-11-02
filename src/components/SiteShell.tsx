@@ -83,7 +83,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-7xl px-5 py-14 grid gap-10 md:grid-cols-4 text-sm">
           <div className="md:col-span-2">
             <img src={logo} alt={t(brand)} width={824} height={415} loading="lazy" className="w-44" />
-            <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">{t({ ar: "عضو في مجموعة العوضي للتجارة والصناعة — في تجارة الزجاج منذ 1974.", en: "Part of Al-Awadhi Group for Trading and Manufacturing — in the glass trade since 1974." })}</p>
+            <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">{t({ ar: "عضو في مجموعة العواضي للتجارة والصناعة — في تجارة الزجاج منذ 1974.", en: "Part of Al-Awadhi Group for Trading and Manufacturing — in the glass trade since 1974." })}</p>
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-semibold mb-1">{t({ ar: "روابط", en: "Links" })}</p>
@@ -99,11 +99,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 <span key={p} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></span>
               )
             )}
-            {contactReady ? (
-              <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>
-            ) : (
-              <span className="flex gap-2"><Mail size={16} /><span dir="ltr">{EMAIL}</span></span>
-            )}
+            {EMAIL && <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>}
           </div>
         </div>
         <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Alawadhi for Glass Industry</div>

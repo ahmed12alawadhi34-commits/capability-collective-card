@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-import { address, hours, PHONES, EMAIL, WHATSAPP, contactReady } from "@/lib/content";
+import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } from "@/lib/content";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -11,6 +11,8 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Visit Alawadhi for Glass Industry in Al-Qaidi Industrial Area, Sana'a, or contact us by phone and WhatsApp." },
       { property: "og:title", content: "تواصل معنا | العواضي لصناعة الزجاج" },
       { property: "og:description", content: "Address, phone, WhatsApp and working hours." },
+      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
     ],
   }),
   component: Contact,
@@ -21,7 +23,7 @@ function Contact() {
   const rows = [
     { icon: MapPin, label: t({ ar: "العنوان", en: "Address" }), body: t(address) },
     { icon: Clock, label: t({ ar: "ساعات العمل", en: "Working hours" }), body: t(hours) },
-    { icon: Mail, label: t({ ar: "البريد", en: "Email" }), body: contactReady ? <a href={`mailto:${EMAIL}`}>{EMAIL}</a> : <span dir="ltr">{EMAIL}</span> },
+    ...(emailReady ? [{ icon: Mail, label: t({ ar: "البريد", en: "Email" }), body: <a href={`mailto:${EMAIL}`}>{EMAIL}</a> }] : []),
   ];
   return (
     <>

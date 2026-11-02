@@ -13,6 +13,8 @@ export const Route = createFileRoute("/projects")({
       { name: "description", content: "Projects using glass from Alawadhi for Glass Industry — facades, interiors and insulated glazing." },
       { property: "og:title", content: "مشاريعنا | العواضي لصناعة الزجاج" },
       { property: "og:description", content: "Facades, interiors and insulated glazing projects." },
+      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
     ],
   }),
   component: Projects,

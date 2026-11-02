@@ -33,6 +33,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Alawadhi for Glass Industry: precision tempered, laminated and double-glazed glass manufactured in Sana'a, Yemen." },
       { property: "og:title", content: "العواضي لصناعة الزجاج | Alawadhi for Glass Industry" },
       { property: "og:description", content: "Engineered Glass. Built for Yemen. — زجاج مُصنَّع بدقة لمشاريع اليمن." },
+      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -161,7 +163,7 @@ function Index() {
             <Line>{t({ ar: "منشأة حديثة", en: "A modern facility" })}</Line>
             <Line>{t({ ar: "في قلب صنعاء", en: "in the heart of Sana'a" })}</Line>
           </h2>
-          <p className="reveal mt-5 text-muted-foreground leading-loose">{t({ ar: "تأسس مصنع العواضي لصناعة الزجاج عام 2021 كأحد أذرع مجموعة العوضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974. نلتزم بأعلى معايير الجودة العالمية، ونخدم المقاولين ومصنّعي الألمنيوم والمشاريع في جميع أنحاء اليمن.", en: "Founded in 2021 as part of Al-Awadhi Group — a leader in the glass trade since 1974 — we work to international quality standards, serving contractors, aluminium fabricators and projects across Yemen." })}</p>
+          <p className="reveal mt-5 text-muted-foreground leading-loose">{t({ ar: "تأسس مصنع العواضي لصناعة الزجاج عام 2021 كأحد أذرع مجموعة العواضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974. نلتزم بأعلى معايير الجودة العالمية، ونخدم المقاولين ومصنّعي الألمنيوم والمشاريع في جميع أنحاء اليمن.", en: "Founded in 2021 as part of Al-Awadhi Group — a leader in the glass trade since 1974 — we work to international quality standards, serving contractors, aluminium fabricators and projects across Yemen." })}</p>
           <p className="reveal mt-4 text-highlight font-semibold leading-relaxed">«{t(slogan)}»</p>
           <div className="mt-8 grid grid-cols-3 gap-3">
             {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], [7, { ar: "فروع", en: "Branches" }]] as const).map(([n, l]) => (
@@ -272,7 +274,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-5 py-28">
         <div className="reveal glass shine rounded-3xl p-10 md:p-14">
           <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "مجموعتنا", en: "Our group" })}</p>
-          <h2 className="mt-3 text-2xl md:text-3xl font-bold">{t({ ar: "جزء من مجموعة العوضي للتجارة والصناعة", en: "Part of Al-Awadhi Group for Trading and Manufacturing" })}</h2>
+          <h2 className="mt-3 text-2xl md:text-3xl font-bold">{t({ ar: "جزء من مجموعة العواضي للتجارة والصناعة", en: "Part of Al-Awadhi Group for Trading and Manufacturing" })}</h2>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {groupCompanies.map((c) =>
               c.url ? (
