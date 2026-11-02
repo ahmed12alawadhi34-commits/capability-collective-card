@@ -3,12 +3,12 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { gsap } from "@/lib/motion";
 import groupLogo from "@/assets/companies/group.webp";
-import trading from "@/assets/companies/trading.svg";
-import aden from "@/assets/companies/aden.svg";
-import cd from "@/assets/companies/cd.svg";
-import industry from "@/assets/companies/industry.svg";
-import oman from "@/assets/companies/oman.svg";
-import saudi from "@/assets/companies/saudi.svg";
+import trading from "@/assets/companies/trading.webp";
+import aden from "@/assets/companies/aden.webp";
+import cd from "@/assets/companies/cd.webp";
+import industry from "@/assets/companies/industry.webp";
+import oman from "@/assets/companies/oman.webp";
+import saudi from "@/assets/companies/saudi.webp";
 
 type L = { ar: string; en: string };
 type Company = { name: L; city: L; since: number; desc?: L; url?: string; logo?: string; here?: boolean };
