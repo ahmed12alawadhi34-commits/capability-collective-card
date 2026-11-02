@@ -18,7 +18,7 @@ const names = [
 export function HomeProductStrip() {
   const { t, lang } = useLang();
   const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
-  return <section className="home-raised home-products-strip px-5">
+  return <section className="home-products-strip px-5">
     <div className="mx-auto max-w-7xl">
       <h2 className="text-2xl font-bold">{t({ ar: "منتجاتنا", en: "Our products" })}</h2>
       <div className="product-chip-row mt-6">

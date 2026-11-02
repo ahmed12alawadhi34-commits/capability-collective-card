@@ -174,7 +174,7 @@ function Index() {
 
       <PartnersStrip />
 
-      <GlassComparison className="home-raised home-comparison" />
+      <GlassComparison className="home-comparison" />
 
       <GlassLayers />
 

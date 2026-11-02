@@ -55,7 +55,7 @@ export function GlassLayers() {
     }, section);
     return () => media.revert();
   }, [lang]);
-  return <section ref={section} className="section-light px-5 py-24" data-quote-product="panels">
+  return <section ref={section} className="section-light home-raised px-5 py-24" data-quote-product="panels">
     <div className="mx-auto max-w-7xl">
       <p className="text-primary text-xs uppercase">{t({ ar: "هندسة الزجاج المزدوج", en: "Inside double glazing" })}</p>
       <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "كل طبقة… مصنوعة بدقة", en: "EVERY LAYER. ENGINEERED." })}</h2>
