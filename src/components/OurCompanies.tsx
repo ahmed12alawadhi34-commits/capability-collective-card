@@ -53,7 +53,7 @@ export function OurCompanies() {
     return () => ctx.revert();
   }, [lang]);
 
-  return <section ref={root} className="mx-auto max-w-7xl px-5 py-24">
+  return <section ref={root} className="mx-auto max-w-7xl px-5 pt-8 pb-24">
     <h2 className="text-center text-3xl md:text-5xl font-bold">{t({ ar: "شركاتنا", en: "Our Companies" })}</h2>
 
     <a data-co-parent href="https://www.alawadhigroup.net" target="_blank" rel="noopener noreferrer" className="company-card glass mx-auto mt-12 flex max-w-2xl flex-col items-center gap-5 rounded-3xl p-8 text-center sm:flex-row sm:text-start">
