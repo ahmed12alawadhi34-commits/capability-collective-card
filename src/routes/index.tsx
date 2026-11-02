@@ -1,14 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { Check, ArrowUpRight, Truck, ClipboardCheck, Package, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { products, reasons, steps, services, slogan } from "@/lib/content";
+import { products, reasons, steps, services, slogan, groupStats } from "@/lib/content";
 import { ProductIcon } from "@/components/ProductIcon";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import factory from "@/assets/p2.jpg";
-import p1 from "@/assets/p1.jpg";
-import p3 from "@/assets/p3.jpg";
-import p4 from "@/assets/p4.jpg";
 import { SequenceVideo } from "@/components/SequenceVideo";
 import hr from "@/assets/hero-rollers.mp4.asset.json";
 import hrM from "@/assets/hero-rollers-m.mp4.asset.json";
@@ -51,23 +48,21 @@ function Line({ children, className = "" }: { children: string; className?: stri
   return <span className={`block overflow-hidden pb-1 ${className}`}><span data-line className="block">{children}</span></span>;
 }
 
-function tilt(e: MouseEvent<HTMLDivElement>) {
+function tilt(e: PointerEvent<HTMLDivElement>) {
+  if (e.pointerType !== "mouse" || navigator.maxTouchPoints > 0 || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
   const el = e.currentTarget, r = el.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
   el.style.transform = `perspective(800px) rotateY(${(x - 0.5) * 14}deg) rotateX(${(0.5 - y) * 14}deg) translateZ(0)`;
   el.style.setProperty("--mx", `${x * 100}%`); el.style.setProperty("--my", `${y * 100}%`);
 }
-function untilt(e: MouseEvent<HTMLDivElement>) { e.currentTarget.style.transform = ""; }
+function untilt(e: PointerEvent<HTMLDivElement>) { e.currentTarget.style.transform = ""; }
 
 function Index() {
   const { t, lang } = useLang();
   const root = useRef<HTMLDivElement>(null);
   const headline = t({ ar: "زجاج مُصنَّع بدقة لمشاريع اليمن", en: "Engineered Glass. Built for Yemen." });
   const gallery = [
-    { src: p1, t: { ar: "واجهة برج تجاري", en: "Commercial tower facade" } },
-    { src: p3, t: { ar: "درابزين وفواصل زجاجية", en: "Glass railings & partitions" } },
-    { src: factory, t: { ar: "خط التقسية", en: "Tempering line" } },
-    { src: p4, t: { ar: "وحدات زجاج مزدوج", en: "Insulated glass units" } },
+    { src: factory, t: { ar: "مصنعنا – خط التقسية", en: "Our factory – tempering line" } },
   ];
   const track = useRef<HTMLDivElement>(null);
   const [slide, setSlide] = useState(0);
@@ -88,15 +83,23 @@ function Index() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from("[data-word]", { yPercent: 110, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.09, delay: 0.9 });
-      gsap.from("[data-hero-fade]", { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, delay: 1.5 });
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const productCards = gsap.utils.toArray<HTMLElement>("[data-card]");
+      productCards.forEach((card) => card.removeAttribute("data-intro-ready"));
+      if (reduced) {
+        gsap.set("[data-word], [data-hero-fade], [data-line], [data-card], [data-frame]", { opacity: 1, clearProps: "transform" });
+        return;
+      }
+      gsap.fromTo("[data-word]", { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, clearProps: "transform", duration: 1.1, ease: "expo.out", stagger: 0.09, delay: 0.9 });
+      gsap.fromTo("[data-hero-fade]", { y: 30, opacity: 0 }, { y: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, delay: 1.5 });
 
       gsap.utils.toArray<HTMLElement>("[data-lines]").forEach((g) =>
-        gsap.from(g.querySelectorAll("[data-line]"), { yPercent: 105, duration: 1, ease: "power4.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%" } }));
+        gsap.fromTo(g.querySelectorAll("[data-line]"), { yPercent: 105 }, { yPercent: 0, clearProps: "transform", duration: 1, ease: "power4.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%", once: true } }));
 
-      gsap.from("[data-frame]", { opacity: 0, y: 40, duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%" } });
+      gsap.fromTo("[data-frame]", { opacity: 0, y: 40 }, { opacity: 1, y: 0, clearProps: "transform", duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%", once: true } });
 
-      gsap.from("[data-card]", { x: lang === "ar" ? -80 : 80, rotateY: lang === "ar" ? 25 : -25, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%" } });
+      const finePointer = navigator.maxTouchPoints === 0 && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      gsap.fromTo(productCards, { x: finePointer ? (lang === "ar" ? -80 : 80) : 0, rotateY: finePointer ? (lang === "ar" ? 25 : -25) : 0, opacity: 0 }, { x: 0, rotateY: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%", once: true }, onComplete: () => productCards.forEach((card) => card.setAttribute("data-intro-ready", "true")) });
 
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
         const end = Number(el.dataset["count"]), o = { v: end > 1000 ? end - 60 : 0 };
@@ -108,11 +111,11 @@ function Index() {
 
     }, root);
     const r = setTimeout(() => ScrollTrigger.refresh(), 500);
-    return () => { clearTimeout(r); ctx.revert(); };
+    return () => { clearTimeout(r); root.current?.querySelectorAll("[data-card]").forEach((card) => card.removeAttribute("data-intro-ready")); ctx.revert(); };
   }, [lang]);
 
   return (
-    <div ref={root} className="overflow-x-clip">
+    <div ref={root} className="home-sections overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
         <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }, { desktop: hp.url, mobile: hpM.url, poster: hpP.url }]} /></div>
@@ -170,7 +173,7 @@ function Index() {
           </div>
           <div data-cards className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [perspective:1000px]">
             {products.map((p) => (
-              <div key={p.icon} data-card data-quote-product={p.icon} onMouseMove={tilt} onMouseLeave={untilt} className="glass glare rounded-2xl p-6 min-h-48 transition-transform duration-200 ease-out will-change-transform">
+              <div key={p.icon} data-card data-quote-product={p.icon} onPointerMove={tilt} onPointerLeave={untilt} onPointerCancel={untilt} className="product-card glass glare rounded-2xl p-6 min-h-48">
                 <div className="text-primary"><ProductIcon name={p.icon} /></div>
                 <h3 className="mt-5 font-semibold leading-snug">{t(p.name)}</h3>
               </div>
@@ -183,30 +186,29 @@ function Index() {
       <GlassLayers />
       <section className="py-24">
         <div className="mx-auto max-w-7xl w-full px-5 mb-8 flex items-end justify-between gap-4">
-          <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "أعمال نفخر بها", en: "Work we're proud of" })}</Line></h2>
-          <div className="hidden md:flex gap-2">
+          <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "معرض المصنع", en: "Factory gallery" })}</Line></h2>
+          {gallery.length > 1 && <div className="hidden md:flex gap-2">
             <button type="button" aria-label={t({ ar: "السابق", en: "Previous" })} onClick={() => go(slide - 1)} className="glass grid h-11 w-11 place-items-center rounded-full text-primary"><ChevronLeft className="rtl:rotate-180" /></button>
             <button type="button" aria-label={t({ ar: "التالي", en: "Next" })} onClick={() => go(slide + 1)} className="glass grid h-11 w-11 place-items-center rounded-full text-primary"><ChevronRight className="rtl:rotate-180" /></button>
-          </div>
+          </div>}
         </div>
         <div ref={track} onScroll={onTrackScroll} className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pb-2 [touch-action:pan-x_pan-y] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain">
           {gallery.map((g, i) => (
-            <figure key={i} className="relative h-[55vh] max-h-[560px] w-[82vw] sm:w-[48vw] lg:w-[36vw] shrink-0 snap-start overflow-hidden rounded-3xl">
+            <figure key={i} className="relative aspect-[3/2] max-h-[680px] w-full max-w-7xl mx-auto shrink-0 snap-start overflow-hidden rounded-3xl">
               <img src={g.src} alt={t(g.t)} loading="lazy" draggable={false} className="absolute inset-0 w-full h-full object-cover" />
               <figcaption className="absolute inset-x-4 bottom-4 glass rounded-2xl px-5 py-3 font-semibold">{t(g.t)}</figcaption>
             </figure>
           ))}
-          <Link to="/projects" className="glass h-[55vh] max-h-[560px] w-[60vw] sm:w-[30vw] shrink-0 snap-start rounded-3xl grid place-items-center text-xl font-semibold text-primary">{t({ ar: "كل المشاريع", en: "All projects" })} <ArrowUpRight /></Link>
         </div>
-        <div className="mt-5 flex justify-center gap-2">
-          {[...gallery, null].map((_, i) => (
+        {gallery.length > 1 && <div className="mt-5 flex justify-center gap-2">
+          {gallery.map((_, i) => (
             <button key={i} type="button" aria-label={`${i + 1}`} onClick={() => go(i)} className={`h-2 rounded-full transition-all ${i === slide ? "w-6 bg-primary" : "w-2 bg-primary/35"}`} />
           ))}
-        </div>
+        </div>}
       </section>
 
       {/* WHO WE ARE: continuous About and Companies block */}
-      <div className="section-light">
+      <div className="who-we-are section-light">
       <section className="mx-auto max-w-7xl px-5 pt-12 pb-8 grid gap-12 lg:grid-cols-2 items-center">
         <div>
           <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "من نحن", en: "Who we are" })}</p>
@@ -217,7 +219,7 @@ function Index() {
           <p className="reveal mt-5 text-muted-foreground leading-loose">{t({ ar: "تأسس مصنع العواضي لصناعة الزجاج عام 2021 كأحد أذرع مجموعة العواضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974. نلتزم بأعلى معايير الجودة العالمية، ونخدم المقاولين ومصنّعي الألمنيوم والمشاريع في جميع أنحاء اليمن.", en: "Founded in 2021 as part of Al-Awadhi Group — a leader in the glass trade since 1974 — we work to international quality standards, serving contractors, aluminium fabricators and projects across Yemen." })}</p>
           <p className="reveal mt-4 text-highlight font-semibold leading-relaxed">«{t(slogan)}»</p>
           <div className="mt-8 grid grid-cols-3 gap-3">
-            {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], [7, { ar: "فروع", en: "Branches" }]] as const).map(([n, l]) => (
+            {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], [groupStats.companies, { ar: `شركات في ${groupStats.countries} دول`, en: `companies in ${groupStats.countries} countries` }]] as const).map(([n, l]) => (
               <div key={n} className="glass rounded-2xl p-4 text-center">
                 <div data-count={n} className="text-3xl font-bold text-primary tabular-nums">{n}</div>
                 <div className="text-xs text-muted-foreground mt-1">{t(l)}</div>

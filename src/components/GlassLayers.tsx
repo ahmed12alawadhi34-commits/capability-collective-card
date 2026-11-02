@@ -27,11 +27,10 @@ export function GlassLayers() {
         return;
       }
       const timeline = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 72%", end: "bottom 30%", scrub: .6 } });
+      gsap.fromTo(root.querySelectorAll(".layer-label"), { opacity: 0 }, { opacity: 1, duration: .5, stagger: .08, scrollTrigger: { trigger: root, start: "top 72%", once: true } });
       timeline.to(panes, { x: (i: number) => desktop ? (spread[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread[i] ?? 0), duration: 1, ease: "power2.inOut" }, 0)
-        .to(root.querySelectorAll(".layer-label"), { opacity: 1, duration: .35 }, .25)
         .to({}, { duration: .5 })
         .to(panes, { x: 0, y: 0, duration: .8, ease: "power2.inOut" })
-        .to(root.querySelectorAll(".layer-label"), { opacity: 0, duration: .25 }, "<")
         .to(root.querySelector(".unit-flash"), { opacity: .65, duration: .1 }).to(root.querySelector(".unit-flash"), { opacity: 0, duration: .25 });
     }, section);
     return () => media.revert();
@@ -41,13 +40,13 @@ export function GlassLayers() {
       <p className="text-primary text-xs uppercase">{t({ ar: "هندسة الزجاج المزدوج", en: "Inside double glazing" })}</p>
       <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "كل طبقة… مصنوعة بدقة", en: "EVERY LAYER. ENGINEERED." })}</h2>
       <div className="glass-layer-stage" dir="ltr" role="img" aria-label={t({ ar: "وحدة الزجاج المزدوج: زجاج خارجي، فاصل ألمنيوم، عزل مزدوج، وزجاج داخلي", en: "Double glazing: outer pane, aluminium spacer, double seal and inner pane" })}>
-        <div className="glass-unit">{layers.map((layer, i) => <div key={layer.kind} className={`glass-layer layer-${layer.kind}`}>
+        <div className="glass-unit">{layers.map((layer) => <div key={layer.kind} className={`glass-layer layer-${layer.kind}`}>
           <div className="layer-surface" />
-          <div className={`layer-label layer-label-${i}`} dir={lang === "ar" ? "rtl" : "ltr"}>
-            <span className="text-primary text-xs">0{i + 1}</span><h3 className="font-semibold mt-1">{t(layer.title)}</h3><p className="text-muted-foreground mt-1 text-xs leading-relaxed">{t(layer.note)}</p>
-          </div>
         </div>)}<div className="unit-flash" /></div>
       </div>
+      <div className="layer-labels">{layers.map((layer, i) => <div key={layer.kind} className="layer-label" dir={lang === "ar" ? "rtl" : "ltr"}>
+        <span className="text-primary text-xs">0{i + 1}</span><h3 className="font-semibold mt-1">{t(layer.title)}</h3><p className="text-muted-foreground mt-1 text-xs leading-relaxed">{t(layer.note)}</p>
+      </div>)}</div>
       <QuoteLink product="panels" className="px-0">{t({ ar: "اطلب عرض سعر للزجاج المزدوج ←", en: "Request a double glazing quote →" })}</QuoteLink>
     </div>
   </section>;

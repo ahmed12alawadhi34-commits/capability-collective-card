@@ -15,6 +15,7 @@ export const nav = [
 ] as const;
 
 export const brand = { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" };
+export const groupStats = { companies: 6, countries: 3, glassExperienceYears: 50, moreThan: true } as const;
 
 export const slogan = {
   ar: "نحن نسعى دائماً للتميز ولتقديم أفضل المنتجات والخدمات",
@@ -50,7 +51,7 @@ export const reasons = [
   { ar: "توريد سريع", en: "Fast delivery" },
   { ar: "مقاسات حسب الطلب", en: "Custom sizes" },
   { ar: "دعم فني متخصص", en: "Technical support" },
-  { ar: "خبرة مجموعة تمتد 50 عاماً", en: "Backed by 50 years of group experience" },
+  { ar: "أكثر من 50 عاماً في الزجاج", en: "50+ years in glass" },
 ];
 
 export const steps = [
