@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { watchVideoVisibility } from "@/lib/video-visibility";
 
 /** Muted looping video; light file on small screens, poster until ready, pauses when off screen. */
 export function BgVideo({ desktop, mobile, poster, className = "", preload = "auto" }: { desktop: string; mobile: string; poster: string; className?: string; preload?: "auto" | "metadata" }) {
@@ -6,11 +7,14 @@ export function BgVideo({ desktop, mobile, poster, className = "", preload = "au
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    v.src = window.matchMedia("(max-width: 767px)").matches ? mobile : desktop;
     v.playbackRate = 1;
-    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.05 });
-    io.observe(v);
-    return () => { io.disconnect(); v.pause(); };
+    return watchVideoVisibility(v, (onScreen) => {
+      if (onScreen) {
+        const src = window.matchMedia("(max-width: 767px)").matches ? mobile : desktop;
+        if (v.getAttribute("src") !== src) v.src = src;
+        v.play().catch(() => {});
+      } else v.pause();
+    });
   }, [desktop, mobile]);
   return <video ref={ref} poster={poster} muted loop playsInline preload={preload} aria-hidden className={`h-full w-full object-cover ${className}`} />;
 }
