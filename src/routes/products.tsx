@@ -11,6 +11,8 @@ export const Route = createFileRoute("/products")({
       { name: "description", content: "Tempered, laminated, double-glazed, facade glass and mirrors from Alawadhi for Glass Industry." },
       { property: "og:title", content: "منتجاتنا | العواضي لصناعة الزجاج" },
       { property: "og:description", content: "Tempered, laminated, double-glazed and architectural glass." },
+      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
     ],
   }),
   component: Products,

@@ -7,7 +7,7 @@ export function BgVideo({ desktop, mobile, poster, className = "", preload = "au
     const v = ref.current;
     if (!v) return;
     v.src = window.matchMedia("(max-width: 767px)").matches ? mobile : desktop;
-    v.playbackRate = 1.5;
+    v.playbackRate = 1;
     const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.05 });
     io.observe(v);
     return () => io.disconnect();
