@@ -1,4 +1,8 @@
 # Requested additions
+- [ ] Remove homepage gallery, retain factory photo only in Who we are, and prepare hidden Projects page with quote action.
+- [ ] Compact homepage products to two mobile columns and four desktop columns with centred final row.
+- [ ] Assign explicit lighter navy bands to Products, Who we are/Companies and Services; preserve white partners and dividers.
+- [ ] Verify cleanup in AR/EN on iPhone and desktop, including menus, images, quote action and console.
 - [x] Add bilingual scroll-driven double-glazing layers without pinning.
 - [x] Add realistic touch-friendly glass comparison.
 - [x] Add pausable global partner strip.
