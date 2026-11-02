@@ -265,7 +265,7 @@ html, body { overflow-x: clip; }
 @media (min-width: 1024px) {
   .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(200px, auto); }
   .why-big { grid-column: span 2; grid-row: span 2; min-height: 0; }
-  .why-grid > .why-card:last-child { grid-column: span 2; }
+  .why-grid > .why-card:last-child { grid-column: auto; }
 }
 .why-card { position: relative; overflow: hidden; border-radius: 1.5rem; padding: 28px; border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent); background: color-mix(in oklab, var(--card) 70%, transparent); }
 .why-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--primary) 18%, transparent), transparent 70%); }
