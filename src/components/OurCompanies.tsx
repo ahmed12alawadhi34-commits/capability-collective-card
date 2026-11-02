@@ -29,8 +29,8 @@ const countries: { flag: string; name: L; companies: Company[] }[] = [
 ];
 
 function Logo({ c, alt }: { c: Company; alt: string }) {
-  return <div className="company-logo-bg grid h-28 place-items-center rounded-2xl p-4">
-    {c.logo ? <img src={c.logo} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-contain" />
+  return <div className="company-logo-bg flex h-28 items-center justify-center overflow-hidden rounded-2xl p-4">
+    {c.logo ? <img src={c.logo} alt={alt} loading="lazy" decoding="async" className="block h-full w-full min-h-0 object-contain" />
       : <span role="img" aria-label={alt} className="grid h-16 w-16 place-items-center rounded-full bg-primary text-primary-foreground text-xl font-extrabold tracking-wider">AA</span>}
   </div>;
 }
@@ -54,7 +54,7 @@ export function OurCompanies() {
     <h2 className="text-center text-3xl md:text-5xl font-bold">{t({ ar: "شركاتنا", en: "Our Companies" })}</h2>
 
     <a data-co-parent href="https://www.alawadhigroup.net" target="_blank" rel="noopener noreferrer" className="company-card glass mx-auto mt-12 flex max-w-2xl flex-col items-center gap-5 rounded-3xl p-8 text-center sm:flex-row sm:text-start">
-      <div className="company-logo-bg grid h-28 w-40 shrink-0 place-items-center rounded-2xl p-3"><img src={groupLogo} alt={t({ ar: "مجموعة العواضي للتجارة والصناعة", en: "Al-Awadhi Group" })} loading="lazy" className="h-full w-full object-contain" /></div>
+      <div className="company-logo-bg flex h-28 w-40 shrink-0 items-center justify-center overflow-hidden rounded-2xl p-3"><img src={groupLogo} alt={t({ ar: "مجموعة العواضي للتجارة والصناعة", en: "Al-Awadhi Group" })} loading="lazy" className="block h-full w-full min-h-0 object-contain" /></div>
       <div className="min-w-0">
         <h3 className="text-xl md:text-2xl font-bold">{t({ ar: "مجموعة العواضي للتجارة والصناعة", en: "Al-Awadhi Group" })}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{t({ ar: "تأسست 1955 · في الزجاج منذ 1974", en: "Founded 1955 · In glass since 1974" })}</p>
