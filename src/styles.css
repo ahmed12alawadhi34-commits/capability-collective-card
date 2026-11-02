@@ -212,3 +212,9 @@ html, body { overflow-x: clip; }
   .partners-group { gap: 40px; padding-inline: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { .partners-track { animation: none; } .partners-window { overflow-x: auto; } }
+.company-card { box-shadow: 0 18px 40px -24px rgb(0 0 0 / .6); transition: transform .3s ease, box-shadow .3s ease; }
+.company-card:hover { transform: translateY(-6px); box-shadow: 0 28px 50px -24px rgb(0 0 0 / .7); }
+.company-logo-bg { background: oklch(0.97 0.01 240 / .92); }
+.company-line { background: linear-gradient(to bottom, var(--primary), transparent); background-size: 100% 200%; animation: company-line-flow 2.4s linear infinite; }
+@keyframes company-line-flow { from { background-position: 0 100%; } to { background-position: 0 -100%; } }
+@media (prefers-reduced-motion: reduce) { .company-card, .company-card:hover { transform: none; transition: none; } .company-line { animation: none; } }
