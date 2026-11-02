@@ -99,11 +99,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 <span key={p} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></span>
               )
             )}
-            {contactReady ? (
-              <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>
-            ) : (
-              <span className="flex gap-2"><Mail size={16} /><span dir="ltr">{EMAIL}</span></span>
-            )}
+            {EMAIL && <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>}
           </div>
         </div>
         <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Alawadhi for Glass Industry</div>
