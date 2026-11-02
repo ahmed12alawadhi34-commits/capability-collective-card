@@ -29,8 +29,8 @@ export function PartnersStrip() {
   const { t } = useLang();
   const { root, track } = useMarquee(38, "left", 1800);
   return <section ref={root} className="partners-section py-16 overflow-hidden">
-    <h2 className="px-5 text-center text-2xl md:text-3xl font-bold">{t({ ar: "شركاؤنا العالميون", en: "Our global partners" })}</h2>
-    <div className="partners-window mt-10" dir="ltr" tabIndex={0} aria-label={t({ ar: "شركاؤنا العالميون", en: "Our global partners" })}>
+    <h2 className="px-5 text-center text-2xl md:text-3xl font-bold">{t({ ar: "شركاء النجاح", en: "Partners of Success" })}</h2>
+    <div className="partners-window mt-10" dir="ltr" aria-label={t({ ar: "شركاء النجاح", en: "Partners of Success" })}>
       <div ref={track} className="partners-track">{[0, 1].map((copy) => <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="partners-group">{partners.map((p) => {
         const src = p.slug ? url(p.slug, "color") : undefined;
         return <li key={p.name} className={`partner-item ${["yale", "assaabloy", "obeikan", "casma"].includes(p.slug ?? "") ? "partner-compact" : ""}`}>

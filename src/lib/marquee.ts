@@ -10,14 +10,14 @@ export function useMarquee(seconds: number, direction: "left" | "right", touchPa
     const section = root.current, element = track.current;
     if (!section || !element) return;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = false, hovered = false, focused = false, pausedUntil = 0, progress = 0, last = 0, frame = 0;
+    let visible = false, hovered = false, pausedUntil = 0, progress = 0, last = 0, frame = 0;
     const render = () => {
       const width = element.scrollWidth / 2;
       element.style.transform = `translate3d(${direction === "left" ? -progress * width : (progress - 1) * width}px,0,0)`;
     };
     const tick = (now: number) => {
       const delta = last ? Math.min(now - last, 64) : 0; last = now;
-      if (visible && !hovered && !focused && now >= pausedUntil && !document.hidden) {
+      if (visible && !hovered && now >= pausedUntil && !document.hidden) {
         progress = (progress + delta / (marqueeDuration(seconds, media.matches) * 1000)) % 1;
         render();
       }
@@ -28,12 +28,10 @@ export function useMarquee(seconds: number, direction: "left" | "right", touchPa
     const enter = (e: PointerEvent) => { if (e.pointerType === "mouse") hovered = true; };
     const leave = () => { hovered = false; };
     const touch = (e: PointerEvent) => { if (e.pointerType !== "mouse") pausedUntil = performance.now() + touchPause; };
-    const focus = () => { focused = true; };
-    const blur = () => { focused = false; };
     section.addEventListener("pointerenter", enter); section.addEventListener("pointerleave", leave);
-    section.addEventListener("pointerdown", touch); section.addEventListener("focusin", focus); section.addEventListener("focusout", blur);
+    section.addEventListener("pointerdown", touch);
     const resize = new ResizeObserver(render); resize.observe(element); render(); frame = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(frame); io.disconnect(); resize.disconnect(); section.removeEventListener("pointerenter", enter); section.removeEventListener("pointerleave", leave); section.removeEventListener("pointerdown", touch); section.removeEventListener("focusin", focus); section.removeEventListener("focusout", blur); };
+    return () => { cancelAnimationFrame(frame); io.disconnect(); resize.disconnect(); section.removeEventListener("pointerenter", enter); section.removeEventListener("pointerleave", leave); section.removeEventListener("pointerdown", touch); };
   }, [seconds, direction, touchPause]);
   return { root, track };
 }
