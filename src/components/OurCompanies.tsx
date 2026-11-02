@@ -2,33 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { gsap, ScrollTrigger } from "@/lib/motion";
-import groupLogo from "@/assets/companies/group.webp";
-import trading from "@/assets/companies/trading.webp";
-import aden from "@/assets/companies/aden.webp";
-import cd from "@/assets/companies/cd.webp";
-import industry from "@/assets/companies/industry.webp";
-import oman from "@/assets/companies/oman.webp";
-import saudi from "@/assets/companies/saudi.webp";
-
-type L = { ar: string; en: string };
-type Company = { name: L; city: L; since: number; desc?: L; url?: string; logo?: string; here?: boolean };
-
-const countries: { flag: string; name: L; companies: Company[] }[] = [
-  { flag: "🇾🇪", name: { ar: "اليمن", en: "Yemen" }, companies: [
-    { name: { ar: "العواضي للتجارة المحدودة", en: "AL-AWADHI TRADING CO. LTD" }, city: { ar: "صنعاء", en: "Sana'a" }, since: 1974, desc: { ar: "الزجاج ومواد البناء والوكالات الحصرية", en: "Glass & building materials, exclusive agencies" }, url: "https://www.yemenglass.com", logo: trading },
-    { name: { ar: "العواضي للزجاج والتجارة", en: "Al-Awadhi Glass and Trading" }, city: { ar: "عدن", en: "Aden" }, since: 1974, desc: { ar: "الزجاج والتجارة – جنوب اليمن", en: "Glass & trading – southern Yemen" }, logo: aden },
-    { name: { ar: "البناء والتعمير للتجارة", en: "Construction & Development for Trading" }, city: { ar: "صنعاء", en: "Sana'a" }, since: 2008, desc: { ar: "تجارة مواد البناء والأدوات", en: "Building materials & hardware trading" }, url: "https://www.cdfortrading.com", logo: cd },
-    { name: { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" }, city: { ar: "صنعاء", en: "Sana'a" }, since: 2021, desc: { ar: "مصنع الزجاج المقسّى (سكوريت) والمزدوج", en: "Tempered (Securit) & double-glazed glass factory" }, logo: industry, here: true },
-  ] },
-  { flag: "🇴🇲", name: { ar: "عُمان", en: "Oman" }, companies: [
-    { name: { ar: "شركة العواضي للتجارة والوكالات", en: "Al-Awadhi Trading and Agencies Company" }, city: { ar: "مسقط", en: "Muscat" }, since: 2018, desc: { ar: "التجارة والوكالات في سلطنة عُمان", en: "Trading & agencies in Oman" }, url: "https://www.alawadhiom.com", logo: oman },
-  ] },
-  { flag: "🇸🇦", name: { ar: "السعودية", en: "Saudi Arabia" }, companies: [
-    { name: { ar: "شركة العواضي التجارية", en: "Al-Awadhi Trading Company" }, city: { ar: "الرياض", en: "Riyadh" }, since: 2024, desc: { ar: "التجارة ومواد البناء في السعودية", en: "Trading & building materials in Saudi Arabia" }, url: "https://www.alawadhi.sa", logo: saudi },
-  ] },
-];
-
-const companies = countries.flatMap((country) => country.companies.map((c) => ({ ...c, country: country.name, flag: country.flag })));
+import { companies, groupLogo, type Company } from "@/lib/companies";
 
 function Logo({ c, alt }: { c: Company; alt: string }) {
   return <div className="company-logo-bg flex h-28 items-center justify-center overflow-hidden rounded-2xl p-4">
@@ -67,7 +41,7 @@ export function OurCompanies() {
 
     <div aria-hidden className="flex justify-center"><span data-co-line className="company-line block h-16 w-px" /></div>
 
-    <div className="company-grid grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="company-grid grid auto-rows-fr gap-5">
       {companies.map((c) => <article key={c.name.en} data-co-card className={`company-card glass relative flex min-w-0 flex-col rounded-3xl p-5 ${c.here ? "ring-1 ring-primary/60" : ""}`}>
         <Logo c={c} alt={t(c.name)} />
         <h3 className="company-main-name mt-4 text-lg font-bold leading-snug">{t(c.name)}</h3>

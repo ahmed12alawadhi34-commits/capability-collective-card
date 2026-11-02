@@ -15,10 +15,9 @@ export function GlassLayers() {
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     const media = gsap.matchMedia();
-    media.add({ desktop: "(min-width: 768px)", mobile: "(max-width: 767px)", reduce: "(prefers-reduced-motion: reduce)" }, (ctx) => {
+    media.add({ desktop: "(min-width: 768px)", mobile: "(max-width: 767px)" }, (ctx) => {
       const root = section.current; if (!root) return;
       const desktop = ctx.conditions?.['desktop'];
-      const reduced = ctx.conditions?.['reduce'];
       const panes = root.querySelectorAll<HTMLElement>(".glass-layer");
       const stage = root.querySelector<HTMLElement>(".glass-layer-stage");
       if (!stage) return;
@@ -40,11 +39,6 @@ export function GlassLayers() {
       };
       const resize = new ResizeObserver(drawConnectors);
       resize.observe(stage);
-      if (reduced) {
-        panes.forEach((pane, i) => gsap.set(pane, desktop ? { x: spread()[i] ?? 0 } : { y: spread()[i] ?? 0 }));
-        drawConnectors();
-        return () => resize.disconnect();
-      }
       const timeline = gsap.timeline({ onUpdate: drawConnectors, scrollTrigger: { trigger: stage, start: "top 85%", end: "bottom 25%", scrub: .6, invalidateOnRefresh: true, onRefresh: drawConnectors } });
       timeline.to(panes, { x: (i: number) => desktop ? (spread()[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread()[i] ?? 0), duration: 1, ease: "power2.inOut" }, 0)
         .to({}, { duration: .5 })

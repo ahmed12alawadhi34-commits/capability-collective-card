@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { watchVideoInteraction } from "@/lib/video-interaction";
 import { watchVideoVisibility } from "@/lib/video-visibility";
 
 type Clip = { desktop: string; mobile: string; poster: string; label?: string };
@@ -14,11 +15,15 @@ export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { 
     const small = window.matchMedia("(max-width: 767px)").matches;
     const element = wrap.current;
     if (!element) return;
-    return watchVideoVisibility(element, (onScreen) => {
+    const stopInteraction = watchVideoInteraction(() => {
+      if (visible.current) vids.current[activeRef.current]?.play().catch(() => {});
+    });
+    const stopVisibility = watchVideoVisibility(element, (onScreen) => {
       visible.current = onScreen;
       if (onScreen) vids.current.forEach((v, i) => { const clip = clips[i]; if (v && clip) { const src = small ? clip.mobile : clip.desktop; if (v.getAttribute("src") !== src) v.src = src; v.playbackRate = 1; } });
       vids.current.forEach((v, i) => { if (!v) return; if (visible.current && i === activeRef.current) v.play().catch(() => {}); else v.pause(); });
     });
+    return () => { stopInteraction(); stopVisibility(); };
   }, [clips]);
 
   const activeRef = useRef(0);
