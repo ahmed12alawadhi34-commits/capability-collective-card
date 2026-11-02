@@ -36,3 +36,9 @@
 - [x] Add alternating navy bands, spacing and glass dividers without reordering.
 - [x] Keep four layer labels visible in a non-overlapping legend after reassembly.
 - [x] Verify animations, neutral transforms, hover reset, touch events, labels and no overflow/browser errors in Arabic/English at 1280 desktop and 440 iPhone sizes; build and 11 tests pass.
+# About page and phone motion update
+- [x] Keep core layers/marquees moving with Reduce Motion; retry blocked videos on interaction.
+- [x] Move full factory/company sections to About; add short homepage sections and navigation.
+- [x] Use dark partners band with uniform light logo tiles; show five non-factory companies.
+- [x] Verify AR/EN in Chromium at 390/1280 with reduced motion ON/OFF: moving marquees/layers, five cards, timeline, no overflow/errors, menu links and simulated blocked-autoplay gesture retry; 19 tests pass.
+- [ ] Verify on physical iPhone Safari and WhatsApp in-app browser with Low Power Mode — unavailable in sandbox.

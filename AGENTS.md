@@ -17,4 +17,8 @@
 - Homepage entrance tweens use explicit neutral end states and clear transforms; CSS hover transitions activate only after entrance completion to prevent GSAP/CSS transform conflicts.
 - Double-glazing labels are fixed beside the exploded pane positions with measured SVG connectors following each pane; keeping labels independent prevents reassembly overlap.
 - Homepage section backgrounds use explicit semantic section classes rather than positional selectors so reordering cannot change the requested band colours.
-- Homepage product chips are a visibility-controlled CSS marquee (duplicated list, opposite direction to partners); the Products page remains independent.
+- Partners and homepage product chips use a shared visibility-controlled JavaScript marquee, opposite directions; reduced motion slows core marquees without stopping them, while the Products page remains independent.
+
+- Company data is shared between the About grid and homepage logo row, excluding the current factory so both views stay consistent while group totals remain independent.
+- Full factory content is shared in a compact homepage variant and full About variant so the factory photo appears only on About.
+- Video gesture retries preserve the shared visibility owner; posters remain visible when autoplay is blocked.

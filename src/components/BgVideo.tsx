@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { watchVideoInteraction } from "@/lib/video-interaction";
 import { watchVideoVisibility } from "@/lib/video-visibility";
 
 /** Muted looping video; light file on small screens, poster until ready, pauses when off screen. */
@@ -8,13 +9,17 @@ export function BgVideo({ desktop, mobile, poster, className = "", preload = "au
     const v = ref.current;
     if (!v) return;
     v.playbackRate = 1;
-    return watchVideoVisibility(v, (onScreen) => {
+    let visible = false;
+    const stopInteraction = watchVideoInteraction(() => { if (visible) v.play().catch(() => {}); });
+    const stopVisibility = watchVideoVisibility(v, (onScreen) => {
+      visible = onScreen;
       if (onScreen) {
         const src = window.matchMedia("(max-width: 767px)").matches ? mobile : desktop;
         if (v.getAttribute("src") !== src) v.src = src;
         v.play().catch(() => {});
       } else v.pause();
     });
+    return () => { stopInteraction(); stopVisibility(); };
   }, [desktop, mobile]);
   return <video ref={ref} poster={poster} muted loop playsInline preload={preload} aria-hidden className={`h-full w-full object-cover ${className}`} />;
 }
