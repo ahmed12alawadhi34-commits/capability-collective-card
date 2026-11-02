@@ -50,7 +50,7 @@ export const reasons = [
   { ar: "توريد سريع", en: "Fast delivery" },
   { ar: "مقاسات حسب الطلب", en: "Custom sizes" },
   { ar: "دعم فني متخصص", en: "Technical support" },
-  { ar: "أكثر من 50 عاماً في الزجاج", en: "50+ years in glass" },
+  { ar: "عاماً في الزجاج منذ 1974", en: "Years in glass since 1974" },
 ];
 
 export const steps = [

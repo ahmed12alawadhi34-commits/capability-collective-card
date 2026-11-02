@@ -263,7 +263,7 @@ html, body { overflow-x: clip; }
 .why-grid > .why-card:last-child { grid-column: 1 / -1; }
 .why-big { grid-column: 1 / -1; min-height: 280px; display: flex; align-items: flex-end; }
 @media (min-width: 1024px) {
-  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(200px, auto); }
+  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(164px, auto); }
   .why-big { grid-column: span 2; grid-row: span 2; min-height: 0; }
   .why-grid > .why-card:last-child { grid-column: auto; }
 }
