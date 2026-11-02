@@ -50,9 +50,10 @@ export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { 
           onEnded={() => next(i)} onTimeUpdate={(e) => nearEnd(i, e.currentTarget)}
           className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-in-out ${fit === "cover" ? "object-cover" : "object-contain"} ${i === active ? "opacity-100" : "opacity-0"}`} />
       ))}
-      {clips.some((c) => c.label) && <div className="absolute bottom-5 inset-x-0 z-10 flex justify-center gap-2">
+      {clips.some((c) => c.label) && <div className="absolute bottom-4 inset-x-0 z-10 flex justify-center gap-2">
         {clips.map((c, i) => (
-          <span key={i} className={`video-label rounded-full px-4 py-1.5 text-sm font-semibold transition-opacity duration-500 ${i === active ? "text-primary" : "text-muted-foreground"}`}>{c.label}</span>
+          <button key={i} type="button" aria-pressed={i === active} onClick={() => setActive(i)}
+            className={`video-label cursor-pointer rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-500 ${i === active ? "text-primary border-primary/60" : "text-muted-foreground hover:text-foreground"}`}>{c.label}</button>
         ))}
       </div>}
     </div>
