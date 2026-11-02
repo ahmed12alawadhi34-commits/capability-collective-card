@@ -44,11 +44,11 @@ export function OurCompanies() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.from("[data-co-parent]", { y: 40, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "[data-co-parent]", start: "top 85%" } });
-      gsap.from("[data-co-line]", { scaleY: 0, transformOrigin: "top", duration: 1, ease: "power2.inOut", scrollTrigger: { trigger: "[data-co-line]", start: "top 85%" } });
+      gsap.fromTo("[data-co-parent]", { y: 40, opacity: 0 }, { y: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", scrollTrigger: { trigger: "[data-co-parent]", start: "top 85%", once: true } });
+      gsap.fromTo("[data-co-line]", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, clearProps: "transform", duration: 1, ease: "power2.inOut", scrollTrigger: { trigger: "[data-co-line]", start: "top 85%", once: true } });
       const cards = gsap.utils.toArray<HTMLElement>("[data-co-card]");
       gsap.set(cards, { y: 32, opacity: 0 });
-      ScrollTrigger.batch(cards, { start: "top 90%", once: true, onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" }) });
+      ScrollTrigger.batch(cards, { start: "top 90%", once: true, onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, clearProps: "transform", duration: 0.7, stagger: 0.08, ease: "power3.out" }) });
     }, root);
     return () => ctx.revert();
   }, [lang]);
