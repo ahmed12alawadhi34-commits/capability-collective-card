@@ -1,9 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, type PointerEvent } from "react";
-import { Check, ArrowUpRight, Truck, ClipboardCheck, Package } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { Check, Truck, ClipboardCheck, Package } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { products, reasons, steps, services, slogan, groupStats } from "@/lib/content";
-import { ProductIcon } from "@/components/ProductIcon";
+import { reasons, steps, services, slogan, groupStats } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import factory from "@/assets/p2.jpg";
 import { SequenceVideo } from "@/components/SequenceVideo";
@@ -26,6 +25,9 @@ import { GlassLayers } from "@/components/GlassLayers";
 import { PartnersStrip } from "@/components/PartnersStrip";
 import { OurCompanies } from "@/components/OurCompanies";
 import { QuoteLink } from "@/components/QuoteLink";
+import { GlassComparison } from "@/components/GlassComparison";
+import { HomeProductStrip } from "@/components/HomeProductStrip";
+import { FinalQuote } from "@/components/FinalQuote";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,8 +36,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Alawadhi for Glass Industry: precision tempered, laminated and double-glazed glass manufactured in Sana'a, Yemen." },
       { property: "og:title", content: "العواضي لصناعة الزجاج | Alawadhi for Glass Industry" },
       { property: "og:description", content: "Engineered Glass. Built for Yemen. — زجاج مُصنَّع بدقة لمشاريع اليمن." },
-      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
+      { property: "og:image", content: hrP.url },
+      { name: "twitter:image", content: hrP.url },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -48,15 +50,6 @@ function Line({ children, className = "" }: { children: string; className?: stri
   return <span className={`block overflow-hidden pb-1 ${className}`}><span data-line className="block">{children}</span></span>;
 }
 
-function tilt(e: PointerEvent<HTMLDivElement>) {
-  if (e.pointerType !== "mouse" || navigator.maxTouchPoints > 0 || !window.matchMedia("(hover: hover) and (pointer: fine)").matches || e.currentTarget.dataset['introReady'] !== "true") return;
-  const el = e.currentTarget, r = el.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-  el.style.transform = `perspective(800px) rotateY(${(x - 0.5) * 14}deg) rotateX(${(0.5 - y) * 14}deg) translateZ(0)`;
-  el.style.setProperty("--mx", `${x * 100}%`); el.style.setProperty("--my", `${y * 100}%`);
-}
-function untilt(e: PointerEvent<HTMLDivElement>) { e.currentTarget.style.transform = ""; }
-
 function Index() {
   const { t, lang } = useLang();
   const root = useRef<HTMLDivElement>(null);
@@ -65,8 +58,6 @@ function Index() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const productCards = gsap.utils.toArray<HTMLElement>("[data-card]");
-      productCards.forEach((card) => card.removeAttribute("data-intro-ready"));
       if (reduced) {
         gsap.set("[data-word], [data-hero-fade], [data-line], [data-card], [data-frame]", { opacity: 1, clearProps: "transform" });
         return;
@@ -79,9 +70,6 @@ function Index() {
 
       gsap.fromTo("[data-frame]", { opacity: 0, y: 40 }, { opacity: 1, y: 0, clearProps: "transform", duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%", once: true } });
 
-      const finePointer = navigator.maxTouchPoints === 0 && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      gsap.fromTo(productCards, { x: finePointer ? (lang === "ar" ? -80 : 80) : 0, rotateY: finePointer ? (lang === "ar" ? 25 : -25) : 0, opacity: 0 }, { x: 0, rotateY: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: "[data-cards]", start: "top 80%", once: true }, onComplete: () => productCards.forEach((card) => card.setAttribute("data-intro-ready", "true")) });
-
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
         const end = Number(el.dataset["count"]), o = { v: end > 1000 ? end - 60 : 0 };
         gsap.to(o, { v: end, duration: 2, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%" }, onUpdate: () => { el.textContent = Math.round(o.v).toString(); } });
@@ -92,7 +80,7 @@ function Index() {
 
     }, root);
     const r = setTimeout(() => ScrollTrigger.refresh(), 500);
-    return () => { clearTimeout(r); root.current?.querySelectorAll("[data-card]").forEach((card) => card.removeAttribute("data-intro-ready")); ctx.revert(); };
+    return () => { clearTimeout(r); ctx.revert(); };
   }, [lang]);
 
   return (
@@ -143,29 +131,6 @@ function Index() {
         </div>
       </section>
 
-      <PartnersStrip />
-
-      {/* PRODUCTS */}
-      <section className="section-light home-raised py-28 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "منتجاتنا", en: "Our products" })}</Line></h2>
-            <Link to="/products" className="text-primary text-sm inline-flex items-center gap-1">{t({ ar: "التفاصيل", en: "Details" })} <ArrowUpRight size={16} /></Link>
-          </div>
-          <div data-cards className="home-product-grid mt-8 lg:mt-12 [perspective:1000px]">
-            {products.map((p) => (
-              <div key={p.icon} data-card data-quote-product={p.icon} onPointerMove={tilt} onPointerLeave={untilt} onPointerCancel={untilt} className="product-card glass glare rounded-2xl p-4 lg:p-6">
-                <div className="text-primary"><ProductIcon name={p.icon} /></div>
-                <h3 className="mt-3 lg:mt-5 text-sm lg:text-base font-semibold leading-snug">{t(p.name)}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* DOUBLE GLAZING */}
-      <GlassLayers />
-
       {/* WHO WE ARE: continuous About and Companies block */}
       <div className="who-we-are section-light home-raised">
       <section className="mx-auto max-w-7xl px-5 pt-12 pb-8 grid gap-12 lg:grid-cols-2 items-center">
@@ -207,6 +172,14 @@ function Index() {
         </div>
       </div></section>
 
+      <PartnersStrip />
+
+      <GlassComparison className="home-comparison" />
+
+      <GlassLayers />
+
+      <HomeProductStrip />
+
       {/* SERVICES */}
       <section className="section-light home-raised py-28">
         <div className="mx-auto max-w-7xl px-5">
@@ -241,6 +214,8 @@ function Index() {
           </ol>
         </div>
       </section>
+
+      <FinalQuote />
 
     </div>
   );

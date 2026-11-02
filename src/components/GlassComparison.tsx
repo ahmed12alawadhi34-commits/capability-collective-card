@@ -4,11 +4,12 @@ import { useLang } from "@/lib/i18n";
 import normal from "@/assets/normal-glass-shards.jpg";
 import tempered from "@/assets/tempered-glass-granules.jpg";
 
-export function GlassComparison() {
+export function GlassComparison({ className = "" }: { className?: string }) {
   const { t } = useLang();
   const [position, setPosition] = useState(50);
   const frame = useRef<HTMLDivElement>(null);
-  return <section className="mx-auto max-w-7xl px-5 py-24" data-quote-product="shield">
+  return <section className={className || "mx-auto max-w-7xl px-5 py-24"} data-quote-product="shield">
+    <div className={className ? "mx-auto max-w-7xl px-5" : undefined}>
     <p className="text-xs uppercase text-primary">{t({ ar: "الفرق عند الكسر", en: "The difference when it breaks" })}</p>
     <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "سيكوريت أم زجاج عادي؟", en: "Tempered vs normal glass" })}</h2>
     <div className="mt-8 flex justify-between gap-6 text-sm md:text-lg font-semibold" dir="ltr">
@@ -20,6 +21,7 @@ export function GlassComparison() {
       <img src={normal} alt={t({ ar: "شظايا زجاج عادي حادة", en: "Sharp ordinary glass shards" })} width={1440} height={960} loading="lazy" className="absolute inset-0 h-full w-full object-cover" style={{ clipPath: `inset(0 ${100-position}% 0 0)` }} />
       <div className="comparison-divider" style={{ left: `${position}%` }}><span><ChevronsLeftRight size={22} /></span></div>
       <input type="range" min={5} max={95} value={position} onChange={(e) => setPosition(Number(e.target.value))} aria-label={t({ ar: "مقارنة الزجاج العادي والسيكوريت", en: "Compare normal and tempered glass" })} aria-valuetext={`${position}%`} className="comparison-range" />
+    </div>
     </div>
   </section>;
 }

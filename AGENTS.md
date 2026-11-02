@@ -15,6 +15,6 @@
 - Mobile uses native scrolling and non-blurred glass surfaces; video components pause inactive/off-screen clips to limit compositing and decoding.
 - Video visibility is coordinated by one shared observer in src/lib/video-visibility.ts; only the most visible video section plays, with overlap reserved for clip crossfades.
 - Homepage entrance tweens use explicit neutral end states and clear transforms; CSS hover transitions activate only after entrance completion to prevent GSAP/CSS transform conflicts.
-- Double-glazing labels live in a separate unframed legend rather than moving panes so reassembly cannot overlap or hide labels.
+- Double-glazing labels are fixed beside the exploded pane positions with measured SVG connectors following each pane; keeping labels independent prevents reassembly overlap.
 - Homepage section backgrounds use explicit semantic section classes rather than positional selectors so reordering cannot change the requested band colours.
-- Homepage product rows use a wrapping, fixed-basis flex layout so incomplete rows stay centred without changing card width.
+- Homepage product chips use a centred single desktop row and native horizontal mobile scrolling; the Products page remains independent.
