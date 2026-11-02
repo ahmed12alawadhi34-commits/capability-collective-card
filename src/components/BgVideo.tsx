@@ -10,7 +10,7 @@ export function BgVideo({ desktop, mobile, poster, className = "", preload = "au
     v.playbackRate = 1;
     const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.05 });
     io.observe(v);
-    return () => io.disconnect();
+    return () => { io.disconnect(); v.pause(); };
   }, [desktop, mobile]);
   return <video ref={ref} poster={poster} muted loop playsInline preload={preload} aria-hidden className={`h-full w-full object-cover ${className}`} />;
 }

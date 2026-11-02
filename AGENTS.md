@@ -11,3 +11,5 @@
 
 - Glass demonstrations live in additive presentation components; scroll timelines must never pin or intercept page scrolling to preserve the existing experience.
 - WhatsApp quote URLs and form validation are centralized in src/lib/whatsapp.ts; quotes leave via encoded browser links only and are not stored or submitted to an app server.
+- Company cards use one flattened grid and shared ScrollTrigger batch; partner animation starts and pauses with visibility to avoid off-screen work.
+- Mobile uses native scrolling and non-blurred glass surfaces; video components pause inactive/off-screen clips to limit compositing and decoding.

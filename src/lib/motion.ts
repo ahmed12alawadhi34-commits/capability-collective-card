@@ -7,7 +7,7 @@ let lenis: Lenis | null = null;
 /** Call from useEffect only. Sets up Lenis smooth scroll synced to ScrollTrigger once. */
 export function initSmoothScroll() {
   gsap.registerPlugin(ScrollTrigger);
-  if (lenis || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (lenis || window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
   lenis = new Lenis({ lerp: 0.1 });
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((t) => lenis?.raf(t * 1000));
