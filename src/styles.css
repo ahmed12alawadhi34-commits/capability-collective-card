@@ -233,7 +233,7 @@ html, body { overflow-x: clip; }
 .home-sections > section:not(:first-child), .home-sections > .who-we-are { position: relative; padding-block: 112px; }
 .home-sections > section:not(:first-child)::before, .home-sections > .who-we-are::before { content: ""; position: absolute; inset-inline: 20px; top: 0; height: 1px; background: var(--section-divider); }
 .home-sections > section:not(:first-child):not(.partners-section) { background: var(--section-dark); }
-.home-sections > section.section-light, .home-sections > .who-we-are { background: var(--section-raised); }
+.home-sections > section.home-raised:not(:first-child), .home-sections > .who-we-are { background: var(--section-raised); }
 .home-product-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
 .home-product-grid > .product-card { flex: 0 0 calc((100% - 16px) / 2); min-width: 0; min-height: 136px; }
 @media (min-width: 1024px) { .home-product-grid > .product-card { flex-basis: calc((100% - 48px) / 4); min-height: 192px; } }

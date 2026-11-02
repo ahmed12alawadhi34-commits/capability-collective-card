@@ -146,7 +146,7 @@ function Index() {
       <PartnersStrip />
 
       {/* PRODUCTS */}
-      <section className="section-light py-28 overflow-hidden">
+      <section className="section-light home-raised py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "منتجاتنا", en: "Our products" })}</Line></h2>
@@ -167,7 +167,7 @@ function Index() {
       <GlassLayers />
 
       {/* WHO WE ARE: continuous About and Companies block */}
-      <div className="who-we-are section-light">
+      <div className="who-we-are section-light home-raised">
       <section className="mx-auto max-w-7xl px-5 pt-12 pb-8 grid gap-12 lg:grid-cols-2 items-center">
         <div>
           <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "من نحن", en: "Who we are" })}</p>
@@ -208,7 +208,7 @@ function Index() {
       </div></section>
 
       {/* SERVICES */}
-      <section className="section-light py-28">
+      <section className="section-light home-raised py-28">
         <div className="mx-auto max-w-7xl px-5">
           <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "خدماتنا", en: "Our services" })}</Line></h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
