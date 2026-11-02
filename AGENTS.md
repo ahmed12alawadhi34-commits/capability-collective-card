@@ -17,4 +17,4 @@
 - Homepage entrance tweens use explicit neutral end states and clear transforms; CSS hover transitions activate only after entrance completion to prevent GSAP/CSS transform conflicts.
 - Double-glazing labels are fixed beside the exploded pane positions with measured SVG connectors following each pane; keeping labels independent prevents reassembly overlap.
 - Homepage section backgrounds use explicit semantic section classes rather than positional selectors so reordering cannot change the requested band colours.
-- Homepage product chips use a centred single desktop row and native horizontal mobile scrolling; the Products page remains independent.
+- Homepage product chips are a visibility-controlled CSS marquee (duplicated list, opposite direction to partners); the Products page remains independent.
