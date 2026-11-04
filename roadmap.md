@@ -48,15 +48,16 @@
 - [x] Rename the section to "شركاء النجاح / Partners of Success" in the heading and its accessible label.
 - [x] Verify AR/EN at 390 touch and 1280 desktop: tap pauses then resumes in ~2s, both strips keep moving, no overflow or console errors; 22 tests pass.
 # Final update: two new sections + fixes
-- [ ] Glass types section (SVG factory scene, 4 breakable panels, features row, mobile carousel) replacing home comparison
-- [ ] Production line section (600×600 blueprint SVG, 9 stations, traveling sheet, truck, info panel, step list, pause/restart) replacing steps list
-- [ ] Home order per spec; hero headline two lines, ~35% smaller, no clipping
-- [ ] Pin GlassLayers stage while layers assemble (scroll down assembles, up reverses)
-- [ ] iOS autoplay fix for all videos (muted/defaultMuted attrs, autoPlay, loadeddata/canplay play, 300ms retry)
-- [ ] Remove Staff Login everywhere + STAFF_LOGIN constant + server IP
-- [ ] Contact: Google Map iframe + Open in Google Maps button
-- [ ] 44px mobile tap targets
-- [ ] Language-aware title/description/og per page
-- [ ] SEO: sitemap.xml, robots.txt reference, canonical, SITE_URL constant
-- [ ] Small fixes: footer logo alt, /products hydration warning, الترجيج→التزجيج
-- [ ] Verify AR/EN, phone/desktop, reduced motion; tests + build
+- [x] Glass types section (SVG factory scene, 4 breakable panels, features row, mobile carousel) replacing home comparison
+- [x] Production line section (600×600 blueprint SVG, 9 stations, traveling sheet, truck, info panel, step list, pause/restart) replacing steps list
+- [x] Home order per spec; hero headline two lines, ~35% smaller, no clipping
+- [x] Pin GlassLayers stage while layers assemble (scroll down assembles, up reverses)
+- [x] iOS autoplay fix for all videos (muted/defaultMuted attrs, autoPlay, loadeddata/canplay play, 300ms retry)
+- [x] Remove Staff Login everywhere + STAFF_LOGIN constant + server IP
+- [x] Contact: Google Map iframe + Open in Google Maps button
+- [x] 44px mobile tap targets
+- [x] Language-aware title/description/og per page
+- [x] SEO: sitemap.xml, robots.txt reference, canonical, SITE_URL constant
+- [x] Small fixes: footer logo alt, /products hydration warning, الترجيج→التزجيج
+- [x] Verify AR/EN, phone/desktop, reduced motion; tests + build
+- [ ] Verify video autoplay on physical iPhone Safari/WhatsApp in-app browser (Low Power Mode OFF) — unavailable in sandbox.
