@@ -117,7 +117,7 @@ export function ProductionLine() {
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_minmax(0,600px)] items-start">
           {/* info panel + step list */}
           <div className="order-2 lg:order-1">
-            <div className="glass rounded-3xl p-6 min-h-44">
+            <div className="pl-info glass rounded-3xl p-6 min-h-44">
               <p className="text-xs text-primary font-semibold" dir="auto">{t({ ar: `المرحلة ${step + 1} من 9`, en: `Step ${step + 1} of 9` })}</p>
               <h3 className="mt-2 text-2xl font-bold">{t(current.name)}</h3>
               <p className="mt-3 text-muted-foreground leading-relaxed">{t(current.desc)}</p>
