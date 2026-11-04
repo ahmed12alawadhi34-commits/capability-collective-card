@@ -8,21 +8,33 @@ import logo from "@/assets/logo-white.png";
 import mark from "@/assets/mark-white.png";
 import { initSmoothScroll } from "@/lib/motion";
 import { quoteUrl, visibleProduct } from "@/lib/whatsapp";
+import { GoogleReviewsLink } from "@/components/GoogleReviewsLink";
 
 function Loader() {
   const [hide, setHide] = useState(false);
   const [gone, setGone] = useState(false);
   useEffect(() => {
-    const a = setTimeout(() => setHide(true), 900);
-    const b = setTimeout(() => setGone(true), 1600);
+    let seen = false;
+    try { seen = sessionStorage.getItem("aw-loader") === "1"; sessionStorage.setItem("aw-loader", "1"); } catch { seen = false; }
+    if (seen) { setGone(true); return; }
+    const a = setTimeout(() => setHide(true), 250);
+    const b = setTimeout(() => setGone(true), 600);
     return () => { clearTimeout(a); clearTimeout(b); };
   }, []);
   if (gone) return null;
   return (
-    <div className={`fixed inset-0 z-[100] grid place-items-center bg-night transition-opacity duration-700 ${hide ? "opacity-0 pointer-events-none" : ""}`}>
+    <div className={`fixed inset-0 z-[100] grid place-items-center bg-night transition-opacity duration-300 ${hide ? "opacity-0 pointer-events-none" : ""}`}>
       <div className="shine p-6"><img src={logo} alt="" width={824} height={415} className="w-56" /></div>
     </div>
   );
+}
+
+function UkFlag() {
+  return <svg width="20" height="14" viewBox="0 0 60 42" aria-hidden="true" className="shrink-0 rounded-[3px]"><clipPath id="ukc"><rect width="60" height="42" rx="5" /></clipPath><g clipPath="url(#ukc)"><rect width="60" height="42" fill="#012169" /><path d="M0 0l60 42M60 0L0 42" stroke="#fff" strokeWidth="8" /><path d="M0 0l60 42M60 0L0 42" stroke="#C8102E" strokeWidth="3" /><path d="M30 0v42M0 21h60" stroke="#fff" strokeWidth="12" /><path d="M30 0v42M0 21h60" stroke="#C8102E" strokeWidth="7" /></g></svg>;
+}
+
+function YemenFlag() {
+  return <svg width="20" height="14" viewBox="0 0 60 42" aria-hidden="true" className="shrink-0 rounded-[3px]"><clipPath id="yec"><rect width="60" height="42" rx="5" /></clipPath><g clipPath="url(#yec)"><rect width="60" height="14" fill="#CE1126" /><rect y="14" width="60" height="14" fill="#fff" /><rect y="28" width="60" height="14" fill="#000" /></g></svg>;
 }
 
 function useReveal() {
@@ -65,7 +77,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <Loader />
       <LangMeta />
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled || open ? "glass mx-3 mt-3 rounded-full lg:mx-auto lg:max-w-6xl" : ""}`}>
-        <div className={`mx-auto max-w-7xl px-5 flex transition-all duration-500 ${scrolled ? "py-2" : "py-5"} items-center justify-between gap-4`}>
+        <div className={`mx-auto max-w-7xl px-5 flex transition-all duration-500 ${scrolled ? "py-2" : "py-5"} items-center justify-between gap-2 sm:gap-4`}>
           <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
             <img src={mark} alt={t(brand)} width={388} height={191} className={`w-auto transition-all duration-500 ${scrolled ? "h-7" : "h-10"}`} />
             <span className="text-sm font-bold leading-tight hidden sm:block">{t(brand)}</span>
@@ -76,8 +88,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} className="glass rounded-full px-3 py-1.5 min-h-11 min-w-11 text-xs font-semibold">{lang === "ar" ? "EN" : "ع"}</button>
-            <button className="lg:hidden p-1 min-h-11 min-w-11 grid place-items-center" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
+            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"} className="glass rounded-full h-11 px-3.5 py-2 inline-flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
+              {lang === "ar" ? <UkFlag /> : <YemenFlag />}<span lang={lang === "ar" ? "en" : "ar"}>{lang === "ar" ? "English" : "عربي"}</span>
+            </button>
+            <button className="lg:hidden h-11 w-11 shrink-0 grid place-items-center" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
           </div>
         </div>
         {open && (
@@ -113,6 +127,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               )
             )}
             {EMAIL && <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>}
+            <GoogleReviewsLink className="mt-2 self-start" />
           </div>
         </div>
         <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Alawadhi for Glass Industry</div>

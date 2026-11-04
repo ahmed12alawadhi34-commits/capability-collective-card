@@ -9,8 +9,8 @@ import { glassOrder, INITIAL_BOUNDARIES, moveBoundary } from "@/lib/glass-compar
 
 const glass = {
   ordinary: { image: normal, tab: { ar: "عادي", en: "Ordinary" }, label: { ar: "زجاج عادي: قطع حادة وخطيرة", en: "Ordinary: sharp, dangerous shards" }, alt: { ar: "شظايا زجاج عادي حادة", en: "Sharp ordinary glass shards" } },
-  tempered: { image: tempered, tab: { ar: "سيكوريت", en: "Tempered" }, label: { ar: "سيكوريت: حبيبات صغيرة آمنة", en: "Tempered: small safe granules" }, alt: { ar: "حبيبات زجاج مقسّى مكسور", en: "Small granules of broken tempered glass" } },
-  laminated: { image: laminated, tab: { ar: "لامينيت", en: "Laminated" }, label: { ar: "لامينيت: يتشقق لكن يبقى متماسكاً", en: "Laminated: cracks but stays in one piece" }, alt: { ar: "زجاج لامينيت متشقق يبقى متماسكاً داخل إطاره", en: "Cracked laminated glass held in one piece in its frame" } },
+  tempered: { image: tempered, tab: { ar: "سيكوريت (مقسّى)", en: "Tempered (Securit)" }, label: { ar: "سيكوريت (مقسّى): حبيبات صغيرة آمنة", en: "Tempered (Securit): small safe granules" }, alt: { ar: "حبيبات زجاج مقسّى مكسور", en: "Small granules of broken tempered glass" } },
+  laminated: { image: laminated, tab: { ar: "لامينيت (مجلتن)", en: "Laminated" }, label: { ar: "لامينيت (مجلتن): يتشقق لكن يبقى متماسكاً", en: "Laminated: cracks but stays in one piece" }, alt: { ar: "زجاج لامينيت متشقق يبقى متماسكاً داخل إطاره", en: "Cracked laminated glass held in one piece in its frame" } },
 };
 
 export function GlassComparison({ className = "" }: { className?: string }) {

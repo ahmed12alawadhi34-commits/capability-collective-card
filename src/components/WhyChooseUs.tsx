@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { ShieldCheck, Factory, Truck, Ruler, Headset } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { reasons } from "@/lib/content";
-import { gsap } from "@/lib/motion";
+import { gsap, ensureVisible } from "@/lib/motion";
 
 const icons = [ShieldCheck, Factory, Truck, Ruler, Headset];
 
@@ -37,7 +37,8 @@ export function WhyChooseUs() {
           onUpdate: () => { counter.textContent = String(Math.round(o.v)); }, onComplete: () => { counter.textContent = "50"; } });
       }
     }, el);
-    return () => ctx.revert();
+    const stop = ensureVisible(cards);
+    return () => { stop(); ctx.revert(); };
   }, [lang]);
 
   const spot = (e: React.PointerEvent<HTMLElement>) => {
