@@ -1,9 +1,10 @@
 # Requested additions
-- [ ] Restore shared photo comparison with Laminated tab; remove rejected glass-types scene.
-- [ ] Shorten layer assembly to 100vh with scrub 0.5 and preserve connectors.
-- [ ] Download all CDN media, use local references, remove pointers without deleting remote objects.
-- [ ] Standalone clean npm setup, Cloudflare/Node deployment guide, one-origin sitemap/robots generation.
-- [ ] Verify AR/EN phone/desktop, tabs, scrolling, 44px links, local videos/logos and tests.
+- [x] Restore shared photo comparison with Laminated tab; remove rejected glass-types scene.
+- [x] Shorten layer assembly to 100vh with scrub 0.5 and preserve connectors.
+- [x] Download all 60 CDN media files, use local references, remove pointers without deleting remote objects.
+- [x] Standalone npm setup (clean public-registry install verified), Cloudflare/Node deployment guide, one-origin sitemap/robots generation.
+- [x] Verify AR/EN phone/desktop, tabs, scrolling, 44px links, local videos/logos and tests; no browser errors.
+- [ ] Independent Node/Pages deployment and built-output URL scan — output artifacts unavailable in the sandbox; target deployments not executed. Current preview build checks pass.
 - [ ] Exact contact location — blocked: uploaded brief contains only [GOOGLE MAPS LINK].
 - [x] Reorder homepage to uploaded structure; restore full-size comparison and preserve Products page.
 - [x] Replace homepage product cards with seven linked compact chips and add final quote/WhatsApp panel.

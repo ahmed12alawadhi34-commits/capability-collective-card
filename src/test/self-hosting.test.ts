@@ -3,12 +3,15 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { comparisonPair } from "@/lib/glass-comparison";
 import { SITE_URL } from "@/lib/seo";
+import { LAYER_SCRUB, layerScrollDistance } from "@/lib/layer-scroll";
 
 function files(dir: string): string[] {
   return readdirSync(dir).flatMap(name => { const path = join(dir, name); return statSync(path).isDirectory() ? files(path) : [path]; });
 }
 
 describe("independent hosting and comparison rules", () => {
+  it("limits assembly to one viewport on mobile and desktop", () => { expect(layerScrollDistance(807)).toBe(807); expect(layerScrollDistance(1800)).toBe(1800); });
+  it("smooths assembly with the requested 0.5 second scrub", () => expect(LAYER_SCRUB).toBe(0.5));
   it("compares Ordinary with Tempered by default", () => expect(comparisonPair("ordinary")).toEqual(["ordinary", "tempered"]));
   it("keeps the original comparison when Tempered is selected", () => expect(comparisonPair("tempered")).toEqual(["ordinary", "tempered"]));
   it("compares Tempered with Laminated when Laminated is selected", () => expect(comparisonPair("laminated")).toEqual(["tempered", "laminated"]));
