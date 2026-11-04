@@ -22,7 +22,7 @@ Change **only `SITE_URL` in `src/lib/seo.ts`** to your production HTTPS origin (
 
 | Hosting | Command after `npm install` | Deploy folder / entry |
 | --- | --- | --- |
-| Cloudflare Workers (default) | `npm run build` or `npm run build:workers` | `dist/`, generated `dist/wrangler.json` |
+| Cloudflare Workers (default) | `npm run build` or `npm run build:workers` | `dist/`, generated `dist/server/wrangler.json` |
 | Cloudflare Pages | `npm run build:pages` | `dist/` including `_worker.js` |
 | Linux / Node (`node-server`) | `npm run build:node` | `.output/`, entry `.output/server/index.mjs` |
 
@@ -48,10 +48,10 @@ Deploy the **entire** output folder: client assets alone are not sufficient for 
 npm install
 npm run build:workers
 npx wrangler login
-npx wrangler deploy --config dist/wrangler.json --name alawadhi-glass
+npx wrangler deploy --config dist/server/wrangler.json --name alawadhi-glass
 ```
 
-Use the generated config, which includes the server entry, static assets binding and Node compatibility. In **Workers & Pages → alawadhi-glass → Settings → Domains & Routes → Add → Custom domain**, add `alawadhi-ind.com`. Do not deploy Pages and Workers to the same domain simultaneously. Free Worker quotas apply.
+Use the generated config, which includes the server entry, static assets binding and Node compatibility. In **Workers & Pages → alawadhi-glass → Settings → Domains & Routes → Add → Custom domain**, add `alawadhi-ind.com`. Do not deploy Pages and Workers to the same domain simultaneously. Free Worker quotas apply. The included `.npmrc` uses npm's legacy peer-resolution mode to avoid an npm 10 optional-peer resolver failure; the public-registry lockfile contains no sandbox file links.
 
 ### Own Linux server: Node, PM2, nginx and free SSL
 
