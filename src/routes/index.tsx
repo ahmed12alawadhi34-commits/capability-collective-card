@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
-import { gsap, ScrollTrigger } from "@/lib/motion";
+import { gsap, ScrollTrigger, ensureVisible } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
 const hr = { url: "/media/videos/hero-rollers.mp4" };
 const hrM = { url: "/media/videos/hero-rollers-m.mp4" };

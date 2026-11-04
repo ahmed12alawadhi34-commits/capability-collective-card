@@ -28,7 +28,8 @@ export function ensureVisible(targets: Iterable<Element> | ArrayLike<Element>, d
     io.unobserve(e.target);
     timers.push(setTimeout(() => {
       const el = e.target as HTMLElement;
-      if (parseFloat(getComputedStyle(el).opacity) < 1) gsap.set(el, { opacity: 1, clearProps: "transform" });
+      const cs = getComputedStyle(el);
+      if (parseFloat(cs.opacity) < 1 || (cs.transform !== "none" && el.hasAttribute("data-co-line"))) gsap.set(el, { opacity: 1, clearProps: "transform" });
     }, delay));
   }));
   els.forEach((el) => io.observe(el));
