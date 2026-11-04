@@ -72,7 +72,8 @@ function Index() {
 
     }, root);
     const r = setTimeout(() => ScrollTrigger.refresh(), 500);
-    return () => { clearTimeout(r); ctx.revert(); };
+    const stop = ensureVisible(document.querySelectorAll("[data-frame]"));
+    return () => { stop(); clearTimeout(r); ctx.revert(); };
   }, [lang]);
 
   return (
