@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { nitro } from "nitro/vite";
 import { generateSeo } from "./scripts/generate-seo.mjs";
+import { SECURITY_HEADERS } from "./src/lib/security-headers";
 
 export default defineConfig(({ command }) => {
   const preset = process.env['SITE_BUILD_TARGET'] || "cloudflare-module";
@@ -18,6 +19,7 @@ export default defineConfig(({ command }) => {
       react(), tailwindcss(),
       ...(command === "build" ? [nitro({
         preset,
+        routeRules: { "/**": { headers: { ...SECURITY_HEADERS } } },
         compatibilityDate: "2026-11-04",
         ...(preset === "cloudflare-module" ? { output: { dir: "dist", serverDir: "dist/server", publicDir: "dist/client" } } : {}),
         ...(preset.startsWith("cloudflare") ? { cloudflare: { nodeCompat: true, deployConfig: true } } : {}),

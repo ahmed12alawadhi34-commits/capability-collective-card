@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { ChevronsLeftRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import normal from "@/assets/normal-glass-shards.jpg";
-import tempered from "@/assets/tempered-glass-granules.jpg";
-import laminated from "@/assets/laminated-glass-cracks.jpg";
+import normal from "@/assets/normal-glass-shards.webp";
+import tempered from "@/assets/tempered-glass-granules.webp";
+import laminated from "@/assets/laminated-glass-cracks.webp";
 import { Button } from "@/components/ui/button";
 import { glassOrder, INITIAL_BOUNDARIES, moveBoundary } from "@/lib/glass-comparison";
 

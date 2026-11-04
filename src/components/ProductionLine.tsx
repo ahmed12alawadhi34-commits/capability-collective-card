@@ -108,7 +108,7 @@ export function ProductionLine() {
 
   const current = lineSteps[step]!;
   return (
-    <section ref={root} className="bg-night py-28">
+    <section ref={root} className="section-light home-raised py-28">
       <div className="mx-auto max-w-7xl px-5">
         <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "داخل المصنع", en: "Inside the factory" })}</p>
         <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "رحلة لوح الزجاج داخل المصنع", en: "A glass sheet's journey through the factory" })}</h2>

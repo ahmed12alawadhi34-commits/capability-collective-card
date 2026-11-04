@@ -24,3 +24,5 @@
 - Video gesture retries preserve the shared visibility owner; posters remain visible when autoplay is blocked.
 - Serve media through repository-local public/media paths, preserving remote originals for rollback; independent hosting must not depend on editor telemetry or asset proxies.
 - Standalone Vite/Start/Nitro configuration supports Cloudflare and Node presets; generate sitemap and robots during builds from the single SITE_URL in seo.ts.
+- Production security headers are centralized in src/lib/security-headers.ts, mirrored in public/_headers and applied to Fetch responses plus Nitro global route rules so SSR and static delivery remain protected across hosts; development avoids production framing restrictions needed for the embedded editor preview.
+- NOINDEX_PATHS in seo.ts drives route robots metadata and sitemap exclusions so hidden coming-soon pages remain reachable without being indexed.

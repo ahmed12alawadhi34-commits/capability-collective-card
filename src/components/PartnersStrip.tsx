@@ -32,7 +32,7 @@ export function PartnersStrip() {
       <div ref={track} className="partners-track">{[0, 1].map((copy) => <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="partners-group">{partners.map((p) => {
         const src = p.slug ? url(p.slug, "color") : undefined;
         return <li key={p.name} className={`partner-item ${["yale", "assaabloy", "obeikan", "casma"].includes(p.slug ?? "") ? "partner-compact" : ""}`}>
-          {src ? <img src={src} alt={copy === 1 ? "" : p.name} loading="lazy" decoding="async" draggable={false} className="partner-logo" /> : <span className="partner-name">{p.name}</span>}
+          {src ? <img src={src} alt={copy === 1 ? "" : p.name} width={320} height={160} loading="lazy" decoding="async" draggable={false} className="partner-logo" /> : <span className="partner-name">{p.name}</span>}
         </li>;
       })}</ul>)}</div>
     </div>
