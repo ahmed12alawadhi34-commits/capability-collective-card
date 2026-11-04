@@ -6,7 +6,7 @@ import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } fro
 import { pageHead } from "@/lib/seo";
 import { quoteUrl } from "@/lib/whatsapp";
 
-const MAP_QUERY = "Al-Qaidi Industrial Area, Sana'a, Yemen";
+const MAP_QUERY = "العواضي لصناعة الزجاج، المنطقة الصناعية القاع، القيضي، صنعاء";
 const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
 const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 

@@ -22,8 +22,8 @@ export const slogan = {
 };
 
 export const address = {
-  ar: "المنطقة الصناعية القيضي، صنعاء، اليمن",
-  en: "Al-Qaidi Industrial Area, Sana'a, Yemen",
+  ar: "المنطقة الصناعية القاع – القيضي، صنعاء، اليمن",
+  en: "Al-Qa' Industrial Area – Al-Qaidi, Sana'a, Yemen",
 };
 
 export const hours = { ar: "السبت – الخميس: 8:00 ص – 5:00 م", en: "Sat – Thu: 8:00 AM – 5:00 PM" };
@@ -36,12 +36,6 @@ export const products = [
   { icon: "spray", name: { ar: "زجاج مرمّل (ساندبلاست)", en: "Sandblasted Glass" }, desc: { ar: "تشطيب مصنفر أنيق مع إمكانية تنفيذ النقوش والشعارات والنصوص على الزجاج.", en: "An elegant frosted finish, with patterns, logos and text sandblasted onto the glass." } },
   { icon: "palette", name: { ar: "زجاج معشّق ورسم على الزجاج", en: "Decorative & Stained Glass" }, desc: { ar: "زجاج معشّق ملوّن ورسم فني على الزجاج للتصاميم الداخلية الراقية.", en: "Coloured stained glass and hand-painted artwork on glass for refined interiors." } },
   { icon: "armchair", name: { ar: "زجاج الأثاث والأشكال", en: "Furniture Glass & Custom Shapes" }, desc: { ar: "زجاج للطاولات والأثاث بأشكال ومقاسات خاصة حسب الطلب، مع تشطيب حواف دقيق.", en: "Glass for tables and furniture in custom shapes and sizes, with precise edge finishing." } },
-] as const;
-
-export const services = [
-  { icon: "truck", name: { ar: "توصيل سريع وآمن", en: "Fast, safe delivery" }, desc: { ar: "سيارات نقل مجهزة خصيصاً لنقل الزجاج تصل إلى موقعك بسرعة وأمان.", en: "Specially equipped glass trucks deliver to your site quickly and safely." } },
-  { icon: "check", name: { ar: "فحص الجودة", en: "Quality inspection" }, desc: { ar: "فحص دقيق للجودة قبل التسليم وبعده لضمان مطابقة المواصفات.", en: "Careful quality inspection before and after delivery to guarantee specifications." } },
-  { icon: "crate", name: { ar: "تغليف احترافي", en: "Professional packing" }, desc: { ar: "تغليف في صناديق خشبية متينة يحمي الزجاج أثناء النقل والتخزين.", en: "Sturdy wooden-crate packing that protects glass during transport and storage." } },
 ] as const;
 
 export const reasons = [
