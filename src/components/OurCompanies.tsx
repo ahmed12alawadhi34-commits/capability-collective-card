@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { gsap, ScrollTrigger } from "@/lib/motion";
+import { gsap, ScrollTrigger, ensureVisible } from "@/lib/motion";
 import { companies, groupLogo, type Company } from "@/lib/companies";
 
 function Logo({ c, alt }: { c: Company; alt: string }) {
@@ -24,7 +24,8 @@ export function OurCompanies() {
       gsap.set(cards, { y: 32, opacity: 0 });
       ScrollTrigger.batch(cards, { start: "top 90%", once: true, onEnter: (batch) => gsap.to(batch, { y: 0, opacity: 1, clearProps: "transform", duration: 0.7, stagger: 0.08, ease: "power3.out" }) });
     }, root);
-    return () => ctx.revert();
+    const stop = ensureVisible(root.current?.querySelectorAll("[data-co-parent], [data-co-card], [data-co-line]") ?? []);
+    return () => { stop(); ctx.revert(); };
   }, [lang]);
 
   return <section ref={root} className="mx-auto max-w-7xl px-5 pt-8 pb-24">

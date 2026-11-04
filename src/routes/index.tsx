@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
-import { pageHead } from "@/lib/seo";
-import { gsap, ScrollTrigger } from "@/lib/motion";
+import { pageHead, localBusinessJsonLd } from "@/lib/seo";
+import { gsap, ScrollTrigger, ensureVisible } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
 const hr = { url: "/media/videos/hero-rollers.mp4" };
 const hrM = { url: "/media/videos/hero-rollers-m.mp4" };
@@ -28,10 +28,11 @@ import { GlassComparison } from "@/components/GlassComparison";
 import { ProductionLine } from "@/components/ProductionLine";
 import { HomeProductStrip } from "@/components/HomeProductStrip";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
+import { Capabilities } from "@/components/Capabilities";
 import { FinalQuote } from "@/components/FinalQuote";
 
 export const Route = createFileRoute("/")({
-  head: () => pageHead("/"),
+  head: () => ({ ...pageHead("/"), scripts: [localBusinessJsonLd()] }),
   component: Index,
 });
 
@@ -71,7 +72,8 @@ function Index() {
 
     }, root);
     const r = setTimeout(() => ScrollTrigger.refresh(), 500);
-    return () => { clearTimeout(r); ctx.revert(); };
+    const stop = ensureVisible(document.querySelectorAll("[data-frame]"));
+    return () => { stop(); clearTimeout(r); ctx.revert(); };
   }, [lang]);
 
   return (
@@ -95,7 +97,7 @@ function Index() {
               <span data-hero-fade className="mt-3 block text-lg md:text-2xl font-semibold leading-[1.5] text-muted-foreground">{subline}</span>
             </h1>
             <p data-hero-fade className="relative mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-              {t({ ar: "زجاج مقسّى ومعشّق ومزدوج بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered, laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
+              {t({ ar: "سيكوريت (مقسّى) ولامينيت (مجلتن) وزجاج مزدوج بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered (Securit), laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
             </p>
             <div data-hero-fade className="relative mt-9 flex flex-wrap gap-3">
               <Link to="/products" className="rounded-full bg-primary text-primary-foreground px-7 py-3.5 font-semibold">{t({ ar: "منتجاتنا", en: "Our Products" })}</Link>
@@ -128,6 +130,7 @@ function Index() {
       <GroupCompaniesRow />
 
       <WhyChooseUs />
+      <Capabilities />
 
       <PartnersStrip />
 

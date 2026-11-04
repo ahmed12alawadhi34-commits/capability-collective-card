@@ -3,15 +3,14 @@ import { MapPin, Phone, Mail, Clock, MessageCircle, ExternalLink } from "lucide-
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } from "@/lib/content";
-import { pageHead } from "@/lib/seo";
+import { pageHead, localBusinessJsonLd } from "@/lib/seo";
 import { quoteUrl } from "@/lib/whatsapp";
 
-const MAP_QUERY = "العواضي لصناعة الزجاج، المنطقة الصناعية القاع، القيضي، صنعاء";
-const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
-const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
+import { MAP_EMBED, MAP_LINK } from "@/lib/maps";
+import { GoogleReviewsLink } from "@/components/GoogleReviewsLink";
 
 export const Route = createFileRoute("/contact")({
-  head: () => pageHead("/contact"),
+  head: () => ({ ...pageHead("/contact"), scripts: [localBusinessJsonLd()] }),
   component: Contact,
 });
 
@@ -64,6 +63,7 @@ function Contact() {
           <a href={MAP_LINK} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full glass px-6 py-3 text-sm font-semibold text-primary hover:no-underline">
             <ExternalLink size={16} /> {t({ ar: "افتح في خرائط جوجل", en: "Open in Google Maps" })}
           </a>
+          <GoogleReviewsLink className="mt-4 ms-3" />
         </div>
       </div></section>
     </>

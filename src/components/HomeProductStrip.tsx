@@ -6,9 +6,9 @@ import { products } from "@/lib/content";
 import { useLang } from "@/lib/i18n";
 
 const names = [
-  { ar: "سيكوريت", en: "Securit" },
+  { ar: "سيكوريت (مقسّى)", en: "Tempered (Securit)" },
   { ar: "سيكوريت منحني", en: "Curved Securit" },
-  { ar: "مجلتن", en: "Laminated" },
+  { ar: "لامينيت (مجلتن)", en: "Laminated" },
   { ar: "دبل جلاس", en: "Double glazing" },
   { ar: "ساندبلاست", en: "Sandblasted" },
   { ar: "معشّق ورسم على الزجاج", en: "Stained & painted" },

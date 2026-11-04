@@ -15,3 +15,23 @@ export function initSmoothScroll() {
 }
 
 export { gsap, ScrollTrigger };
+
+/**
+ * Safety net for entrance tweens that start at opacity 0: once an element enters
+ * the viewport, force it visible after 1.5s so jumps or fast scrolls never leave it hidden.
+ */
+export function ensureVisible(targets: Iterable<Element> | ArrayLike<Element>, delay = 1500) {
+  const els = Array.from(targets as ArrayLike<Element>);
+  const timers: ReturnType<typeof setTimeout>[] = [];
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    timers.push(setTimeout(() => {
+      const el = e.target as HTMLElement;
+      const cs = getComputedStyle(el);
+      if (parseFloat(cs.opacity) < 1 || (cs.transform !== "none" && el.hasAttribute("data-co-line"))) gsap.set(el, { opacity: 1, clearProps: "transform" });
+    }, delay));
+  }));
+  els.forEach((el) => io.observe(el));
+  return () => { io.disconnect(); timers.forEach(clearTimeout); };
+}

@@ -51,6 +51,7 @@ function Quote() {
         {input("phone", { ar: "رقم الهاتف", en: "Phone" }, "tel")}
         <label className="grid gap-2 text-sm md:col-span-2"><span>{t({ ar: "ملاحظات", en: "Notes" })}</span><textarea name="notes" rows={4} maxLength={1000} className={field} value={f.notes} onChange={set("notes")} /></label>
         <Button type="submit" className="md:col-span-2 h-auto rounded-full py-3.5 font-semibold"><MessageCircle />{t({ ar: "إرسال عبر واتساب", en: "Send via WhatsApp" })}</Button>
+        <p className="md:col-span-2 -mt-2 text-center text-xs text-muted-foreground">{t({ ar: "بياناتك تُرسل مباشرة إلى واتساب المصنع فقط ولا تُحفظ في الموقع", en: "Your details are sent only to our WhatsApp and are not stored on the website." })}</p>
       </form>
     </section>
   </>;
