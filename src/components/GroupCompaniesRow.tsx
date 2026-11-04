@@ -11,7 +11,7 @@ export function GroupCompaniesRow() {
       <h2 className="text-center text-2xl md:text-3xl font-bold">{t({ ar: "شركات المجموعة", en: "Group companies" })}</h2>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         {companies.map((company) => {
-          const logo = <img src={company.logo} alt={t(company.name)} loading="lazy" decoding="async" className="h-full w-full object-contain" />;
+          const logo = <img src={company.logo} alt={t(company.name)} width={320} height={160} loading="lazy" decoding="async" className="h-full w-full object-contain" />;
           return company.url ? <a key={company.name.en} href={company.url} target="_blank" rel="noopener noreferrer" className="logo-tile group-logo-tile" aria-label={t(company.name)}>{logo}</a> : <div key={company.name.en} className="logo-tile group-logo-tile">{logo}</div>;
         })}
       </div>

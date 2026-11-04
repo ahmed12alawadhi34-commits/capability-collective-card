@@ -3,6 +3,7 @@ import type { Lang } from "@/lib/i18n";
 /** Single source for the site's public origin — switch to https://alawadhi-ind.com here. */
 export const SITE_URL = "https://alawadhi-ind.com";
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+export const NOINDEX_PATHS = ["/projects"] as const;
 
 type Bi = { ar: string; en: string };
 export type PageSeo = { title: Bi; description: Bi };
@@ -49,6 +50,7 @@ export function pageHead(path: string) {
       { name: "twitter:image", content: OG_IMAGE },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(NOINDEX_PATHS.some(noindex => noindex === path) ? [{ name: "robots", content: "noindex" }] : []),
     ],
     links: [{ rel: "canonical", href: url }],
   };

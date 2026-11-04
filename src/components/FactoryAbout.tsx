@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
 import { groupStats, slogan } from "@/lib/content";
-import factory from "@/assets/p2.jpg";
+import factory from "@/assets/p2.webp";
 
 export function FactoryStats() {
   const { t } = useLang();

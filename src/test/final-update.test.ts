@@ -22,11 +22,12 @@ describe("final update rules", () => {
       expect(s.spec.en.length).toBeGreaterThan(0);
     }
   });
-  it("serves a sitemap with every page under the single SITE_URL origin", () => {
+  it("serves a sitemap with indexed pages under the single SITE_URL origin", () => {
     const sitemap = readFileSync("public/sitemap.xml", "utf8");
-    for (const p of ["/", "/about", "/products", "/quote", "/contact", "/projects"]) {
+    for (const p of ["/", "/about", "/products", "/quote", "/contact"]) {
       expect(sitemap).toContain(`${SITE_URL}${p}`);
     }
+    expect(sitemap).not.toContain(`${SITE_URL}/projects`);
     expect(readFileSync("public/robots.txt", "utf8")).toContain(`Sitemap: ${SITE_URL}/sitemap.xml`);
   });
   it("has bilingual titles and descriptions for every page", () => {

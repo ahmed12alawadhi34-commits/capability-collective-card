@@ -1,4 +1,12 @@
 # Requested additions
+- [ ] Final task 1: remove Services; production line occupies its lighter-navy band.
+- [ ] Final task 2: exact supplied bilingual address and factory Maps query.
+- [ ] Final task 3: security headers across SSR and static files on Cloudflare/Node; verify CSP.
+- [ ] Final task 4: patched Vite 8/Zod; production audit has no high/critical issues.
+- [ ] Final task 5: Projects noindex and excluded from sitemap.
+- [ ] Final task 6: remove only proven-unused components/assets/dependencies.
+- [ ] Final task 7: comparison and used p2/p4 photos WebP; lazy dimensions on below-fold images.
+- [ ] Final task 8: clean install, automatic build result, output/source scan, tests and bilingual desktop/phone checks.
 - [x] Remove layer pin/scrub; add three-second entry assembly and Replay with visible labels/lines.
 - [x] Replace tabs with shared three-photo comparison and two dividers, AR/EN order and mobile labels.
 - [x] Verify native phone-sized scrolling, Replay, dividers, AR/EN and Reduce Motion on desktop/mobile; 34 tests pass, no browser errors. Physical iPhone Safari remains unavailable.

@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { Truck, ClipboardCheck, Package } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { services } from "@/lib/content";
 import { pageHead } from "@/lib/seo";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
@@ -138,25 +136,6 @@ function Index() {
       <GlassLayers />
 
       <HomeProductStrip />
-
-      {/* SERVICES */}
-      <section className="section-light home-raised py-28">
-        <div className="mx-auto max-w-7xl px-5">
-          <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "خدماتنا", en: "Our services" })}</Line></h2>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {services.map((s, i) => {
-              const I = { truck: Truck, check: ClipboardCheck, crate: Package }[s.icon];
-              return (
-                <div key={s.icon} className="reveal glass shine rounded-3xl p-8" style={{ transitionDelay: `${i * 90}ms` }}>
-                  <div className="grid h-14 w-14 place-items-center rounded-2xl bg-primary/15 text-primary"><I size={28} strokeWidth={1.4} /></div>
-                  <h3 className="mt-6 text-xl font-bold">{t(s.name)}</h3>
-                  <p className="mt-3 text-muted-foreground leading-relaxed">{t(s.desc)}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* PRODUCTION LINE */}
       <ProductionLine />
