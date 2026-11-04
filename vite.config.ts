@@ -7,7 +7,7 @@ import { nitro } from "nitro/vite";
 import { generateSeo } from "./scripts/generate-seo.mjs";
 
 export default defineConfig(({ command }) => {
-  const preset = process.env.SITE_BUILD_TARGET || "cloudflare-module";
+  const preset = process.env['SITE_BUILD_TARGET'] || "cloudflare-module";
   return {
     server: { host: "0.0.0.0", port: 8080, strictPort: true },
     resolve: { dedupe: ["react", "react-dom", "@tanstack/react-router"] },
