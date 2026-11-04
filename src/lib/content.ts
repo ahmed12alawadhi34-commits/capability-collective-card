@@ -1,4 +1,3 @@
-export const STAFF_LOGIN = "http://132.145.55.226:8182/apex/f?p=factory:LOGIN_DESKTOP";
 // Placeholders — to be filled in by the owner
 export const WHATSAPP = "967771358888";
 export const PHONES = ["+967 1 601700", "+967 771358888", "+967 770658888"];
