@@ -5,20 +5,10 @@ import { PageHeader } from "@/components/SiteShell";
 import { ProductIcon } from "@/components/ProductIcon";
 import { useLang } from "@/lib/i18n";
 import { products } from "@/lib/content";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/products")({
-  head: () => ({
-    meta: [
-      { title: "المنتجات — زجاج مقسّى ومعشّق ومزدوج | العواضي لصناعة الزجاج" },
-      { name: "description", content: "Tempered, laminated, double-glazed, facade glass and mirrors from Alawadhi for Glass Industry." },
-      { property: "og:title", content: "منتجاتنا | العواضي لصناعة الزجاج" },
-      { property: "og:description", content: "Tempered, laminated, double-glazed and architectural glass." },
-      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => pageHead("/products"),
   component: Products,
 });
 

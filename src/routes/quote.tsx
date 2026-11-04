@@ -5,21 +5,11 @@ import { PageHeader } from "@/components/SiteShell";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
 import { products } from "@/lib/content";
+import { pageHead } from "@/lib/seo";
 import { quoteSchema, formQuoteUrl } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/quote")({
-  head: () => ({
-    meta: [
-      { title: "طلب عرض سعر | العواضي لصناعة الزجاج" },
-      { name: "description", content: "Request a quote for tempered, laminated or double-glazed glass from Alawadhi for Glass Industry." },
-      { property: "og:title", content: "اطلب عرض سعر | العواضي لصناعة الزجاج" },
-      { property: "og:description", content: "Request a glass quote in minutes." },
-      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => pageHead("/quote"),
   component: Quote,
 });
 

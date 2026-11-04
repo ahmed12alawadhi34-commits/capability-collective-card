@@ -6,16 +6,10 @@ import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { FinalQuote } from "@/components/FinalQuote";
 import { useLang } from "@/lib/i18n";
 import { slogan } from "@/lib/content";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({ meta: [
-    { title: "من نحن | العواضي لصناعة الزجاج — About Alawadhi" },
-    { name: "description", content: "تعرف على مصنع العواضي لصناعة الزجاج في صنعاء، وقصة المجموعة منذ 1955 وخبرتها في الزجاج منذ 1974 وشركاتها في اليمن وعُمان والسعودية." },
-    { property: "og:title", content: "من نحن | Alawadhi for Glass Industry — About us" },
-    { property: "og:description", content: "Our story, modern Sana'a glass factory and group companies across Yemen, Oman and Saudi Arabia. In the glass trade since 1974." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  head: () => pageHead("/about"),
   component: About,
 });
 

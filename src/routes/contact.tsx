@@ -1,23 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
 import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } from "@/lib/content";
+import { pageHead } from "@/lib/seo";
 import { quoteUrl } from "@/lib/whatsapp";
 
+const MAP_QUERY = "Al-Qaidi Industrial Area, Sana'a, Yemen";
+const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
+const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
+
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "تواصل معنا | العواضي لصناعة الزجاج" },
-      { name: "description", content: "Visit Alawadhi for Glass Industry in Al-Qaidi Industrial Area, Sana'a, or contact us by phone and WhatsApp." },
-      { property: "og:title", content: "تواصل معنا | العواضي لصناعة الزجاج" },
-      { property: "og:description", content: "Address, phone, WhatsApp and working hours." },
-      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => pageHead("/contact"),
   component: Contact,
 });
 
@@ -63,8 +57,13 @@ function Contact() {
             </div>
           )}
         </div>
-        <div className="glass rounded-3xl overflow-hidden min-h-96">
-          <iframe title="map" className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" src="https://www.google.com/maps?q=Al-Qaidi+Industrial+Area+Sana'a+Yemen&output=embed" />
+        <div>
+          <div className="glass rounded-3xl overflow-hidden min-h-96">
+            <iframe title={t({ ar: "موقع المصنع على خرائط جوجل", en: "Factory location on Google Maps" })} className="w-full h-full min-h-96 grayscale-[40%]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" src={MAP_EMBED} />
+          </div>
+          <a href={MAP_LINK} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full glass px-6 py-3 text-sm font-semibold text-primary hover:no-underline">
+            <ExternalLink size={16} /> {t({ ar: "افتح في خرائط جوجل", en: "Open in Google Maps" })}
+          </a>
         </div>
       </div></section>
     </>
