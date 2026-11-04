@@ -9,7 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- The shared photo comparison is used on Home and Products; layer assembly may pin only for one viewport of native scrolling, without intercepting gestures.
+- Home and Products share a three-photo comparison with constrained draggable boundaries; layer assembly uses an observed entry timeline and Replay, never pinning or scrubbing, to preserve native scrolling.
 - WhatsApp quote URLs and form validation are centralized in src/lib/whatsapp.ts; quotes leave via encoded browser links only and are not stored or submitted to an app server.
 - Company cards use one flattened grid and shared ScrollTrigger batch; partner animation starts and pauses with visibility to avoid off-screen work.
 - Mobile uses native scrolling and non-blurred glass surfaces; video components pause inactive/off-screen clips to limit compositing and decoding.
