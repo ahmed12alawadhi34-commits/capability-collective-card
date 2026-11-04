@@ -9,7 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Glass demonstrations live in additive presentation components; scroll timelines must never pin or intercept page scrolling to preserve the existing experience.
+- The shared photo comparison is used on Home and Products; layer assembly may pin only for one viewport of native scrolling, without intercepting gestures.
 - WhatsApp quote URLs and form validation are centralized in src/lib/whatsapp.ts; quotes leave via encoded browser links only and are not stored or submitted to an app server.
 - Company cards use one flattened grid and shared ScrollTrigger batch; partner animation starts and pauses with visibility to avoid off-screen work.
 - Mobile uses native scrolling and non-blurred glass surfaces; video components pause inactive/off-screen clips to limit compositing and decoding.
@@ -22,3 +22,5 @@
 - Company data is shared between the About grid and homepage logo row, excluding the current factory so both views stay consistent while group totals remain independent.
 - Full factory content is shared in a compact homepage variant and full About variant so the factory photo appears only on About.
 - Video gesture retries preserve the shared visibility owner; posters remain visible when autoplay is blocked.
+- Serve media through repository-local public/media paths, preserving remote originals for rollback; independent hosting must not depend on editor telemetry or asset proxies.
+- Standalone Vite/Start/Nitro configuration supports Cloudflare and Node presets; generate sitemap and robots during builds from the single SITE_URL in seo.ts.

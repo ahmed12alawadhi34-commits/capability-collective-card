@@ -1,7 +1,7 @@
 import type { Lang } from "@/lib/i18n";
 
 /** Single source for the site's public origin — switch to https://alawadhi-ind.com here. */
-export const SITE_URL = "https://capability-collective-card.lovable.app";
+export const SITE_URL = "https://alawadhi-ind.com";
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 type Bi = { ar: string; en: string };
