@@ -47,3 +47,16 @@
 - [x] Remove the partners window's keyboard focus target and stop pausing the shared marquee on focus, so a finger tap only pauses ~1.8s and the strip resumes.
 - [x] Rename the section to "شركاء النجاح / Partners of Success" in the heading and its accessible label.
 - [x] Verify AR/EN at 390 touch and 1280 desktop: tap pauses then resumes in ~2s, both strips keep moving, no overflow or console errors; 22 tests pass.
+# Final update: two new sections + fixes
+- [ ] Glass types section (SVG factory scene, 4 breakable panels, features row, mobile carousel) replacing home comparison
+- [ ] Production line section (600×600 blueprint SVG, 9 stations, traveling sheet, truck, info panel, step list, pause/restart) replacing steps list
+- [ ] Home order per spec; hero headline two lines, ~35% smaller, no clipping
+- [ ] Pin GlassLayers stage while layers assemble (scroll down assembles, up reverses)
+- [ ] iOS autoplay fix for all videos (muted/defaultMuted attrs, autoPlay, loadeddata/canplay play, 300ms retry)
+- [ ] Remove Staff Login everywhere + STAFF_LOGIN constant + server IP
+- [ ] Contact: Google Map iframe + Open in Google Maps button
+- [ ] 44px mobile tap targets
+- [ ] Language-aware title/description/og per page
+- [ ] SEO: sitemap.xml, robots.txt reference, canonical, SITE_URL constant
+- [ ] Small fixes: footer logo alt, /products hydration warning, الترجيج→التزجيج
+- [ ] Verify AR/EN, phone/desktop, reduced motion; tests + build

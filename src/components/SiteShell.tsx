@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Menu, X, LogIn, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import { Menu, X, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { nav, brand, STAFF_LOGIN, WHATSAPP, PHONES, EMAIL, address, contactReady } from "@/lib/content";
+import { nav, brand, WHATSAPP, PHONES, EMAIL, address, contactReady } from "@/lib/content";
+import { applyPageSeo } from "@/lib/seo";
 import logo from "@/assets/logo-white.png";
 import mark from "@/assets/mark-white.png";
 import { initSmoothScroll } from "@/lib/motion";
@@ -28,11 +29,24 @@ function useReveal() {
   useEffect(() => {
     const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.12 });
     const scan = () => document.querySelectorAll(".reveal:not(.in)").forEach((el) => io.observe(el));
-    scan();
-    const mo = new MutationObserver(scan);
-    mo.observe(document.body, { childList: true, subtree: true });
-    return () => { io.disconnect(); mo.disconnect(); };
+    // Defer until after React hydration so the added "in" class cannot mismatch SSR HTML.
+    const timer = setTimeout(() => {
+      scan();
+      const mo = new MutationObserver(scan);
+      mo.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => mo.disconnect();
+    }, 150);
+    let cleanup = () => {};
+    return () => { clearTimeout(timer); cleanup(); io.disconnect(); };
   }, []);
+}
+
+/** Keeps <title>, description and og tags in the selected language. */
+function LangMeta() {
+  const { lang } = useLang();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  useEffect(() => { applyPageSeo(pathname, lang); }, [lang, pathname]);
+  return null;
 }
 
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -49,6 +63,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-night text-foreground">
       <Loader />
+      <LangMeta />
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled || open ? "glass mx-3 mt-3 rounded-full lg:mx-auto lg:max-w-6xl" : ""}`}>
         <div className={`mx-auto max-w-7xl px-5 flex transition-all duration-500 ${scrolled ? "py-2" : "py-5"} items-center justify-between gap-4`}>
           <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
@@ -61,11 +76,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} className="glass rounded-full px-3 py-1.5 text-xs font-semibold">{lang === "ar" ? "EN" : "ع"}</button>
-            <a href={STAFF_LOGIN} target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-primary/40 px-3 py-1.5 text-xs text-primary hover:bg-primary/10">
-              <LogIn size={14} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}
-            </a>
-            <button className="lg:hidden p-1" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
+            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} className="glass rounded-full px-3 py-1.5 min-h-11 min-w-11 text-xs font-semibold">{lang === "ar" ? "EN" : "ع"}</button>
+            <button className="lg:hidden p-1 min-h-11 min-w-11 grid place-items-center" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
           </div>
         </div>
         {open && (
@@ -73,7 +85,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
             {nav.map((n) => (
               n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); setOpen(false); }} className="py-3 border-b border-border">{n[lang]}</a> : <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-3 border-b border-border" activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
             ))}
-            <a href={STAFF_LOGIN} target="_blank" rel="noopener noreferrer" className="py-3 text-primary flex items-center gap-2"><LogIn size={16} /> {t({ ar: "دخول الموظفين", en: "Staff Login" })}</a>
           </nav>
         )}
       </header>

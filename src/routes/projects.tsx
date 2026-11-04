@@ -2,20 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { QuoteLink } from "@/components/QuoteLink";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/projects")({
-  head: () => ({
-    meta: [
-      { title: "معرض المشاريع قريباً | العواضي لصناعة الزجاج" },
-      { name: "description", content: "Coming soon — the project gallery of Alawadhi for Glass Industry is being prepared. Request a glass quote today." },
-      { property: "og:title", content: "معرض المشاريع قريباً | Alawadhi Glass — Projects coming soon" },
-      { property: "og:description", content: "نعمل على تجهيز معرض مشاريعنا — Our project gallery is being prepared." },
-      { property: "og:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://capability-collective-card.lovable.app/og-image.jpg" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => pageHead("/projects"),
   component: Projects,
 });
 
