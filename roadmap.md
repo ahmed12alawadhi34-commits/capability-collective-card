@@ -1,4 +1,7 @@
 # Requested additions
+- [x] Remove layer pin/scrub; add three-second entry assembly and Replay with visible labels/lines.
+- [x] Replace tabs with shared three-photo comparison and two dividers, AR/EN order and mobile labels.
+- [x] Verify native phone-sized scrolling, Replay, dividers, AR/EN and Reduce Motion on desktop/mobile; 34 tests pass, no browser errors. Physical iPhone Safari remains unavailable.
 - [x] Restore shared photo comparison with Laminated tab; remove rejected glass-types scene.
 - [x] Shorten layer assembly to 100vh with scrub 0.5 and preserve connectors.
 - [x] Download all 60 CDN media files, use local references, remove pointers without deleting remote objects.

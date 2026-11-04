@@ -190,10 +190,11 @@ html, body { overflow-x: clip; }
 .layer-connectors { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .layer-connector { fill: none; stroke: var(--primary); stroke-width: 1; opacity: .7; filter: drop-shadow(0 0 3px var(--primary)); }
 .unit-flash { position: absolute; inset: 0; pointer-events: none; background: var(--layer-reflection); opacity: 0; z-index: 5; }
-.glass-comparison { aspect-ratio: 3 / 2; }
+.glass-comparison { aspect-ratio: 16 / 9; }
+.comparison-labels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.comparison-panel img { min-width: 0; user-select: none; }
 .comparison-divider { position: absolute; inset-block: 0; width: 2px; background: var(--foreground); pointer-events: none; transform: translateX(-50%); }
-.comparison-divider span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: var(--primary-foreground); border: 2px solid var(--foreground); }
-.comparison-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; touch-action: pan-y; margin: 0; }
+.comparison-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border-radius: 50%; background: var(--primary); color: var(--primary-foreground); border: 2px solid var(--foreground); pointer-events: auto; touch-action: pan-y; cursor: ew-resize; }
 .glass-comparison:focus-within { outline: 2px solid var(--ring); outline-offset: 4px; }
 :root { --partners-surface: oklch(0.97 0.005 240 / 90%); --partners-ink: oklch(0.23 0.03 255); --glass-mobile: oklch(0.2 0.03 255 / 92%); }
 .partners-section { background: var(--section-dark); color: var(--foreground); }
@@ -210,6 +211,8 @@ html, body { overflow-x: clip; }
 .partners-window:focus-visible .partners-track { animation-play-state: paused; }
 @keyframes partners-scroll { to { transform: translateX(-50%); } }
 @media (max-width: 767px) {
+  .glass-comparison { aspect-ratio: 3 / 2; }
+  .comparison-labels { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .glass-layer-stage { height: 900px; }
   .glass-unit { position: absolute; left: 8%; top: 385px; width: 110px; height: 130px; margin: 0; }
   .layer-surface { transform: rotateY(-18deg) rotateX(28deg); }
