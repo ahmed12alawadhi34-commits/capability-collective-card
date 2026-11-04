@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { Truck, ClipboardCheck, Package } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { steps, services } from "@/lib/content";
+import { services } from "@/lib/content";
+import { pageHead } from "@/lib/seo";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
 import hr from "@/assets/hero-rollers.mp4.asset.json";
@@ -25,24 +26,14 @@ import { PartnersStrip } from "@/components/PartnersStrip";
 import { FactoryAbout } from "@/components/FactoryAbout";
 import { GroupCompaniesRow } from "@/components/GroupCompaniesRow";
 import { QuoteLink } from "@/components/QuoteLink";
-import { GlassComparison } from "@/components/GlassComparison";
+import { GlassTypes } from "@/components/GlassTypes";
+import { ProductionLine } from "@/components/ProductionLine";
 import { HomeProductStrip } from "@/components/HomeProductStrip";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { FinalQuote } from "@/components/FinalQuote";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "العواضي لصناعة الزجاج — زجاج مقسّى ومعشّق ومزدوج في صنعاء" },
-      { name: "description", content: "Alawadhi for Glass Industry: precision tempered, laminated and double-glazed glass manufactured in Sana'a, Yemen." },
-      { property: "og:title", content: "العواضي لصناعة الزجاج | Alawadhi for Glass Industry" },
-      { property: "og:description", content: "Engineered Glass. Built for Yemen. — زجاج مُصنَّع بدقة لمشاريع اليمن." },
-      { property: "og:image", content: hrP.url },
-      { name: "twitter:image", content: hrP.url },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => pageHead("/"),
   component: Index,
 });
 
@@ -54,7 +45,8 @@ function Line({ children, className = "" }: { children: string; className?: stri
 function Index() {
   const { t, lang } = useLang();
   const root = useRef<HTMLDivElement>(null);
-  const headline = t({ ar: "زجاج مُصنَّع بدقة لمشاريع اليمن", en: "Engineered Glass. Built for Yemen." });
+  const headline = t({ ar: "زجاجٌ بمعايير عالمية", en: "World-class glass" });
+  const subline = t({ ar: "صُنع في صنعاء… لمشاريع اليمن", en: "Made in Sana'a, for Yemen's projects" });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -94,12 +86,15 @@ function Index() {
           <div className="relative max-w-4xl">
             <div aria-hidden className="orbit-ring absolute -top-24 start-[-6rem] h-[28rem] w-[28rem] md:h-[36rem] md:w-[36rem] pointer-events-none" />
             <p data-hero-fade className="relative text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "منذ 2021 · صنعاء", en: "Since 2021 · Sana'a" })}</p>
-            <h1 className="relative mt-5 text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.1]" aria-label={headline}>
-              {headline.split(" ").map((w, i) => (
-                <span key={lang + i} className="inline-block overflow-hidden align-bottom pb-2 me-[0.25em]" aria-hidden>
-                  <span data-word className={`inline-block ${i === 4 ? "text-highlight" : "text-silver"}`}>{w}</span>
-                </span>
-              ))}
+            <h1 className="relative mt-5 font-extrabold" aria-label={`${headline} — ${subline}`}>
+              <span className="block text-[40px] md:text-[64px] leading-[1.35]">
+                {headline.split(" ").map((w, i) => (
+                  <span key={lang + i} className="inline-block overflow-hidden align-bottom pb-2 me-[0.25em]" aria-hidden>
+                    <span data-word className="inline-block text-silver pb-1">{w}</span>
+                  </span>
+                ))}
+              </span>
+              <span data-hero-fade className="mt-3 block text-lg md:text-2xl font-semibold leading-[1.5] text-muted-foreground">{subline}</span>
             </h1>
             <p data-hero-fade className="relative mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
               {t({ ar: "زجاج مقسّى ومعشّق ومزدوج بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered, laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
@@ -138,7 +133,7 @@ function Index() {
 
       <PartnersStrip />
 
-      <GlassComparison className="home-comparison" />
+      <GlassTypes />
 
       <GlassLayers />
 
@@ -163,21 +158,8 @@ function Index() {
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="bg-night py-28">
-        <div className="mx-auto max-w-7xl px-5">
-          <h2 data-lines className="text-3xl md:text-5xl font-bold"><Line>{t({ ar: "مراحل الإنتاج", en: "Production process" })}</Line></h2>
-          <ol className="mt-12 grid gap-4 md:grid-cols-6 relative">
-            <div className="hidden md:block absolute top-6 inset-x-0 h-px bg-border" />
-            {steps.map((s, i) => (
-              <li key={i} className="reveal relative" style={{ transitionDelay: `${i * 90}ms` }}>
-                <span className="relative grid h-12 w-12 place-items-center rounded-full glass text-primary font-bold">{i + 1}</span>
-                <p className="mt-4 font-semibold">{t(s)}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      {/* PRODUCTION LINE */}
+      <ProductionLine />
 
       <FinalQuote />
 
