@@ -29,10 +29,15 @@ function useReveal() {
   useEffect(() => {
     const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.12 });
     const scan = () => document.querySelectorAll(".reveal:not(.in)").forEach((el) => io.observe(el));
-    scan();
-    const mo = new MutationObserver(scan);
-    mo.observe(document.body, { childList: true, subtree: true });
-    return () => { io.disconnect(); mo.disconnect(); };
+    // Defer until after React hydration so the added "in" class cannot mismatch SSR HTML.
+    const timer = setTimeout(() => {
+      scan();
+      const mo = new MutationObserver(scan);
+      mo.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => mo.disconnect();
+    }, 150);
+    let cleanup = () => {};
+    return () => { clearTimeout(timer); cleanup(); io.disconnect(); };
   }, []);
 }
 
