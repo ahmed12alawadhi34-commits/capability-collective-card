@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import { gsap } from "@/lib/motion";
 import { QuoteLink } from "@/components/QuoteLink";
+import { LAYER_SCRUB, layerScrollDistance } from "@/lib/layer-scroll";
 
 const layers = [
   { kind: "outer", title: { ar: "الزجاج الخارجي", en: "Outer glass" }, note: { ar: "مقسّى أو Low-E", en: "Tempered or Low-E" } },
@@ -42,10 +43,11 @@ export function GlassLayers() {
       // Start exploded; the pinned stage assembles the unit layer by layer while scrolling.
       gsap.set(panes, { x: (i: number) => desktop ? (spread()[i] ?? 0) : 0, y: (i: number) => desktop ? 0 : (spread()[i] ?? 0) });
       gsap.set(labels, { opacity: 0 });
-      const timeline = gsap.timeline({ onUpdate: drawConnectors, scrollTrigger: { trigger: stage, start: "top 12%", end: "+=1700", scrub: .6, pin: true, anticipatePin: 1, invalidateOnRefresh: true, onRefresh: drawConnectors } });
+      const timeline = gsap.timeline({ onUpdate: drawConnectors, scrollTrigger: { trigger: stage, start: "top 12%", end: () => `+=${layerScrollDistance(window.innerHeight)}`, scrub: LAYER_SCRUB, pin: true, anticipatePin: 1, invalidateOnRefresh: true, onRefresh: drawConnectors } });
       panes.forEach((pane, i) => {
         timeline.to(pane, { x: 0, y: 0, duration: 1, ease: "power2.inOut" }, i * 1.1);
-        timeline.to(labels[i]!, { opacity: 1, duration: .5 }, i * 1.1 + .55);
+        const label = labels[i];
+        if (label) timeline.to(label, { opacity: 1, duration: .5 }, i * 1.1 + .55);
       });
       timeline.to(root.querySelector(".unit-flash"), { opacity: .65, duration: .15 }).to(root.querySelector(".unit-flash"), { opacity: 0, duration: .35 });
       timeline.to({}, { duration: .6 });

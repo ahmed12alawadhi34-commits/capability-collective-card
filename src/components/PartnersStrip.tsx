@@ -1,9 +1,7 @@
 import { useLang } from "@/lib/i18n";
 import { useMarquee } from "@/lib/marquee";
 
-type Asset = { url: string };
-const files = import.meta.glob<Asset>("../assets/partners/*.png.asset.json", { eager: true, import: "default" });
-const url = (slug: string, variant: "color" | "white") => files[`../assets/partners/${slug}-${variant}.png.asset.json`]?.url;
+const url = (slug: string, variant: "color" | "white") => `/media/partners/partner-${slug}-${variant}.png`;
 
 
 const partners: { name: string; slug?: string }[] = [

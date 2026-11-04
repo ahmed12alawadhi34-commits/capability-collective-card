@@ -1,15 +1,27 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
-//     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
-//     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { nitro } from "nitro/vite";
+import { generateSeo } from "./scripts/generate-seo.mjs";
 
-export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
+export default defineConfig(({ command }) => {
+  const preset = process.env['SITE_BUILD_TARGET'] || "cloudflare-module";
+  return {
+    server: { host: "0.0.0.0", port: 8080, strictPort: true },
+    resolve: { dedupe: ["react", "react-dom", "@tanstack/react-router"] },
+    plugins: [
+      { name: "site-seo-files", buildStart: generateSeo },
+      tsconfigPaths(),
+      tanstackStart({ server: { entry: "server" } }),
+      react(), tailwindcss(),
+      ...(command === "build" ? [nitro({
+        preset,
+        compatibilityDate: "2026-11-04",
+        ...(preset === "cloudflare-module" ? { output: { dir: "dist", serverDir: "dist/server", publicDir: "dist/client" } } : {}),
+        ...(preset.startsWith("cloudflare") ? { cloudflare: { nodeCompat: true, deployConfig: true } } : {}),
+      })] : []),
+    ],
+  };
 });

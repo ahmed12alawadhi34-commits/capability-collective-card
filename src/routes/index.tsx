@@ -6,27 +6,27 @@ import { services } from "@/lib/content";
 import { pageHead } from "@/lib/seo";
 import { gsap, ScrollTrigger } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
-import hr from "@/assets/hero-rollers.mp4.asset.json";
-import hrM from "@/assets/hero-rollers-m.mp4.asset.json";
-import hrP from "@/assets/hero-rollers-poster.jpg.asset.json";
-import hp from "@/assets/hero-polish.mp4.asset.json";
-import hpM from "@/assets/hero-polish-m.mp4.asset.json";
-import hpP from "@/assets/hero-polish-poster.jpg.asset.json";
-import furnace from "@/assets/hero-furnace.mp4.asset.json";
-import furnaceM from "@/assets/hero-furnace-m.mp4.asset.json";
-import furnacePoster from "@/assets/hero-furnace-poster.jpg.asset.json";
-import asm from "@/assets/glass-assembly.mp4.asset.json";
-import asmM from "@/assets/glass-assembly-m.mp4.asset.json";
-import asmP from "@/assets/glass-assembly-poster.jpg.asset.json";
-import fin from "@/assets/glass-finished.mp4.asset.json";
-import finM from "@/assets/glass-finished-m.mp4.asset.json";
-import finP from "@/assets/glass-finished-poster.jpg.asset.json";
+const hr = { url: "/media/videos/hero-rollers.mp4" };
+const hrM = { url: "/media/videos/hero-rollers-m.mp4" };
+const hrP = { url: "/media/posters/hero-rollers-poster.jpg" };
+const hp = { url: "/media/videos/hero-polish.mp4" };
+const hpM = { url: "/media/videos/hero-polish-m.mp4" };
+const hpP = { url: "/media/posters/hero-polish-poster.jpg" };
+const furnace = { url: "/media/videos/hero-furnace.mp4" };
+const furnaceM = { url: "/media/videos/hero-furnace-m.mp4" };
+const furnacePoster = { url: "/media/posters/hero-furnace-poster.jpg" };
+const asm = { url: "/media/videos/glass-assembly.mp4" };
+const asmM = { url: "/media/videos/glass-assembly-m.mp4" };
+const asmP = { url: "/media/posters/glass-assembly-poster.jpg" };
+const fin = { url: "/media/videos/glass-finished.mp4" };
+const finM = { url: "/media/videos/glass-finished-m.mp4" };
+const finP = { url: "/media/posters/glass-finished-poster.jpg" };
 import { GlassLayers } from "@/components/GlassLayers";
 import { PartnersStrip } from "@/components/PartnersStrip";
 import { FactoryAbout } from "@/components/FactoryAbout";
 import { GroupCompaniesRow } from "@/components/GroupCompaniesRow";
 import { QuoteLink } from "@/components/QuoteLink";
-import { GlassTypes } from "@/components/GlassTypes";
+import { GlassComparison } from "@/components/GlassComparison";
 import { ProductionLine } from "@/components/ProductionLine";
 import { HomeProductStrip } from "@/components/HomeProductStrip";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
@@ -133,7 +133,7 @@ function Index() {
 
       <PartnersStrip />
 
-      <GlassTypes />
+      <GlassComparison className="py-24" />
 
       <GlassLayers />
 
