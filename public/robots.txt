@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://capability-collective-card.lovable.app/sitemap.xml
+Sitemap: https://alawadhi-ind.com/sitemap.xml
