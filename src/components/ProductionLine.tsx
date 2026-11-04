@@ -146,8 +146,8 @@ export function ProductionLine() {
           </div>
 
           {/* blueprint floor plan */}
-          <div className="order-1 lg:order-2 glass rounded-3xl p-3 md:p-5">
-            <svg viewBox="0 0 600 600" className="w-full h-auto" role="img" aria-label={t({ ar: "مخطط خط الإنتاج داخل الهنجر", en: "Factory floor production-line plan" })} dir="ltr">
+          <div className="order-1 lg:order-2 glass rounded-3xl p-3 md:p-5" dir="ltr">
+            <svg viewBox="0 0 600 600" className="w-full h-auto" role="img" aria-label={t({ ar: "مخطط خط الإنتاج داخل الهنجر", en: "Factory floor production-line plan" })}>
               <defs>
                 <pattern id="pl-grid" width="30" height="30" patternUnits="userSpaceOnUse">
                   <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1c2f47" strokeWidth="0.6" />
