@@ -158,7 +158,7 @@ export function GlassTypes({ className = "" }: { className?: string }) {
             {panels.map((p) => <Panel key={p.id} id={p.id} broken={broken === p.id} onBreak={() => breakPanel(p.id)} />)}
           </div>
 
-          <div className="gt-arrows md:hidden">
+          <div className="gt-arrows">
             <button type="button" aria-label={t({ ar: "السابق", en: "Previous" })} onClick={() => scroll(-1)} className="glass rounded-full p-3"><ChevronRight size={20} /></button>
             <button type="button" aria-label={t({ ar: "التالي", en: "Next" })} onClick={() => scroll(1)} className="glass rounded-full p-3"><ChevronLeft size={20} /></button>
           </div>
