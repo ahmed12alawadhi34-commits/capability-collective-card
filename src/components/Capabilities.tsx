@@ -15,7 +15,7 @@ export function Capabilities() {
   const { t, lang } = useLang();
   const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
   return (
-    <section className="section-band-dark px-5 py-20">
+    <section className="px-5 py-20">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-3xl md:text-5xl font-bold">{t({ ar: "قدراتنا", en: "Our capabilities" })}</h2>
         <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
