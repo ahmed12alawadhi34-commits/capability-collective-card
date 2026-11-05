@@ -7,7 +7,7 @@ describe("WhatsApp quotes", () => {
     expect(new URL(quoteUrl("ar")).pathname).toBe("/967771358888");
   });
   it("includes the viewed product in Arabic", () => {
-    expect(new URL(quoteUrl("ar", "shield")).searchParams.get("text")).toBe("مرحباً، أريد عرض سعر لـ: زجاج مقسّى (سيكوريت)");
+    expect(new URL(quoteUrl("ar", "shield")).searchParams.get("text")).toBe("مرحباً، أريد عرض سعر لـ: سيكوريت (مقسّى)");
   });
   it("includes the viewed product in English", () => {
     expect(new URL(quoteUrl("en", "panels")).searchParams.get("text")).toBe("Hello, I would like a quote for: Double Glazing");
@@ -25,7 +25,7 @@ describe("WhatsApp quotes", () => {
   });
   it("builds English specifications with encoded notes", () => {
     const text = new URL(formQuoteUrl(input, "en")).searchParams.get("text");
-    expect(text).toContain("Product: Tempered Glass (Securit)");
+    expect(text).toContain("Product: Tempered (Securit)");
     expect(text).toContain("Dimensions: 1200 × 1800 mm");
     expect(text).toContain("Notes: Low-E & clear");
   });
