@@ -73,6 +73,7 @@ export function WhyChooseUs() {
             );
           })}
         </div>
+        <p className="mt-8 text-center text-base md:text-lg text-muted-foreground">{t({ ar: "نستخدم مواد عالمية فقط: سبيسرات Profilglass الإيطالية وسيليكون Dow الأمريكي", en: "We use only world-class materials: Italian Profilglass spacers and Dow silicone (USA)" })}</p>
       </div>
     </section>
   );

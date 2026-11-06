@@ -130,7 +130,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <GoogleReviewsLink className="mt-2 self-start" />
           </div>
         </div>
-        <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Alawadhi for Glass Industry</div>
+        <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Al-Awadhi for Glass Industry</div>
       </footer>
 
       {contactReady && (

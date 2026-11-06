@@ -13,7 +13,7 @@ export const nav = [
   { to: "/contact", ar: "تواصل معنا", en: "Contact" },
 ] as const;
 
-export const brand = { ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" };
+export const brand = { ar: "العواضي لصناعة الزجاج", en: "Al-Awadhi for Glass Industry" };
 export const groupStats = { companies: 6, countries: 3, glassExperienceYears: 50, moreThan: true } as const;
 
 export const slogan = {

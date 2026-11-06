@@ -85,7 +85,7 @@ function Index() {
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
             <div aria-hidden className="orbit-ring absolute -top-24 start-[-6rem] h-[28rem] w-[28rem] md:h-[36rem] md:w-[36rem] pointer-events-none" />
-            <p data-hero-fade className="relative text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "منذ 2021 · صنعاء", en: "Since 2021 · Sana'a" })}</p>
+            <p data-hero-fade className="relative text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
             <h1 className="relative mt-5 font-extrabold" aria-label={`${headline} — ${subline}`}>
               <span className="block text-[40px] md:text-[64px] leading-[1.35]">
                 {headline.split(" ").map((w, i) => (
@@ -96,6 +96,7 @@ function Index() {
               </span>
               <span data-hero-fade className="mt-3 block text-lg md:text-2xl font-semibold leading-[1.5] text-muted-foreground">{subline}</span>
             </h1>
+            <p data-hero-fade className="relative mt-4 text-base md:text-xl font-bold text-primary">{t({ ar: "الرائدة في سوق الزجاج في اليمن", en: "Yemen's leading glass company" })}</p>
             <p data-hero-fade className="relative mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
               {t({ ar: "سيكوريت (مقسّى) ولامينيت (مجلتن) وزجاج مزدوج بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered (Securit), laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
             </p>

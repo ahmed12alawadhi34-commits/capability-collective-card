@@ -7,8 +7,8 @@ import factory from "@/assets/p2.webp";
 
 export function FactoryStats() {
   const { t } = useLang();
-  return <div className="mt-8 grid grid-cols-3 gap-3">
-    {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], [groupStats.companies, { ar: `شركات في ${groupStats.countries} دول`, en: `companies in ${groupStats.countries} countries` }]] as const).map(([n, l]) => <div key={n} className="glass rounded-2xl p-3 md:p-4 text-center"><div className="text-3xl font-bold text-primary tabular-nums">{n}</div><div className="text-xs text-muted-foreground mt-1">{t(l)}</div></div>)}
+  return <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+    {([[1974, { ar: "خبرة المجموعة", en: "Group heritage" }], [2021, { ar: "تأسيس المصنع", en: "Factory founded" }], ["85%", { ar: "من سوق الزجاج في اليمن – مجموعة العواضي", en: "of Yemen's glass market – Al-Awadhi Group" }], [groupStats.companies, { ar: `شركات في ${groupStats.countries} دول`, en: `companies in ${groupStats.countries} countries` }]] as const).map(([n, l]) => <div key={n} className="glass rounded-2xl p-3 md:p-4 text-center"><div className="text-3xl font-bold text-primary tabular-nums">{n}</div><div className="text-xs text-muted-foreground mt-1">{t(l)}</div></div>)}
   </div>;
 }
 

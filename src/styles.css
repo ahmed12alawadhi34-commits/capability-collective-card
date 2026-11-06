@@ -268,6 +268,7 @@ html, body { overflow-x: clip; }
 @media (min-width: 1024px) {
   .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(164px, auto); }
   .why-big { grid-column: span 2; grid-row: span 2; min-height: 0; }
+  .why-big::after { content: ""; position: absolute; inset: 0 0 45% 0; pointer-events: none; opacity: .5; background: repeating-linear-gradient(120deg, color-mix(in oklab, var(--foreground) 5%, transparent) 0 1px, transparent 1px 22px), radial-gradient(60% 80% at 70% 20%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%); -webkit-mask-image: linear-gradient(to bottom, #000, transparent); mask-image: linear-gradient(to bottom, #000, transparent); }
   .why-grid > .why-card:last-child { grid-column: auto; }
 }
 .why-card { position: relative; overflow: hidden; border-radius: 1.5rem; padding: 28px; border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent); background: color-mix(in oklab, var(--card) 70%, transparent); }

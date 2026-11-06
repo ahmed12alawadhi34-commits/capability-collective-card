@@ -76,7 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "العواضي لصناعة الزجاج | Alawadhi for Glass Industry" },
+      { title: "العواضي لصناعة الزجاج | Al-Awadhi for Glass Industry" },
       { name: "description", content: "مصنع سيكوريت (مقسّى) ولامينيت (مجلتن) وزجاج مزدوج في صنعاء — Tempered (Securit), laminated and double-glazed glass in Sana'a." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

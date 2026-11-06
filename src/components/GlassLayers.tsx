@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 
 const layers = [
   { kind: "outer", title: { ar: "الزجاج الخارجي", en: "Outer glass" }, note: { ar: "مقسّى أو Low-E", en: "Tempered or Low-E" } },
-  { kind: "spacer", title: { ar: "فاصل ألمنيوم", en: "Aluminium spacer" }, note: { ar: "فواصل أوروبية مع مادة مجففة", en: "European spacer bars with desiccant" } },
-  { kind: "seal", title: { ar: "مادة العزل", en: "Sealant" }, note: { ar: "عزل مزدوج: بوتيل + سيليكون", en: "Double seal: butyl + silicone" } },
+  { kind: "spacer", title: { ar: "سبيسر ألمنيوم إيطالي – Profilglass", en: "Italian aluminium spacer – Profilglass" }, note: { ar: "فواصل أوروبية مع مادة مجففة", en: "European spacer bars with desiccant" } },
+  { kind: "seal", title: { ar: "مادة العزل", en: "Sealant" }, note: { ar: "عزل مزدوج: بوتيل + سيليكون Dow الأمريكي", en: "Double seal: butyl + Dow silicone (USA)" } },
   { kind: "inner", title: { ar: "الزجاج الداخلي", en: "Inner glass" }, note: { ar: "الطبقة الداخلية للوحدة", en: "The unit’s interior pane" } },
 ];
 

@@ -16,8 +16,8 @@ export const Route = createFileRoute("/about")({
 function About() {
   const { t } = useLang();
   return <div className="about-sections">
-    <PageHeader eyebrow={t({ ar: "العواضي لصناعة الزجاج", en: "Alawadhi for Glass Industry" })} title={t({ ar: "من نحن", en: "About us" })}>
-      {t({ ar: "مصنع العواضي لصناعة الزجاج جزء من مجموعة العواضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974.", en: "Alawadhi for Glass Industry is part of Al-Awadhi Group for Trading and Manufacturing, in the glass trade since 1974." })}
+    <PageHeader eyebrow={t({ ar: "العواضي لصناعة الزجاج", en: "Al-Awadhi for Glass Industry" })} title={t({ ar: "من نحن", en: "About us" })}>
+      {t({ ar: "مصنع العواضي لصناعة الزجاج جزء من مجموعة العواضي للتجارة والصناعة، الرائدة في تجارة الزجاج منذ 1974.", en: "Al-Awadhi for Glass Industry is part of Al-Awadhi Group for Trading and Manufacturing, in the glass trade since 1974." })}
     </PageHeader>
     <CompanyTimeline />
     <FactoryAbout />
