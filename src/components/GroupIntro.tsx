@@ -26,9 +26,9 @@ export function GroupIntro() {
       if (!entries.some((entry) => entry.isIntersecting)) return;
       observer.disconnect();
       counters.forEach((counter) => {
-        const target = Number(counter.dataset.groupCount ?? 0);
-        const prefix = counter.dataset.prefix ?? "";
-        const suffix = counter.dataset.suffix ?? "";
+        const target = Number(counter.dataset["groupCount"] ?? 0);
+        const prefix = counter.dataset["prefix"] ?? "";
+        const suffix = counter.dataset["suffix"] ?? "";
         const state = { value: 0 };
         const render = () => { counter.textContent = `${prefix}${Math.round(state.value)}${suffix}`; };
         render();
