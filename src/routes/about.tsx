@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "@/components/SiteShell";
+import { GroupIntro } from "@/components/GroupIntro";
+import { Vision2030 } from "@/components/Vision2030";
 import { FactoryAbout } from "@/components/FactoryAbout";
 import { OurCompanies } from "@/components/OurCompanies";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
