@@ -295,6 +295,8 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .why-big { animation: none; } .why-card::before { animation: none !important; } }
 
 /* Shared About presentation and logo tiles. */
+.group-hero { position: relative; isolation: isolate; overflow: hidden; }
+.group-hero::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(70% 75% at 80% 20%, color-mix(in oklab, var(--primary) 13%, transparent), transparent 72%); }
 .logo-tile { display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--partners-surface); box-shadow: 0 2px 12px oklch(0.12 0.03 255 / 20%); }
 .group-logo-tile { width: 190px; height: 88px; padding: 12px; }
 .home-sections > section.group-companies-row { padding-block: 48px; }
