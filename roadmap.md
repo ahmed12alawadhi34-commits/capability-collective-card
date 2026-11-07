@@ -1,8 +1,8 @@
 # Requested additions
-- [ ] About: replace the header with the bilingual group hero, four count-up stats and companies/contact actions.
-- [ ] About: add Vision 2030 after the timeline with five visible-on-jump animated cards.
-- [ ] Home only: change layer 02 note to Italian spacer bars with desiccant.
-- [ ] Verify AR/EN at 375px, 412px and desktop; direct section jumps, actions, no overflow or console errors.
+- [x] About: replace the header with the bilingual group hero, four count-up stats and companies/contact actions.
+- [x] About: add Vision 2030 after the timeline with five visible-on-jump animated cards.
+- [x] Home only: change layer 02 note to Italian spacer bars with desiccant.
+- [x] Verify AR/EN at 375px, 412px and desktop; direct section jumps, actions, no overflow or console errors.
 - [ ] Final task 1: remove Services; production line occupies its lighter-navy band.
 - [ ] Final task 2: exact supplied bilingual address and factory Maps query.
 - [ ] Final task 3: security headers across SSR and static files on Cloudflare/Node; verify CSP.
