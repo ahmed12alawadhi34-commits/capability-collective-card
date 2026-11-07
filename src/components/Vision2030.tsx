@@ -61,7 +61,7 @@ export function Vision2030() {
           <p className="text-xs uppercase tracking-[0.24em] text-primary">{t({ ar: "الأفق الاستراتيجي", en: "Strategic horizon" })}</p>
           <span className="glass rounded-full px-3 py-1 text-xs font-semibold text-highlight">{t({ ar: "رؤيتنا 2030", en: "Our Vision 2030" })}</span>
         </div>
-        <h2 id="vision-2030-title" className="mt-4 max-w-4xl text-3xl font-bold leading-tight md:text-5xl">{t({ ar: "نحو ريادة صناعة الزجاج في المنطقة", en: "Leading the region's glass industry" })}</h2>
+        <h2 id="vision-2030-title" className="mt-4 max-w-4xl scroll-mt-28 text-3xl font-bold leading-tight md:text-5xl">{t({ ar: "نحو ريادة صناعة الزجاج في المنطقة", en: "Leading the region's glass industry" })}</h2>
         <p className="mt-5 max-w-3xl leading-loose text-muted-foreground">{t({ ar: "انطلاقاً من خمسة عقود من الثقة، تمضي مجموعة العواضي في خطة نمو للسنوات القادمة.", en: "Building on five decades of trust, Al-Awadhi Group is moving ahead with a growth plan for the years ahead." })}</p>
         <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-6">
           {goals.map((goal, index) => (
