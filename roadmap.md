@@ -1,4 +1,7 @@
 # Requested additions
+- [x] About only: remove duplicate factory stat cards; retain homepage stats.
+- [x] About only: remove the old vision slogan section; retain Vision 2030.
+- [ ] Verify About and Home in Arabic/English on phone and desktop.
 - [x] About: replace the header with the bilingual group hero, four count-up stats and companies/contact actions.
 - [x] About: add Vision 2030 after the timeline with five visible-on-jump animated cards.
 - [x] Home only: change layer 02 note to Italian spacer bars with desiccant.

@@ -5,8 +5,6 @@ import { FactoryAbout } from "@/components/FactoryAbout";
 import { OurCompanies } from "@/components/OurCompanies";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { FinalQuote } from "@/components/FinalQuote";
-import { useLang } from "@/lib/i18n";
-import { slogan } from "@/lib/content";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
