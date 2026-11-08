@@ -6,22 +6,23 @@ import { gsap } from "@/lib/motion";
 type Bi = { ar: string; en: string };
 export type LineStep = { name: Bi; en: string; desc: Bi; spec: Bi; x: number; y: number; wide?: boolean };
 
-/** The 9 stations on the serpentine belt (SVG coordinates, viewBox 600×600). */
+/** The 10 stations on the serpentine belt (SVG coordinates, viewBox 600×600). */
 export const lineSteps: LineStep[] = [
-  { name: { ar: "المخزن", en: "Raw glass storage" }, en: "RAW GLASS", x: 490, y: 150, desc: { ar: "استلام ألواح الزجاج الخام وتخزينها على حوامل حديدية.", en: "Raw glass sheets are received and stored on steel racks." }, spec: { ar: "3210×6000 مم · 4–12 مم", en: "3210×6000 mm · 4–12 mm" } },
-  { name: { ar: "القص", en: "CNC cutting" }, en: "CNC CUTTING", x: 300, y: 150, desc: { ar: "قص اللوح بالمقاسات المطلوبة على طاولة قص آلية بأقل هدر.", en: "The sheet is cut to size on an automatic table with minimal waste." }, spec: { ar: "دقة ±1 مم", en: "±1 mm accuracy" } },
-  { name: { ar: "تشطيب الحواف", en: "Edging" }, en: "EDGING", x: 110, y: 150, desc: { ar: "صنفرة وتلميع الحواف لتصبح ناعمة وآمنة.", en: "Edges are ground and polished smooth and safe." }, spec: { ar: "حافة مصقولة / مشطوفة", en: "Polished / bevelled edge" } },
-  { name: { ar: "المغسلة", en: "Washing" }, en: "WASHING", x: 110, y: 300, desc: { ar: "غسل وتجفيف اللوح قبل الفرن.", en: "The sheet is washed and dried before the furnace." }, spec: { ar: "ماء منزوع الأملاح", en: "Demineralised water" } },
-  { name: { ar: "فرن التقسية", en: "Tempering furnace" }, en: "TEMPERING", x: 300, y: 300, wide: true, desc: { ar: "تسخين الزجاج ثم تبريده فجأة بالهواء، فيصبح أقوى 4–5 مرات.", en: "The glass is heated then air-quenched, becoming 4–5× stronger." }, spec: { ar: "≈650°C ثم تبريد سريع", en: "≈650°C then rapid cooling" } },
-  { name: { ar: "الزجاج المزدوج", en: "Double glazing" }, en: "DOUBLE GLAZING", x: 490, y: 300, desc: { ar: "تجميع لوحين بإطار ألمنيوم ومادة مجففة، ثم عزل مزدوج بوتيل + سيليكون.", en: "Two panes are assembled with an aluminium spacer and desiccant, then double-sealed with butyl + silicone." }, spec: { ar: "عزل حراري وصوتي", en: "Thermal & sound insulation" } },
-  { name: { ar: "فحص الجودة", en: "Quality check" }, en: "QUALITY CHECK", x: 380, y: 445, desc: { ar: "فحص المقاسات والحواف والتشوّهات قبل الاعتماد.", en: "Dimensions, edges and distortion are checked before approval." }, spec: { ar: "فحص بصري + قياس", en: "Visual + measurement" } },
-  { name: { ar: "التغليف والتحميل", en: "Packing & loading" }, en: "LOADING", x: 150, y: 445, desc: { ar: "تغليف الزجاج ووضعه على حوامل فوق دينا التوصيل.", en: "The glass is packed and placed on racks on the delivery truck." }, spec: { ar: "حوامل مبطّنة ضد الكسر", en: "Padded anti-breakage racks" } },
-  { name: { ar: "الشحن والتوصيل", en: "Delivery" }, en: "DELIVERY", x: 300, y: 545, desc: { ar: "تخرج دينا المصنع وتوصل الزجاج إلى موقع المشروع.", en: "The factory truck leaves and delivers the glass to the project site." }, spec: { ar: "جاهز للتركيب", en: "Ready for installation" } },
+  { name: { ar: "القص", en: "Cutting" }, en: "CUTTING", x: 490, y: 150, desc: { ar: "قص ألواح الزجاج بالمقاسات المطلوبة على طاولة قص آلية.", en: "Glass sheets are cut to the required sizes on an automatic cutting table." }, spec: { ar: "دقة ±1 مم", en: "±1 mm accuracy" } },
+  { name: { ar: "الحف والشطف", en: "Edge grinding & bevelling" }, en: "EDGING", x: 300, y: 150, desc: { ar: "حف حواف الزجاج وشطفها لتصبح ناعمة وآمنة.", en: "Edges are ground and bevelled to be smooth and safe." }, spec: { ar: "حافة مصقولة / مشطوفة", en: "Polished / bevelled edge" } },
+  { name: { ar: "التخريم والووتر جت", en: "Drilling & waterjet" }, en: "DRILLING / WATERJET", x: 110, y: 150, desc: { ar: "عمل الفتحات والأشكال الخاصة بالتخريم والقص بالماء (ووتر جت).", en: "Holes and special shapes are made by drilling and waterjet cutting." }, spec: { ar: "فتحات وأشكال حسب الطلب", en: "Holes & shapes to order" } },
+  { name: { ar: "المغسلة", en: "Washing" }, en: "WASHING", x: 110, y: 300, desc: { ar: "غسل وتجفيف الزجاج قبل التقسية.", en: "The glass is washed and dried before tempering." }, spec: { ar: "ماء منزوع الأملاح", en: "Demineralised water" } },
+  { name: { ar: "السيكوريت", en: "Tempering" }, en: "TEMPERING", x: 300, y: 300, wide: true, desc: { ar: "تسخين الزجاج ثم تبريده بالهواء فيصبح أقوى 4–5 مرات.", en: "The glass is heated then air-cooled, becoming 4–5× stronger." }, spec: { ar: "≈650°C ثم تبريد سريع", en: "≈650°C then rapid cooling" } },
+  { name: { ar: "اللامينيشن", en: "Lamination" }, en: "LAMINATION", x: 490, y: 300, desc: { ar: "لصق لوحين أو أكثر بطبقة وسيطة لزجاج آمن متعدد الطبقات.", en: "Two or more panes are bonded with an interlayer for multi-layer safety glass." }, spec: { ar: "زجاج آمن متعدد الطبقات", en: "Multi-layer safety glass" } },
+  { name: { ar: "الدبل جلاس", en: "Double glazing" }, en: "DOUBLE GLAZING", x: 490, y: 445, desc: { ar: "تجميع لوحين بسبيسر ألمنيوم ومادة مجففة، ثم عزل ببوتيل وسيليكون.", en: "Two panes are assembled with an aluminium spacer and desiccant, then sealed with butyl and silicone." }, spec: { ar: "عزل حراري وصوتي", en: "Thermal & sound insulation" } },
+  { name: { ar: "الرسم", en: "Glass printing & art" }, en: "PRINTING", x: 300, y: 445, desc: { ar: "الرسم والطباعة والتزيين على الزجاج حسب التصميم.", en: "Painting, printing and decoration on glass to the customer's design." }, spec: { ar: "حسب تصميم العميل", en: "To the customer's design" } },
+  { name: { ar: "التشييك", en: "Quality check" }, en: "QUALITY CHECK", x: 110, y: 445, desc: { ar: "فحص المقاسات والحواف والجودة قبل الاعتماد.", en: "Sizes, edges and quality are checked before approval." }, spec: { ar: "فحص بصري + قياس", en: "Visual + measurement" } },
+  { name: { ar: "التوصيل", en: "Delivery" }, en: "DELIVERY", x: 300, y: 512, desc: { ar: "تغليف الزجاج وتحميله على دينا المصنع وتوصيله إلى موقع المشروع.", en: "The glass is packed, loaded on the factory truck and delivered to the project site." }, spec: { ar: "جاهز للتركيب", en: "Ready for installation" } },
 ];
 
-/** Belt waypoints: station 1→8 along the serpentine, then to the gate. */
+/** Belt waypoints: stations 1→9 along the serpentine, then station 10 at the gate. */
 const beltPath: [number, number][] = [
-  [490, 150], [300, 150], [110, 150], [110, 300], [300, 300], [490, 300], [490, 445], [380, 445], [150, 445], [150, 512], [300, 512],
+  [490, 150], [300, 150], [110, 150], [110, 300], [300, 300], [490, 300], [490, 445], [300, 445], [110, 445], [110, 512], [300, 512],
 ];
 const beltD = beltPath.map(([x, y]) => `L ${x} ${y}`).join(" ").replace("L", "M");
 
