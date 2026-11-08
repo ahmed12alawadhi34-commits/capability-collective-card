@@ -34,8 +34,8 @@ for (let i = 0; i < beltPath.length - 1; i++) {
   segments.push({ from: totalLen, to: totalLen + len, len });
   totalLen += len;
 }
-/** Distance along the belt at each station (steps 1–8; step 9 is the truck ride). */
-const stationDist = [0, ...segments.slice(0, 7).map((s) => s.to)];
+/** Distance along the belt at each of the ten stations; delivery ends at the gate. */
+const stationDist = [0, ...segments.slice(0, 9).map((s) => s.to)];
 
 function pointAt(d: number): [number, number] {
   const seg = segments.find((s) => d <= s.to) ?? segments[segments.length - 1]!;
@@ -72,23 +72,20 @@ export function ProductionLine() {
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.2, paused: true });
     tlRef.current = tl;
     tl.call(resetSheet);
-    // dwell at each station, then travel to the next
-    for (let i = 0; i < 8; i++) {
+    // Dwell at each of the ten stations, then travel to the next.
+    for (let i = 0; i < lineSteps.length; i++) {
       tl.addLabel(`step${i}`);
       tl.call(() => setStep(i));
       tl.to({}, { duration: 1.5 });
-      if (i === 1) tl.to(sh, { scale: 0.7, duration: 0.4 }, "<"); // smaller after cutting
+      if (i === 0) tl.to(sh, { scale: 0.7, duration: 0.4 }, "<"); // smaller after cutting
       if (i === 4) tl.call(() => sh.classList.add("pl-hot")); // furnace glow
-      if (i === 5) tl.call(() => { sh.classList.remove("pl-hot"); sh.classList.add("pl-double"); });
-      if (i < 7) {
+      if (i === 5) tl.call(() => sh.classList.remove("pl-hot"));
+      if (i === 6) tl.call(() => sh.classList.add("pl-double"));
+      if (i < lineSteps.length - 1) {
         tl.to(state, { d: stationDist[i + 1]!, duration: (stationDist[i + 1]! - stationDist[i]!) / 90, ease: "none", onUpdate: place });
       }
     }
-    // to the gate, load the truck, drive out
-    tl.addLabel("step8");
-    tl.call(() => setStep(8));
-    tl.to(state, { d: totalLen, duration: (totalLen - stationDist[7]!) / 90, ease: "none", onUpdate: place });
-    tl.to({}, { duration: 0.8 });
+    // Load at the delivery gate, then drive out.
     tl.call(() => sh.classList.add("pl-loaded"));
     tl.to(sh, { opacity: 0, duration: 0.4 });
     tl.to(tr, { x: 340, opacity: 0, duration: 2.4, ease: "power1.in" });
@@ -113,13 +110,13 @@ export function ProductionLine() {
       <div className="mx-auto max-w-7xl px-5">
         <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "داخل المصنع", en: "Inside the factory" })}</p>
         <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "رحلة لوح الزجاج داخل المصنع", en: "A glass sheet's journey through the factory" })}</h2>
-        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">{t({ ar: "من المخزن إلى باب المشروع: لوح خام يدخل الهنجر، ويخرج زجاجاً مقسّى أو مزدوجاً على دينا التوصيل. اضغط على أي مرحلة لتشاهدها.", en: "From storage to the project gate: a raw sheet enters the hangar and leaves as tempered or double glass on the delivery truck. Tap any step to watch it." })}</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">{t({ ar: "من القص إلى باب المشروع: لوح زجاج يدخل الهنجر، ويخرج جاهزاً للتركيب على دينا التوصيل. اضغط على أي مرحلة لتشاهدها.", en: "From cutting to the project gate: a glass sheet enters the hangar and leaves ready to install on the delivery truck. Tap any step to watch it." })}</p>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_minmax(0,600px)] items-start">
           {/* info panel + step list */}
           <div className="order-2 lg:order-1">
             <div className="pl-info glass rounded-3xl p-6 min-h-44">
-              <p className="text-xs text-primary font-semibold" dir="auto">{t({ ar: `المرحلة ${step + 1} من 9`, en: `Step ${step + 1} of 9` })}</p>
+              <p className="text-xs text-primary font-semibold" dir="auto">{t({ ar: `المرحلة ${step + 1} من ${lineSteps.length}`, en: `Step ${step + 1} of ${lineSteps.length}` })}</p>
               <h3 className="mt-2 text-2xl font-bold">{t(current.name)}</h3>
               <p className="mt-3 text-muted-foreground leading-relaxed">{t(current.desc)}</p>
               <p className="mt-3 text-sm text-primary" dir="auto">{t(current.spec)}</p>
@@ -175,16 +172,20 @@ export function ProductionLine() {
               {/* furnace body at station 5 */}
               <rect x="238" y="282" width="124" height="36" rx="6" fill="#3a1a08" stroke="#f26a1b" strokeWidth="1.5" className="pl-furnace" />
               {/* station cards */}
-              {lineSteps.slice(0, 8).map((s, i) => (
+              {lineSteps.slice(0, 9).map((s, i) => (
                 <g key={s.en} transform={`translate(${s.x} ${s.y})`} className="pl-station" data-active={i === step} data-done={i < step}>
                   <rect x={s.wide ? -78 : -58} y="-52" width={s.wide ? 156 : 116} height="34" rx="7" fill="#14263c" stroke={i === step ? "#e3b92e" : "#2c4566"} strokeWidth="1.4" />
                   <text x={s.wide ? -68 : -48} y="-36" fontSize="8.5" fill="#7d93ad">{String(i + 1).padStart(2, "0")}</text>
-                  <text x={s.wide ? 68 : 48} y="-36" textAnchor="end" fontSize="11" fontWeight="700" fill="#e8f1fa" fontFamily="Cairo, sans-serif">{s.name.ar}</text>
-                  <text x={s.wide ? 68 : 48} y="-24" textAnchor="end" fontSize="7" fill="#7d93ad" letterSpacing="1">{s.en}</text>
+                  <text x={s.wide ? 68 : 48} y="-36" textAnchor="end" fontSize={s.name.ar.length > 14 ? 9 : 11} fontWeight="700" fill="#e8f1fa" fontFamily="Cairo, sans-serif">{s.name.ar}</text>
+                  <text x={s.wide ? 68 : 48} y="-24" textAnchor="end" fontSize={s.en.length > 16 ? 6 : 7} fill="#7d93ad" letterSpacing={s.en.length > 16 ? 0.4 : 1}>{s.en}</text>
                   <circle className="pl-station-lamp" cx={s.wide ? -60 : -40} cy="-27" r="4" />
                 </g>
               ))}
-              {/* truck outside the gate */}
+              {/* station 10: the delivery truck at the gate */}
+              <g className="pl-station" data-active={step === 9}>
+                <circle className="pl-station-lamp" cx="346" cy="546" r="4" />
+                <text x="356" y="550" fontSize="9" fontWeight="700" fill="#e8f1fa" letterSpacing="1">10 · DELIVERY</text>
+              </g>
               <g ref={truck} transform="translate(300 552)">
                 <rect x="-34" y="-16" width="68" height="26" rx="4" fill="#28405e" stroke="#3c5c80" strokeWidth="1.5" />
                 <rect x="-34" y="-16" width="14" height="26" rx="4" fill="#37577e" />
