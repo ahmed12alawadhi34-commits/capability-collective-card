@@ -6,22 +6,23 @@ import { gsap } from "@/lib/motion";
 type Bi = { ar: string; en: string };
 export type LineStep = { name: Bi; en: string; desc: Bi; spec: Bi; x: number; y: number; wide?: boolean };
 
-/** The 9 stations on the serpentine belt (SVG coordinates, viewBox 600×600). */
+/** The 10 stations on the serpentine belt (SVG coordinates, viewBox 600×600). */
 export const lineSteps: LineStep[] = [
-  { name: { ar: "المخزن", en: "Raw glass storage" }, en: "RAW GLASS", x: 490, y: 150, desc: { ar: "استلام ألواح الزجاج الخام وتخزينها على حوامل حديدية.", en: "Raw glass sheets are received and stored on steel racks." }, spec: { ar: "3210×6000 مم · 4–12 مم", en: "3210×6000 mm · 4–12 mm" } },
-  { name: { ar: "القص", en: "CNC cutting" }, en: "CNC CUTTING", x: 300, y: 150, desc: { ar: "قص اللوح بالمقاسات المطلوبة على طاولة قص آلية بأقل هدر.", en: "The sheet is cut to size on an automatic table with minimal waste." }, spec: { ar: "دقة ±1 مم", en: "±1 mm accuracy" } },
-  { name: { ar: "تشطيب الحواف", en: "Edging" }, en: "EDGING", x: 110, y: 150, desc: { ar: "صنفرة وتلميع الحواف لتصبح ناعمة وآمنة.", en: "Edges are ground and polished smooth and safe." }, spec: { ar: "حافة مصقولة / مشطوفة", en: "Polished / bevelled edge" } },
-  { name: { ar: "المغسلة", en: "Washing" }, en: "WASHING", x: 110, y: 300, desc: { ar: "غسل وتجفيف اللوح قبل الفرن.", en: "The sheet is washed and dried before the furnace." }, spec: { ar: "ماء منزوع الأملاح", en: "Demineralised water" } },
-  { name: { ar: "فرن التقسية", en: "Tempering furnace" }, en: "TEMPERING", x: 300, y: 300, wide: true, desc: { ar: "تسخين الزجاج ثم تبريده فجأة بالهواء، فيصبح أقوى 4–5 مرات.", en: "The glass is heated then air-quenched, becoming 4–5× stronger." }, spec: { ar: "≈650°C ثم تبريد سريع", en: "≈650°C then rapid cooling" } },
-  { name: { ar: "الزجاج المزدوج", en: "Double glazing" }, en: "DOUBLE GLAZING", x: 490, y: 300, desc: { ar: "تجميع لوحين بإطار ألمنيوم ومادة مجففة، ثم عزل مزدوج بوتيل + سيليكون.", en: "Two panes are assembled with an aluminium spacer and desiccant, then double-sealed with butyl + silicone." }, spec: { ar: "عزل حراري وصوتي", en: "Thermal & sound insulation" } },
-  { name: { ar: "فحص الجودة", en: "Quality check" }, en: "QUALITY CHECK", x: 380, y: 445, desc: { ar: "فحص المقاسات والحواف والتشوّهات قبل الاعتماد.", en: "Dimensions, edges and distortion are checked before approval." }, spec: { ar: "فحص بصري + قياس", en: "Visual + measurement" } },
-  { name: { ar: "التغليف والتحميل", en: "Packing & loading" }, en: "LOADING", x: 150, y: 445, desc: { ar: "تغليف الزجاج ووضعه على حوامل فوق دينا التوصيل.", en: "The glass is packed and placed on racks on the delivery truck." }, spec: { ar: "حوامل مبطّنة ضد الكسر", en: "Padded anti-breakage racks" } },
-  { name: { ar: "الشحن والتوصيل", en: "Delivery" }, en: "DELIVERY", x: 300, y: 545, desc: { ar: "تخرج دينا المصنع وتوصل الزجاج إلى موقع المشروع.", en: "The factory truck leaves and delivers the glass to the project site." }, spec: { ar: "جاهز للتركيب", en: "Ready for installation" } },
+  { name: { ar: "القص", en: "Cutting" }, en: "CUTTING", x: 490, y: 150, desc: { ar: "قص ألواح الزجاج بالمقاسات المطلوبة على طاولة قص آلية.", en: "Glass sheets are cut to the required sizes on an automatic cutting table." }, spec: { ar: "دقة ±1 مم", en: "±1 mm accuracy" } },
+  { name: { ar: "الحف والشطف", en: "Edge grinding & bevelling" }, en: "EDGING", x: 300, y: 150, desc: { ar: "حف حواف الزجاج وشطفها لتصبح ناعمة وآمنة.", en: "Edges are ground and bevelled to be smooth and safe." }, spec: { ar: "حافة مصقولة / مشطوفة", en: "Polished / bevelled edge" } },
+  { name: { ar: "التخريم والووتر جت", en: "Drilling & waterjet" }, en: "DRILLING / WATERJET", x: 110, y: 150, desc: { ar: "عمل الفتحات والأشكال الخاصة بالتخريم والقص بالماء (ووتر جت).", en: "Holes and special shapes are made by drilling and waterjet cutting." }, spec: { ar: "فتحات وأشكال حسب الطلب", en: "Holes & shapes to order" } },
+  { name: { ar: "المغسلة", en: "Washing" }, en: "WASHING", x: 110, y: 300, desc: { ar: "غسل وتجفيف الزجاج قبل التقسية.", en: "The glass is washed and dried before tempering." }, spec: { ar: "ماء منزوع الأملاح", en: "Demineralised water" } },
+  { name: { ar: "السيكوريت", en: "Tempering" }, en: "TEMPERING", x: 300, y: 300, wide: true, desc: { ar: "تسخين الزجاج ثم تبريده بالهواء فيصبح أقوى 4–5 مرات.", en: "The glass is heated then air-cooled, becoming 4–5× stronger." }, spec: { ar: "≈650°C ثم تبريد سريع", en: "≈650°C then rapid cooling" } },
+  { name: { ar: "اللامينيشن", en: "Lamination" }, en: "LAMINATION", x: 490, y: 300, desc: { ar: "لصق لوحين أو أكثر بطبقة وسيطة لزجاج آمن متعدد الطبقات.", en: "Two or more panes are bonded with an interlayer for multi-layer safety glass." }, spec: { ar: "زجاج آمن متعدد الطبقات", en: "Multi-layer safety glass" } },
+  { name: { ar: "الدبل جلاس", en: "Double glazing" }, en: "DOUBLE GLAZING", x: 490, y: 445, desc: { ar: "تجميع لوحين بسبيسر ألمنيوم ومادة مجففة، ثم عزل ببوتيل وسيليكون.", en: "Two panes are assembled with an aluminium spacer and desiccant, then sealed with butyl and silicone." }, spec: { ar: "عزل حراري وصوتي", en: "Thermal & sound insulation" } },
+  { name: { ar: "الرسم", en: "Glass printing & art" }, en: "PRINTING", x: 300, y: 445, desc: { ar: "الرسم والطباعة والتزيين على الزجاج حسب التصميم.", en: "Painting, printing and decoration on glass to the customer's design." }, spec: { ar: "حسب تصميم العميل", en: "To the customer's design" } },
+  { name: { ar: "التشييك", en: "Quality check" }, en: "QUALITY CHECK", x: 110, y: 445, desc: { ar: "فحص المقاسات والحواف والجودة قبل الاعتماد.", en: "Sizes, edges and quality are checked before approval." }, spec: { ar: "فحص بصري + قياس", en: "Visual + measurement" } },
+  { name: { ar: "التوصيل", en: "Delivery" }, en: "DELIVERY", x: 300, y: 512, desc: { ar: "تغليف الزجاج وتحميله على دينا المصنع وتوصيله إلى موقع المشروع.", en: "The glass is packed, loaded on the factory truck and delivered to the project site." }, spec: { ar: "جاهز للتركيب", en: "Ready for installation" } },
 ];
 
-/** Belt waypoints: station 1→8 along the serpentine, then to the gate. */
+/** Belt waypoints: stations 1→9 along the serpentine, then station 10 at the gate. */
 const beltPath: [number, number][] = [
-  [490, 150], [300, 150], [110, 150], [110, 300], [300, 300], [490, 300], [490, 445], [380, 445], [150, 445], [150, 512], [300, 512],
+  [490, 150], [300, 150], [110, 150], [110, 300], [300, 300], [490, 300], [490, 445], [300, 445], [110, 445], [110, 512], [300, 512],
 ];
 const beltD = beltPath.map(([x, y]) => `L ${x} ${y}`).join(" ").replace("L", "M");
 
@@ -33,8 +34,8 @@ for (let i = 0; i < beltPath.length - 1; i++) {
   segments.push({ from: totalLen, to: totalLen + len, len });
   totalLen += len;
 }
-/** Distance along the belt at each station (steps 1–8; step 9 is the truck ride). */
-const stationDist = [0, ...segments.slice(0, 7).map((s) => s.to)];
+/** Distance along the belt at each of the ten stations; delivery ends at the gate. */
+const stationDist = [0, ...segments.slice(0, 9).map((s) => s.to)];
 
 function pointAt(d: number): [number, number] {
   const seg = segments.find((s) => d <= s.to) ?? segments[segments.length - 1]!;
@@ -71,23 +72,20 @@ export function ProductionLine() {
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.2, paused: true });
     tlRef.current = tl;
     tl.call(resetSheet);
-    // dwell at each station, then travel to the next
-    for (let i = 0; i < 8; i++) {
+    // Dwell at each of the ten stations, then travel to the next.
+    for (let i = 0; i < lineSteps.length; i++) {
       tl.addLabel(`step${i}`);
       tl.call(() => setStep(i));
       tl.to({}, { duration: 1.5 });
-      if (i === 1) tl.to(sh, { scale: 0.7, duration: 0.4 }, "<"); // smaller after cutting
+      if (i === 0) tl.to(sh, { scale: 0.7, duration: 0.4 }, "<"); // smaller after cutting
       if (i === 4) tl.call(() => sh.classList.add("pl-hot")); // furnace glow
-      if (i === 5) tl.call(() => { sh.classList.remove("pl-hot"); sh.classList.add("pl-double"); });
-      if (i < 7) {
+      if (i === 5) tl.call(() => sh.classList.remove("pl-hot"));
+      if (i === 6) tl.call(() => sh.classList.add("pl-double"));
+      if (i < lineSteps.length - 1) {
         tl.to(state, { d: stationDist[i + 1]!, duration: (stationDist[i + 1]! - stationDist[i]!) / 90, ease: "none", onUpdate: place });
       }
     }
-    // to the gate, load the truck, drive out
-    tl.addLabel("step8");
-    tl.call(() => setStep(8));
-    tl.to(state, { d: totalLen, duration: (totalLen - stationDist[7]!) / 90, ease: "none", onUpdate: place });
-    tl.to({}, { duration: 0.8 });
+    // Load at the delivery gate, then drive out.
     tl.call(() => sh.classList.add("pl-loaded"));
     tl.to(sh, { opacity: 0, duration: 0.4 });
     tl.to(tr, { x: 340, opacity: 0, duration: 2.4, ease: "power1.in" });
@@ -112,13 +110,13 @@ export function ProductionLine() {
       <div className="mx-auto max-w-7xl px-5">
         <p className="text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "داخل المصنع", en: "Inside the factory" })}</p>
         <h2 className="mt-3 text-3xl md:text-5xl font-bold">{t({ ar: "رحلة لوح الزجاج داخل المصنع", en: "A glass sheet's journey through the factory" })}</h2>
-        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">{t({ ar: "من المخزن إلى باب المشروع: لوح خام يدخل الهنجر، ويخرج زجاجاً مقسّى أو مزدوجاً على دينا التوصيل. اضغط على أي مرحلة لتشاهدها.", en: "From storage to the project gate: a raw sheet enters the hangar and leaves as tempered or double glass on the delivery truck. Tap any step to watch it." })}</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">{t({ ar: "من القص إلى باب المشروع: لوح زجاج يدخل الهنجر، ويخرج جاهزاً للتركيب على دينا التوصيل. اضغط على أي مرحلة لتشاهدها.", en: "From cutting to the project gate: a glass sheet enters the hangar and leaves ready to install on the delivery truck. Tap any step to watch it." })}</p>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_minmax(0,600px)] items-start">
           {/* info panel + step list */}
           <div className="order-2 lg:order-1">
             <div className="pl-info glass rounded-3xl p-6 min-h-44">
-              <p className="text-xs text-primary font-semibold" dir="auto">{t({ ar: `المرحلة ${step + 1} من 9`, en: `Step ${step + 1} of 9` })}</p>
+              <p className="text-xs text-primary font-semibold" dir="auto">{t({ ar: `المرحلة ${step + 1} من ${lineSteps.length}`, en: `Step ${step + 1} of ${lineSteps.length}` })}</p>
               <h3 className="mt-2 text-2xl font-bold">{t(current.name)}</h3>
               <p className="mt-3 text-muted-foreground leading-relaxed">{t(current.desc)}</p>
               <p className="mt-3 text-sm text-primary" dir="auto">{t(current.spec)}</p>
@@ -174,16 +172,20 @@ export function ProductionLine() {
               {/* furnace body at station 5 */}
               <rect x="238" y="282" width="124" height="36" rx="6" fill="#3a1a08" stroke="#f26a1b" strokeWidth="1.5" className="pl-furnace" />
               {/* station cards */}
-              {lineSteps.slice(0, 8).map((s, i) => (
+              {lineSteps.slice(0, 9).map((s, i) => (
                 <g key={s.en} transform={`translate(${s.x} ${s.y})`} className="pl-station" data-active={i === step} data-done={i < step}>
                   <rect x={s.wide ? -78 : -58} y="-52" width={s.wide ? 156 : 116} height="34" rx="7" fill="#14263c" stroke={i === step ? "#e3b92e" : "#2c4566"} strokeWidth="1.4" />
                   <text x={s.wide ? -68 : -48} y="-36" fontSize="8.5" fill="#7d93ad">{String(i + 1).padStart(2, "0")}</text>
-                  <text x={s.wide ? 68 : 48} y="-36" textAnchor="end" fontSize="11" fontWeight="700" fill="#e8f1fa" fontFamily="Cairo, sans-serif">{s.name.ar}</text>
-                  <text x={s.wide ? 68 : 48} y="-24" textAnchor="end" fontSize="7" fill="#7d93ad" letterSpacing="1">{s.en}</text>
+                  <text x={s.wide ? 68 : 48} y="-36" textAnchor="end" fontSize={s.name.ar.length > 14 ? 9 : 11} fontWeight="700" fill="#e8f1fa" fontFamily="Cairo, sans-serif">{s.name.ar}</text>
+                  <text x={s.wide ? 68 : 48} y="-24" textAnchor="end" fontSize={s.en.length > 16 ? 6 : 7} fill="#7d93ad" letterSpacing={s.en.length > 16 ? 0.4 : 1}>{s.en}</text>
                   <circle className="pl-station-lamp" cx={s.wide ? -60 : -40} cy="-27" r="4" />
                 </g>
               ))}
-              {/* truck outside the gate */}
+              {/* station 10: the delivery truck at the gate */}
+              <g className="pl-station" data-active={step === 9}>
+                <circle className="pl-station-lamp" cx="346" cy="546" r="4" />
+                <text x="356" y="550" fontSize="9" fontWeight="700" fill="#e8f1fa" letterSpacing="1">10 · DELIVERY</text>
+              </g>
               <g ref={truck} transform="translate(300 552)">
                 <rect x="-34" y="-16" width="68" height="26" rx="4" fill="#28405e" stroke="#3c5c80" strokeWidth="1.5" />
                 <rect x="-34" y="-16" width="14" height="26" rx="4" fill="#37577e" />

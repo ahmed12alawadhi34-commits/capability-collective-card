@@ -12,12 +12,16 @@ describe("final update rules", () => {
       expect(src).not.toContain("132.145");
     }
   });
-  it("has exactly nine bilingual production steps with descriptions and specs", () => {
-    expect(lineSteps).toHaveLength(9);
+  it("has the ten supplied bilingual production steps in order with descriptions and specs", () => {
+    expect(lineSteps.map((s) => s.en)).toEqual([
+      "CUTTING", "EDGING", "DRILLING / WATERJET", "WASHING", "TEMPERING",
+      "LAMINATION", "DOUBLE GLAZING", "PRINTING", "QUALITY CHECK", "DELIVERY",
+    ]);
     for (const s of lineSteps) {
       expect(s.name.ar.length).toBeGreaterThan(0);
       expect(s.name.en.length).toBeGreaterThan(0);
       expect(s.desc.ar.length).toBeGreaterThan(0);
+      expect(s.desc.en.length).toBeGreaterThan(0);
       expect(s.spec.ar.length).toBeGreaterThan(0);
       expect(s.spec.en.length).toBeGreaterThan(0);
     }

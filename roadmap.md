@@ -1,4 +1,5 @@
 # Requested additions
+- [x] Production line only: replaced the old nine steps with the supplied ten, rerouted the hangar path to delivery, and verified AR/EN at 375px, 412px and desktop; 44 tests pass with no overlap, overflow or console errors.
 - [x] About only: remove duplicate factory stat cards; retain homepage stats.
 - [x] About only: remove the old vision slogan section; retain Vision 2030.
 - [x] Verify About and Home in Arabic/English at 375px, 412px and desktop; 44 tests pass, no overflow or console errors.
