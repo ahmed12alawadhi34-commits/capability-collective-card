@@ -35,7 +35,7 @@ for (let i = 0; i < beltPath.length - 1; i++) {
   totalLen += len;
 }
 /** Distance along the belt at each of the ten stations; delivery ends at the gate. */
-const stationDist = [0, ...segments.slice(0, 9).map((s) => s.to)];
+const stationDist = [0, ...segments.slice(0, 8).map((s) => s.to), totalLen];
 
 function pointAt(d: number): [number, number] {
   const seg = segments.find((s) => d <= s.to) ?? segments[segments.length - 1]!;
