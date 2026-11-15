@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { playVideo, playWhenReady, watchVideoInteraction } from "@/lib/video-interaction";
 import { watchVideoVisibility } from "@/lib/video-visibility";
 
-type Clip = { desktop: string; mobile: string; poster: string; label?: string };
+type Clip = { desktop: string; mobile: string; poster: string };
 
 /** Plays clips one after another with a crossfade, loops, and pauses off screen. */
 export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { clips: Clip[]; preload?: "auto" | "metadata"; fit?: "cover" | "contain" }) {
@@ -51,12 +51,6 @@ export function SequenceVideo({ clips, preload = "metadata", fit = "cover" }: { 
           onEnded={() => next(i)} onTimeUpdate={(e) => nearEnd(i, e.currentTarget)}
           className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-in-out ${fit === "cover" ? "object-cover" : "object-contain"} ${i === active ? "opacity-100" : "opacity-0"}`} />
       ))}
-      {clips.some((c) => c.label) && <div className="absolute bottom-4 inset-x-0 z-10 flex justify-center gap-2">
-        {clips.map((c, i) => (
-          <button key={i} type="button" aria-pressed={i === active} onClick={() => setActive(i)}
-            className={`video-label cursor-pointer rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-500 ${i === active ? "text-primary border-primary/60" : "text-muted-foreground hover:text-foreground"}`}>{c.label}</button>
-        ))}
-      </div>}
     </div>
   );
 }

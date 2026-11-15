@@ -233,11 +233,8 @@ html, body { overflow-x: clip; }
 .company-main-name, .company-secondary-name { text-align: start; }
 .company-logo-bg { background: var(--partners-surface); box-shadow: 0 2px 12px oklch(0.12 0.03 255 / 20%); }
 .company-line { background: linear-gradient(to bottom, var(--primary), transparent); }
-.video-label { background: var(--glass-mobile); border: 1px solid var(--glass-border); }
-.video-poster-backdrop { filter: blur(8px); }
 @media (max-width: 767px) {
   .glass { backdrop-filter: none; background: var(--glass-mobile); }
-  .video-poster-backdrop { filter: none; }
   body { background-attachment: scroll; }
 }
 @media (prefers-reduced-motion: reduce) { .company-card, .company-card:hover { transform: none; transition: none; } }
