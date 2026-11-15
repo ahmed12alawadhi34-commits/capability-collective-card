@@ -4,7 +4,7 @@ import { MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
-import { products } from "@/lib/content";
+import { products, responseTime } from "@/lib/content";
 import { pageHead } from "@/lib/seo";
 import { quoteSchema, formQuoteUrl } from "@/lib/whatsapp";
 
@@ -53,6 +53,7 @@ function Quote() {
         <Button type="submit" className="md:col-span-2 h-auto rounded-full py-3.5 font-semibold"><MessageCircle />{t({ ar: "إرسال عبر واتساب", en: "Send via WhatsApp" })}</Button>
         <p className="md:col-span-2 -mt-2 text-center text-xs text-muted-foreground">{t({ ar: "بياناتك تُرسل مباشرة إلى واتساب المصنع فقط ولا تُحفظ في الموقع", en: "Your details are sent only to our WhatsApp and are not stored on the website." })}</p>
       </form>
+      <p className="mt-4 text-center text-sm text-muted-foreground">{t(responseTime)}</p>
     </section>
   </>;
 }
