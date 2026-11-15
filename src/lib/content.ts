@@ -27,6 +27,12 @@ export const address = {
 };
 
 export const hours = { ar: "السبت – الخميس: 8:00 ص – 5:00 م", en: "Sat – Thu: 8:00 AM – 5:00 PM" };
+export const responseTime = {
+  maxHours: 1,
+  workingHoursOnly: true,
+  ar: "نرد على طلبك خلال ساعة في أوقات الدوام",
+  en: "We reply within one hour during working hours.",
+} as const;
 
 export const products = [
   { icon: "shield", name: { ar: "سيكوريت (مقسّى)", en: "Tempered (Securit)" }, desc: { ar: "أقوى بأربع إلى خمس مرات من الزجاج العادي، ويتحمل حرارة أعلى بنحو ثلاث مرات، وينكسر إلى قطع صغيرة آمنة. سماكات من 4 إلى 19 مم ومقاسات حتى 2×4 متر — شفاف، مصنفر، منقوش، ملوّن ولو-إي. للواجهات والأبواب والنوافذ والسلالم والديكور.", en: "4–5× stronger than normal glass, withstands about 3× more heat, and breaks into small safe pieces. Thickness 4–19 mm, sizes up to 2×4 m — clear, frosted, patterned, coloured and Low-E. For curtain walls, doors, windows, stairs and decor." } },

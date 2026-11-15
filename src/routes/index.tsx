@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
-import { gsap, ScrollTrigger, ensureVisible } from "@/lib/motion";
+import { gsap } from "@/lib/motion";
 import { SequenceVideo } from "@/components/SequenceVideo";
 const hr = { url: "/media/videos/hero-rollers.mp4" };
 const hrM = { url: "/media/videos/hero-rollers-m.mp4" };
@@ -10,15 +10,6 @@ const hrP = { url: "/media/posters/hero-rollers-poster.jpg" };
 const hp = { url: "/media/videos/hero-polish.mp4" };
 const hpM = { url: "/media/videos/hero-polish-m.mp4" };
 const hpP = { url: "/media/posters/hero-polish-poster.jpg" };
-const furnace = { url: "/media/videos/hero-furnace.mp4" };
-const furnaceM = { url: "/media/videos/hero-furnace-m.mp4" };
-const furnacePoster = { url: "/media/posters/hero-furnace-poster.jpg" };
-const asm = { url: "/media/videos/glass-assembly.mp4" };
-const asmM = { url: "/media/videos/glass-assembly-m.mp4" };
-const asmP = { url: "/media/posters/glass-assembly-poster.jpg" };
-const fin = { url: "/media/videos/glass-finished.mp4" };
-const finM = { url: "/media/videos/glass-finished-m.mp4" };
-const finP = { url: "/media/posters/glass-finished-poster.jpg" };
 import { GlassLayers } from "@/components/GlassLayers";
 import { PartnersStrip } from "@/components/PartnersStrip";
 import { FactoryAbout } from "@/components/FactoryAbout";
@@ -36,11 +27,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-/** Masked line: text slides up from behind its own clip. */
-function Line({ children, className = "" }: { children: string; className?: string }) {
-  return <span className={`block overflow-hidden pb-1 ${className}`}><span data-line className="block">{children}</span></span>;
-}
-
 function Index() {
   const { t, lang } = useLang();
   const root = useRef<HTMLDivElement>(null);
@@ -51,29 +37,14 @@ function Index() {
     const ctx = gsap.context(() => {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduced) {
-        gsap.set("[data-word], [data-hero-fade], [data-line], [data-card], [data-frame]", { opacity: 1, clearProps: "transform" });
+        gsap.set("[data-word], [data-hero-fade]", { opacity: 1, clearProps: "transform" });
         return;
       }
       gsap.fromTo("[data-word]", { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, clearProps: "transform", duration: 1.1, ease: "expo.out", stagger: 0.09, delay: 0.9 });
       gsap.fromTo("[data-hero-fade]", { y: 30, opacity: 0 }, { y: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, delay: 1.5 });
 
-      gsap.utils.toArray<HTMLElement>("[data-lines]").forEach((g) =>
-        gsap.fromTo(g.querySelectorAll("[data-line]"), { yPercent: 105 }, { yPercent: 0, clearProps: "transform", duration: 1, ease: "power4.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%", once: true } }));
-
-      gsap.fromTo("[data-frame]", { opacity: 0, y: 40 }, { opacity: 1, y: 0, clearProps: "transform", duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: "[data-frame]", start: "top 85%", once: true } });
-
-      gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
-        const end = Number(el.dataset["count"]), o = { v: end > 1000 ? end - 60 : 0 };
-        gsap.to(o, { v: end, duration: 2, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%" }, onUpdate: () => { el.textContent = Math.round(o.v).toString(); } });
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) =>
-        gsap.fromTo(el, { yPercent: -10 }, { yPercent: 10, ease: "none", scrollTrigger: { trigger: el.parentElement, scrub: true } }));
-
     }, root);
-    const r = setTimeout(() => ScrollTrigger.refresh(), 500);
-    const stop = ensureVisible(document.querySelectorAll("[data-frame]"));
-    return () => { stop(); clearTimeout(r); ctx.revert(); };
+    return () => { ctx.revert(); };
   }, [lang]);
 
   return (
@@ -107,24 +78,6 @@ function Index() {
           </div>
         </div>
         <div className="absolute bottom-6 inset-x-0 flex justify-center"><span className="h-12 w-px bg-gradient-to-b from-primary to-transparent animate-pulse" /></div>
-      </section>
-
-      {/* FACTORY VIDEO — wide cinematic frame */}
-      <section className="relative px-4 py-20">
-        <div data-frame className="relative mx-auto h-[75vh] w-full max-w-[1280px] overflow-hidden rounded-3xl glass md:h-auto md:aspect-video">
-          <SequenceVideo fit="cover" clips={[
-            { desktop: furnace.url, mobile: furnaceM.url, poster: furnacePoster.url, label: t({ ar: "الفرن والتقسية", en: "Tempering furnace" }) },
-            { desktop: asm.url, mobile: asmM.url, poster: asmP.url, label: t({ ar: "التجميع", en: "Assembly" }) },
-            { desktop: fin.url, mobile: finM.url, poster: finP.url, label: t({ ar: "المنتج النهائي", en: "Finished product" }) },
-          ]} />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-          <div data-lines className="absolute bottom-16 start-6 z-10 text-start md:start-10">
-            <h2 className="text-[32px] md:text-5xl font-extrabold leading-tight">
-              <Line>{t({ ar: "دقة في", en: "Precision in" })}</Line>
-              <Line className="text-highlight">{t({ ar: "كل حافة", en: "every edge" })}</Line>
-            </h2>
-          </div>
-        </div>
       </section>
 
       <FactoryAbout compact />

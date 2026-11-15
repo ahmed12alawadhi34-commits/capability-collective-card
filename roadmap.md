@@ -1,4 +1,7 @@
 # Requested additions
+- [ ] Replace hero with a single compressed desktop/mobile video and first-frame poster — blocked: no new video attachment received; retain current hero assets until supplied.
+- [ ] Remove lower Precision video section and its unused files/code; preserve hero clips pending replacement.
+- [ ] Add working-hours response-time line to Quote and Contact; verify AR/EN on phone and desktop.
 - [x] Production line only: replaced the old nine steps with the supplied ten, rerouted the hangar path to delivery, and verified AR/EN at 375px, 412px and desktop; 44 tests pass with no overlap, overflow or console errors.
 - [x] About only: remove duplicate factory stat cards; retain homepage stats.
 - [x] About only: remove the old vision slogan section; retain Vision 2030.

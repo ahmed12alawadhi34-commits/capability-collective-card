@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, Clock, MessageCircle, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/SiteShell";
 import { useLang } from "@/lib/i18n";
-import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady } from "@/lib/content";
+import { address, hours, PHONES, EMAIL, emailReady, WHATSAPP, contactReady, responseTime } from "@/lib/content";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
 import { quoteUrl } from "@/lib/whatsapp";
 
@@ -55,6 +55,7 @@ function Contact() {
               <div><p className="text-xs text-muted-foreground">WhatsApp</p><p dir="ltr" className="mt-1 font-medium">{WHATSAPP}</p></div>
             </div>
           )}
+          <p className="text-center text-sm text-muted-foreground">{t(responseTime)}</p>
         </div>
         <div>
           <div className="glass rounded-3xl overflow-hidden min-h-96">
