@@ -3,13 +3,7 @@ import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
 import { gsap } from "@/lib/motion";
-import { SequenceVideo } from "@/components/SequenceVideo";
-const hr = { url: "/media/videos/hero-rollers.mp4" };
-const hrM = { url: "/media/videos/hero-rollers-m.mp4" };
-const hrP = { url: "/media/posters/hero-rollers-poster.jpg" };
-const hp = { url: "/media/videos/hero-polish.mp4" };
-const hpM = { url: "/media/videos/hero-polish-m.mp4" };
-const hpP = { url: "/media/posters/hero-polish-poster.jpg" };
+import { BgVideo } from "@/components/BgVideo";
 import { GlassLayers } from "@/components/GlassLayers";
 import { PartnersStrip } from "@/components/PartnersStrip";
 import { FactoryAbout } from "@/components/FactoryAbout";
@@ -51,10 +45,10 @@ function Index() {
     <div ref={root} className="home-sections overflow-x-clip">
       {/* HERO */}
       <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><SequenceVideo preload="auto" clips={[{ desktop: hr.url, mobile: hrM.url, poster: hrP.url }, { desktop: hp.url, mobile: hpM.url, poster: hpP.url }]} /></div>
-        <div className="absolute inset-0 bg-hero-overlay" />
+        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" /></div>
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
           <div className="relative max-w-4xl">
+            <div aria-hidden className="pointer-events-none absolute -inset-x-5 -inset-y-12 bg-hero-overlay" />
             <div aria-hidden className="orbit-ring absolute -top-24 start-[-6rem] h-[28rem] w-[28rem] md:h-[36rem] md:w-[36rem] pointer-events-none" />
             <p data-hero-fade className="relative text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
             <h1 className="relative mt-5 font-extrabold" aria-label={`${headline} — ${subline}`}>

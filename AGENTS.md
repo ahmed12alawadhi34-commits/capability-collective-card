@@ -23,6 +23,7 @@
 - Company data is shared between the About grid and homepage logo row, excluding the current factory so both views stay consistent while group totals remain independent.
 - Full factory content is shared in a compact homepage variant and full About variant so the factory photo appears only on About.
 - Video gesture retries preserve the shared visibility owner; posters remain visible when autoplay is blocked.
+- The hero uses BgVideo with local desktop/mobile encodes and a first-frame poster, keeping looping and visibility handling in one component.
 - Serve media through repository-local public/media paths, preserving remote originals for rollback; independent hosting must not depend on editor telemetry or asset proxies.
 - Standalone Vite/Start/Nitro configuration supports Cloudflare and Node presets; generate sitemap and robots during builds from the single SITE_URL in seo.ts.
 - Production security headers are centralized in src/lib/security-headers.ts, mirrored in public/_headers and applied to Fetch responses plus Nitro global route rules so SSR and static delivery remain protected across hosts; development avoids production framing restrictions needed for the embedded editor preview.
