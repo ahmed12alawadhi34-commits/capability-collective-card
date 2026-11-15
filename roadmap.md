@@ -1,5 +1,5 @@
 # Requested additions
-- [ ] Replace hero with supplied single local video, mobile encode at most 1 MB, first-frame poster and text-only gradient; remove unused prior hero files and verify playback.
+- [x] Replace hero with supplied single local video, 776,548-byte mobile encode, first-frame poster and text-only gradient; remove six old hero media files and unused sequence component. AR/EN playback, loop, offscreen pause and no overflow verified at 375/412/1280; 47 tests pass.
 - [x] Remove lower Precision video section, nine unused media files and section-only animation/tab code; preserve hero clips pending replacement upload.
 - [x] Add shared working-hours response-time line to Quote and Contact; 46 tests pass and AR/EN at 375/412/1280 show no overflow or browser errors.
 - [x] Production line only: replaced the old nine steps with the supplied ten, rerouted the hangar path to delivery, and verified AR/EN at 375px, 412px and desktop; 44 tests pass with no overlap, overflow or console errors.
