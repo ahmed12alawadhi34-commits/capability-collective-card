@@ -102,7 +102,7 @@
   --gradient-silver: linear-gradient(120deg, #ffffff, #cfe3f5 50%, #8fc2e8);
   --gradient-night: radial-gradient(ellipse at 70% 0%, oklch(0.32 0.06 245 / 60%), transparent 60%), linear-gradient(180deg, oklch(0.14 0.03 258), oklch(0.18 0.03 250));
   --gradient-fade: linear-gradient(to top, oklch(0.16 0.03 255), transparent);
-  --gradient-hero-text: radial-gradient(ellipse at center, oklch(0.12 0.03 255 / 90%) 0%, oklch(0.12 0.03 255 / 75%) 45%, transparent 75%);
+  --gradient-hero-overlay: linear-gradient(to top, oklch(0.12 0.03 255 / 96%) 0%, oklch(0.12 0.03 255 / 78%) 32%, oklch(0.12 0.03 255 / 32%) 72%, oklch(0.12 0.03 255 / 48%) 100%);
   --shadow-glass: 0 20px 50px -24px rgb(0 0 0 / 70%), inset 0 1px 0 rgb(255 255 255 / 10%);
   --glow: 0 0 22px rgb(143 194 232 / 35%);
   --section-dark: oklch(0.16 0.03 255);
@@ -144,18 +144,10 @@
 @utility animate-rays { animation: rays 60s linear infinite; }
 @utility reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; &.in { opacity: 1; transform: none; } }
 @layer base { html { scroll-behavior: smooth; } body { font-family: var(--font-sans); } html[lang="ar"] body, html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { font-family: "Cairo", sans-serif; } h1,h2,h3 { font-family: var(--font-display); } }
-@utility bg-hero-overlay { background: var(--gradient-hero-text); }
+@utility bg-hero-overlay { background: var(--gradient-hero-overlay); }
 @utility text-highlight { color: #a9d4f2; text-shadow: 0 0 26px rgb(143 194 232 / 40%); }
 @utility section-light { background: oklch(0.18 0.03 252); }
 @layer components { a.bg-primary, button.bg-primary { box-shadow: var(--glow); } }
-@utility orbit-ring {
-  border-radius: 9999px;
-  background: conic-gradient(from 0deg, transparent 0deg, oklch(0.82 0.08 225 / 0.55) 60deg, transparent 140deg, transparent 360deg);
-  -webkit-mask: radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 70%);
-  mask: radial-gradient(circle, transparent 58%, black 60%, black 64%, transparent 70%);
-  filter: blur(14px);
-  animation: rays 14s linear infinite;
-}
 @utility glare {
   position: relative; overflow: hidden;
   &::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), oklch(1 0 0 / 22%), transparent 55%); }
