@@ -28,7 +28,7 @@ const pointer = (type: string, name = "pointerdown") => {
   return event;
 };
 
-describe("marquee pausing", () => {
+describe("marquee never pauses", () => {
   let section: HTMLElement, track: HTMLElement;
   /** Distance travelled from the strip's start, in px (half the 400px track is one loop). */
   const travelled = () => Math.abs(Number(/translate3d\((-?[\d.]+)px/.exec(track.style.transform)?.[1] ?? 0));
@@ -55,19 +55,14 @@ describe("marquee pausing", () => {
     expect(travelled()).toBeGreaterThan(10);
   });
 
-  it("resumes about 1.8 seconds after a finger tap", () => {
+  it("never stops when a finger taps the strip", () => {
     section.dispatchEvent(pointer("touch"));
     vi.advanceTimersByTime(500);
-    expect(travelled()).toBe(0);
-    vi.advanceTimersByTime(1600);
-    expect(travelled()).toBeGreaterThan(0);
+    expect(travelled()).toBeGreaterThan(5);
   });
 
-  it("stays still while a mouse hovers the strip and resumes when it leaves", () => {
+  it("never stops while a mouse hovers the strip", () => {
     section.dispatchEvent(pointer("mouse", "pointerenter"));
-    vi.advanceTimersByTime(1000);
-    expect(travelled()).toBe(0);
-    section.dispatchEvent(pointer("mouse", "pointerleave"));
     vi.advanceTimersByTime(1000);
     expect(travelled()).toBeGreaterThan(10);
   });
