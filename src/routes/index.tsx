@@ -45,7 +45,7 @@ function Index() {
     <div ref={root} className="home-sections overflow-x-clip">
       {/* HERO */}
       <section className="relative h-svh min-h-[740px] md:min-h-[700px] flex items-end overflow-hidden bg-night">
-        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" playbackRate={0.5} /></div>
+        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" desktopPoster="/media/posters/factory-hero-desktop-poster.jpg" playbackRate={0.5} /></div>
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-28 pb-28">
           <div className="relative max-w-4xl">
