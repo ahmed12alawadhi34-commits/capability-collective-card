@@ -17,9 +17,9 @@ afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 it.each([false, true])("plays the hero at half speed with mobile=%s", (mobile) => {
   vi.spyOn(window, "matchMedia").mockReturnValue({ matches: mobile } as MediaQueryList);
-  const { container } = render(<BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" playbackRate={0.5} />);
+  const { container } = render(<BgVideo desktop="/media/videos/factory-hero-v2.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" playbackRate={0.5} />);
   const video = container.querySelector("video");
-  expect(video?.getAttribute("src")).toBe(mobile ? "/media/videos/factory-hero-mobile.mp4" : "/media/videos/factory-hero.mp4");
+  expect(video?.getAttribute("src")).toBe(mobile ? "/media/videos/factory-hero-mobile.mp4" : "/media/videos/factory-hero-v2.mp4");
   expect(video?.playbackRate).toBe(0.5);
   expect(video?.defaultPlaybackRate).toBe(0.5);
 });
