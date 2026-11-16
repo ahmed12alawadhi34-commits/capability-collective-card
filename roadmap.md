@@ -1,4 +1,5 @@
 # Requested additions
+- [ ] Hero only: restore full overlay, remove orbit, half-speed video, bottom-align text and English-only eyebrow spacing; verify AR/EN desktop/mobile.
 - [x] Replace hero with supplied single local video, 776,548-byte mobile encode, first-frame poster and text-only gradient; remove six old hero media files and unused sequence component. AR/EN playback, loop, offscreen pause and no overflow verified at 375/412/1280; 47 tests pass.
 - [x] Remove lower Precision video section, nine unused media files and section-only animation/tab code; preserve hero clips pending replacement upload.
 - [x] Add shared working-hours response-time line to Quote and Contact; 46 tests pass and AR/EN at 375/412/1280 show no overflow or browser errors.

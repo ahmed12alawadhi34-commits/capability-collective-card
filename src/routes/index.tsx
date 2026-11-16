@@ -44,13 +44,12 @@ function Index() {
   return (
     <div ref={root} className="home-sections overflow-x-clip">
       {/* HERO */}
-      <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-night">
-        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" /></div>
-        <div className="relative mx-auto max-w-7xl w-full px-5 pt-20">
+      <section className="relative h-svh min-h-[740px] md:min-h-[700px] flex items-end overflow-hidden bg-night">
+        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" playbackRate={0.5} /></div>
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-overlay" />
+        <div className="relative mx-auto max-w-7xl w-full px-5 pt-28 pb-28">
           <div className="relative max-w-4xl">
-            <div aria-hidden className="pointer-events-none absolute -inset-x-5 -inset-y-12 bg-hero-overlay" />
-            <div aria-hidden className="orbit-ring absolute -top-24 start-[-6rem] h-[28rem] w-[28rem] md:h-[36rem] md:w-[36rem] pointer-events-none" />
-            <p data-hero-fade className="relative text-xs tracking-[0.3em] uppercase text-primary">{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
+            <p data-hero-fade className={`relative text-xs text-primary ${lang === "en" ? "tracking-[0.3em] uppercase" : "tracking-normal normal-case"}`}>{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
             <h1 className="relative mt-5 font-extrabold" aria-label={`${headline} — ${subline}`}>
               <span className="block text-[40px] md:text-[64px] leading-[1.35]">
                 {headline.split(" ").map((w, i) => (

@@ -3,12 +3,13 @@ import { playVideo, playWhenReady, watchVideoInteraction } from "@/lib/video-int
 import { watchVideoVisibility } from "@/lib/video-visibility";
 
 /** Muted looping video; light file on small screens, poster until ready, pauses when off screen. */
-export function BgVideo({ desktop, mobile, poster, className = "", preload = "auto" }: { desktop: string; mobile: string; poster: string; className?: string; preload?: "auto" | "metadata" }) {
+export function BgVideo({ desktop, mobile, poster, className = "", preload = "auto", playbackRate = 1 }: { desktop: string; mobile: string; poster: string; className?: string; preload?: "auto" | "metadata"; playbackRate?: number }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    v.playbackRate = 1;
+    v.defaultPlaybackRate = playbackRate;
+    v.playbackRate = playbackRate;
     let visible = false;
     const stopReady = playWhenReady(v);
     const stopInteraction = watchVideoInteraction(() => { if (visible) playVideo(v); });
@@ -21,6 +22,6 @@ export function BgVideo({ desktop, mobile, poster, className = "", preload = "au
       } else v.pause();
     });
     return () => { stopReady(); stopInteraction(); stopVisibility(); };
-  }, [desktop, mobile]);
+  }, [desktop, mobile, playbackRate]);
   return <video ref={ref} poster={poster} autoPlay muted loop playsInline preload={preload} aria-hidden className={`h-full w-full object-cover ${className}`} />;
 }
