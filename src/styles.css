@@ -344,3 +344,11 @@ html, body { overflow-x: clip; }
 .cap-card { background: oklch(0.18 0.03 255 / 0.35); border: 1px solid oklch(1 0 0 / 0.10); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: border-color .3s, background .3s; }
 @media (hover: hover) { .cap-card:hover { border-color: color-mix(in oklab, var(--primary) 45%, transparent); background: oklch(0.2 0.03 255 / 0.45); } }
 @media (max-width: 767px) { .cap-card { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); } }
+
+/* Hero: real factory photo with slow cinematic camera move and a light sweep across the glass */
+.hero-still { object-position: 50% 55%; transform-origin: 62% 60%; animation: hero-kenburns 22s ease-in-out infinite alternate; will-change: transform; }
+@keyframes hero-kenburns { from { transform: scale(1.02) translate3d(0,0,0); } to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); } }
+.hero-sheen { background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.16) 48%, rgb(190 225 255 / 0.10) 52%, transparent 62%); background-size: 260% 100%; background-repeat: no-repeat; mix-blend-mode: screen; animation: hero-sheen 9s ease-in-out infinite; -webkit-mask-image: linear-gradient(to top, black 15%, black 55%, transparent 75%); mask-image: linear-gradient(to top, black 15%, black 55%, transparent 75%); }
+@keyframes hero-sheen { 0% { background-position: 130% 0; } 60%, 100% { background-position: -30% 0; } }
+@media (max-width: 767px) { .hero-still { object-position: 68% 50%; transform-origin: 68% 55%; } }
+@media (prefers-reduced-motion: reduce) { .hero-still, .hero-sheen { animation: none; } }

@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
 import { gsap } from "@/lib/motion";
-import { BgVideo } from "@/components/BgVideo";
 import { GlassLayers } from "@/components/GlassLayers";
 import { PartnersStrip } from "@/components/PartnersStrip";
 import { FactoryAbout } from "@/components/FactoryAbout";
@@ -45,7 +44,10 @@ function Index() {
     <div ref={root} className="home-sections overflow-x-clip">
       {/* HERO */}
       <section className="relative h-svh min-h-[740px] md:min-h-[700px] flex items-end overflow-hidden bg-night">
-        <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero-v3.mp4" mobile="/media/videos/factory-hero-mobile.mp4" poster="/media/posters/factory-hero-poster.jpg" playbackRate={0.5} /></div>
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img src="/media/images/hero-furnace.webp" srcSet="/media/images/hero-furnace-sm.webp 900w, /media/images/hero-furnace.webp 1200w" sizes="100vw" alt="" width={1200} height={800} fetchPriority="high" decoding="async" className="hero-still h-full w-full object-cover" />
+          <div className="hero-sheen absolute inset-0" />
+        </div>
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl w-full px-5 pt-28 pb-28">
           <div className="relative max-w-4xl">
