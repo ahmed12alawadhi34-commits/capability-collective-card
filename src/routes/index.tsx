@@ -74,11 +74,11 @@ function Index() {
           </div>
 
           <div data-hero-fade className="hero-metrics">
-            {[
+            {([
               [{ ar: "4–19", en: "4–19" }, { ar: "مم · نطاق السماكات", en: "mm · thickness range" }],
               [{ ar: "2×4", en: "2×4" }, { ar: "م · أقصى مقاس للوح", en: "m · maximum panel" }],
               [{ ar: "650°", en: "650°" }, { ar: "تقسية حرارية دقيقة", en: "precision tempering" }],
-            ].map(([value, label]) => (
+            ] as const).map(([value, label]) => (
               <div key={label.en} className="hero-metric">
                 <strong dir="ltr">{t(value)}</strong>
                 <span>{t(label)}</span>
