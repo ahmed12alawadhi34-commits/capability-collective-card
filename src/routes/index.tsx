@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { pageHead, localBusinessJsonLd } from "@/lib/seo";
 import { gsap } from "@/lib/motion";
@@ -26,6 +27,8 @@ function Index() {
   const root = useRef<HTMLDivElement>(null);
   const headline = t({ ar: "زجاجٌ بمعايير عالمية", en: "World-class glass" });
   const subline = t({ ar: "صُنع في صنعاء… لمشاريع اليمن", en: "Made in Sana'a, for Yemen's projects" });
+  const Arrow = lang === "ar" ? ArrowUpLeft : ArrowUpRight;
+  const ScrollArrow = lang === "ar" ? ArrowLeft : ArrowRight;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -34,64 +37,68 @@ function Index() {
         gsap.set("[data-word], [data-hero-fade]", { opacity: 1, clearProps: "transform" });
         return;
       }
-      gsap.fromTo("[data-word]", { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, clearProps: "transform", duration: 1.1, ease: "expo.out", stagger: 0.09, delay: 0.9 });
-      gsap.fromTo("[data-hero-fade]", { y: 30, opacity: 0 }, { y: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "power3.out", stagger: 0.12, delay: 1.5 });
-
+      gsap.fromTo("[data-word]", { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, clearProps: "transform", duration: 1, ease: "expo.out", stagger: 0.08, delay: 0.2 });
+      gsap.fromTo("[data-hero-fade]", { y: 22, opacity: 0 }, { y: 0, opacity: 1, clearProps: "transform", duration: 0.85, ease: "power3.out", stagger: 0.08, delay: 0.55 });
     }, root);
     return () => { ctx.revert(); };
   }, [lang]);
 
   return (
     <div ref={root} className="home-sections overflow-x-clip">
-      {/* HERO */}
-      <section className="relative h-svh min-h-[740px] md:min-h-[700px] flex items-end overflow-hidden bg-night">
+      <section className="hero-2026">
         <div className="absolute inset-0"><BgVideo desktop="/media/videos/factory-hero-v4.mp4" mobile="/media/videos/factory-hero-mobile-v4.mp4" poster="/media/posters/factory-hero-poster-v4.jpg" playbackRate={0.5} /></div>
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto max-w-7xl w-full px-5 pt-28 pb-28">
-          <div className="relative max-w-4xl">
-            <p data-hero-fade className={`relative text-xs text-primary ${lang === "en" ? "tracking-[0.3em] uppercase" : "tracking-normal normal-case"}`}>{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
-            <h1 className="relative mt-5 font-extrabold" aria-label={`${headline} — ${subline}`}>
-              <span className="block text-[40px] md:text-[64px] leading-[1.35]">
-                {headline.split(" ").map((w, i) => (
-                  <span key={lang + i} className="inline-block overflow-hidden align-bottom pb-2 me-[0.25em]" aria-hidden>
-                    <span data-word className="inline-block text-silver pb-1">{w}</span>
+        <div aria-hidden className="hero-2026-overlay" />
+        <div aria-hidden className="hero-architecture-grid" />
+        <div className="hero-side-note" aria-hidden><span>AL-AWADHI</span><span>GLASS INDUSTRIES · 2026</span></div>
+
+        <div className="hero-2026-content">
+          <div className="hero-2026-copy">
+            <p data-hero-fade className="section-eyebrow hero-eyebrow"><span aria-hidden />{t({ ar: "خبرة +50 عاماً · مصنع حديث منذ 2021", en: "50+ years of experience · Modern factory since 2021" })}</p>
+            <h1 aria-label={`${headline} — ${subline}`}>
+              <span className="hero-headline-line">
+                {headline.split(" ").map((word, index) => (
+                  <span key={lang + index} className="hero-word-mask" aria-hidden>
+                    <span data-word className="hero-word text-silver">{word}</span>
                   </span>
                 ))}
               </span>
-              <span data-hero-fade className="mt-3 block text-lg md:text-2xl font-semibold leading-[1.5] text-muted-foreground">{subline}</span>
+              <span data-hero-fade className="hero-subline">{subline}</span>
             </h1>
-            <p data-hero-fade className="relative mt-4 text-base md:text-xl font-bold text-primary">{t({ ar: "الرائدة في سوق الزجاج في اليمن", en: "Yemen's leading glass company" })}</p>
-            <p data-hero-fade className="relative mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-              {t({ ar: "سيكوريت (مقسّى) ولامينيت (مجلتن) وزجاج مزدوج بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered (Securit), laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
+            <p data-hero-fade className="hero-description">
+              {t({ ar: "سيكوريت ولامينيت ودبل جلاس بمواصفات عالمية، يُنتَج في مصنع حديث بصنعاء للمقاولين والمصنّعين والمشاريع الكبرى.", en: "Precision tempered, laminated and double-glazed glass to international standards — produced in a modern Sana'a facility." })}
             </p>
-            <div data-hero-fade className="relative mt-9 flex flex-wrap gap-3">
-              <Link to="/products" className="rounded-full bg-primary text-primary-foreground px-7 py-3.5 font-semibold">{t({ ar: "منتجاتنا", en: "Our Products" })}</Link>
-              <QuoteLink className="glass rounded-full h-auto px-7 py-3.5 font-semibold text-foreground hover:no-underline">{t({ ar: "اطلب عرض سعر", en: "Request a Quote" })}</QuoteLink>
+            <div data-hero-fade className="hero-actions">
+              <Link to="/products" className="hero-button hero-button-primary">{t({ ar: "اكتشف منتجاتنا", en: "Explore our products" })}<Arrow size={18} aria-hidden /></Link>
+              <QuoteLink className="hero-button hero-button-secondary">{t({ ar: "اطلب عرض سعر", en: "Request a quote" })}<ScrollArrow size={17} aria-hidden /></QuoteLink>
             </div>
           </div>
+
+          <div data-hero-fade className="hero-metrics">
+            {[
+              [{ ar: "4–19", en: "4–19" }, { ar: "مم · نطاق السماكات", en: "mm · thickness range" }],
+              [{ ar: "2×4", en: "2×4" }, { ar: "م · أقصى مقاس للوح", en: "m · maximum panel" }],
+              [{ ar: "650°", en: "650°" }, { ar: "تقسية حرارية دقيقة", en: "precision tempering" }],
+            ].map(([value, label]) => (
+              <div key={label.en} className="hero-metric">
+                <strong dir="ltr">{t(value)}</strong>
+                <span>{t(label)}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="absolute bottom-6 inset-x-0 flex justify-center"><span className="h-12 w-px bg-gradient-to-b from-primary to-transparent animate-pulse" /></div>
+        <div className="hero-scroll-cue" aria-hidden><span>SCROLL TO DISCOVER</span><i /></div>
       </section>
 
       <FactoryAbout compact />
       <GroupCompaniesRow />
-
       <WhyChooseUs />
       <Capabilities />
-
       <PartnersStrip />
-
       <GlassComparison className="py-24" />
-
       <GlassLayers />
-
       <HomeProductStrip />
-
-      {/* PRODUCTION LINE */}
       <ProductionLine />
-
       <FinalQuote />
-
     </div>
   );
 }

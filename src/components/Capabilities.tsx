@@ -2,6 +2,7 @@ import { Maximize2, Layers3, Flame, Spline, ShieldHalf, Thermometer, ArrowLeft, 
 import { Link } from "@tanstack/react-router";
 import { useLang } from "@/lib/i18n";
 import { BgVideo } from "@/components/BgVideo";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const specs = [
   { icon: Maximize2, value: { ar: "حتى 2×4 م", en: "Up to 2×4 m" }, label: { ar: "أقصى مقاس للوح", en: "Max panel size" } },
@@ -16,24 +17,27 @@ export function Capabilities() {
   const { t, lang } = useLang();
   const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
   return (
-    <section className="capabilities relative overflow-hidden px-5 py-20 md:py-28">
+    <section className="capabilities relative overflow-hidden px-5">
       <div aria-hidden className="absolute inset-0"><BgVideo desktop="/media/videos/capabilities.mp4" mobile="/media/videos/capabilities-mobile.mp4" poster="/media/posters/capabilities-poster.jpg" preload="metadata" /></div>
       <div aria-hidden className="absolute inset-0 capabilities-overlay" />
-      <div className="relative mx-auto max-w-6xl">
-        <h2 className="text-center text-3xl md:text-5xl font-bold">{t({ ar: "قدراتنا", en: "Our capabilities" })}</h2>
-        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
-          {specs.map(({ icon: Icon, value, label }) => (
-            <div key={value.en} className="cap-card rounded-2xl p-4 md:p-7">
-              <Icon size={22} className="text-primary" aria-hidden />
-              <p className="mt-4 text-xl md:text-3xl font-bold leading-tight text-white" dir="auto">{t(value)}</p>
-              <p className="mt-2 text-xs md:text-sm text-white/70 leading-relaxed">{t(label)}</p>
+      <div className="relative mx-auto max-w-7xl">
+        <SectionHeading
+          eyebrow={t({ ar: "هندسة خلف كل لوح", en: "Engineering behind every pane" })}
+          title={t({ ar: "قدرات تصنع الفرق", en: "Capabilities that make a difference" })}
+          description={t({ ar: "معدات حديثة وخبرة تصنيع تمنحك مقاسات أدق وجودة ثابتة في كل طلب.", en: "Modern equipment and manufacturing expertise deliver precise dimensions and consistent quality on every order." })}
+          index="02 / CAPABILITIES"
+        />
+        <div className="capability-grid">
+          {specs.map(({ icon: Icon, value, label }, index) => (
+            <div key={value.en} className="cap-card">
+              <div className="cap-card-top"><Icon size={23} className="text-primary" aria-hidden /><span>{String(index + 1).padStart(2, "0")}</span></div>
+              <p className="cap-value" dir="auto">{t(value)}</p>
+              <p className="cap-label">{t(label)}</p>
             </div>
           ))}
         </div>
-        <div className="mt-8 text-center">
-          <Link to="/quote" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary">
-            {t({ ar: "اطلب عرض سعر لمشروعك", en: "Request a quote for your project" })} <Arrow size={16} />
-          </Link>
+        <div className="mt-10 text-center">
+          <Link to="/quote" className="text-link">{t({ ar: "ناقش مواصفات مشروعك معنا", en: "Discuss your project specifications with us" })}<Arrow size={17} /></Link>
         </div>
       </div>
     </section>

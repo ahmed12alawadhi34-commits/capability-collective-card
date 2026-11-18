@@ -23,8 +23,8 @@ function Loader() {
   }, []);
   if (gone) return null;
   return (
-    <div className={`fixed inset-0 z-[100] grid place-items-center bg-night transition-opacity duration-300 ${hide ? "opacity-0 pointer-events-none" : ""}`}>
-      <div className="shine p-6"><img src={logo} alt="" width={824} height={415} className="w-56" /></div>
+    <div className={`loader-2026 ${hide ? "is-hidden" : ""}`}>
+      <div className="loader-brand"><img src={logo} alt="" width={824} height={415} /><span /></div>
     </div>
   );
 }
@@ -39,24 +39,22 @@ function YemenFlag() {
 
 function useReveal() {
   useEffect(() => {
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.12 });
-    const scan = () => document.querySelectorAll(".reveal:not(.in)").forEach((el) => io.observe(el));
-    // Defer until after React hydration so the added "in" class cannot mismatch SSR HTML.
+    const io = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("in")), { threshold: 0.12 });
+    const scan = () => document.querySelectorAll(".reveal:not(.in)").forEach((element) => io.observe(element));
     const timer = setTimeout(() => {
       scan();
-      const mo = new MutationObserver(scan);
-      mo.observe(document.body, { childList: true, subtree: true });
-      cleanup = () => mo.disconnect();
+      const observer = new MutationObserver(scan);
+      observer.observe(document.body, { childList: true, subtree: true });
+      cleanup = () => observer.disconnect();
     }, 150);
     let cleanup = () => {};
     return () => { clearTimeout(timer); cleanup(); io.disconnect(); };
   }, []);
 }
 
-/** Keeps <title>, description and og tags in the selected language. */
 function LangMeta() {
   const { lang } = useLang();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   useEffect(() => { applyPageSeo(pathname, lang); }, [lang, pathname]);
   return null;
 }
@@ -68,36 +66,42 @@ export function SiteShell({ children }: { children: ReactNode }) {
   useReveal();
   useEffect(() => { initSmoothScroll(); }, []);
   useEffect(() => {
-    const f = () => setScrolled(window.scrollY > 20);
-    f(); window.addEventListener("scroll", f, { passive: true });
-    return () => window.removeEventListener("scroll", f);
+    const update = () => setScrolled(window.scrollY > 20);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-night text-foreground">
       <Loader />
       <LangMeta />
-      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled || open ? "glass mx-3 mt-3 rounded-full lg:mx-auto lg:max-w-6xl" : ""}`}>
-        <div className={`mx-auto max-w-7xl px-5 flex transition-all duration-500 ${scrolled ? "py-2" : "py-5"} items-center justify-between gap-2 sm:gap-4`}>
-          <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
-            <img src={mark} alt={t(brand)} width={388} height={191} className={`w-auto transition-all duration-500 ${scrolled ? "h-7" : "h-10"}`} />
-            <span className="text-sm font-bold leading-tight hidden sm:block">{t(brand)}</span>
+      <header className={`site-header ${scrolled || open ? "is-scrolled" : ""}`}>
+        <div className="site-header-inner">
+          <Link to="/" onClick={() => setOpen(false)} className="site-brand" aria-label={t(brand)}>
+            <img src={mark} alt="" width={388} height={191} />
+            <span className="site-brand-copy"><strong>{t(brand)}</strong><small>GLASS INDUSTRIES · SANA'A</small></span>
           </Link>
-          <nav className="hidden lg:flex items-center gap-7 text-sm">
-            {nav.map((n) => (
-              n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} className="text-muted-foreground hover:text-foreground transition">{n[lang]}</a> : <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground transition" activeProps={{ className: "!text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
+          <nav className="site-nav" aria-label={t({ ar: "التنقل الرئيسي", en: "Main navigation" })}>
+            {nav.map((item) => item.to === "/quote" ? (
+              <a key={item.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(event) => { event.currentTarget.href = quoteUrl(lang, visibleProduct()); }} className="site-nav-link site-nav-quote">{item[lang]}</a>
+            ) : (
+              <Link key={item.to} to={item.to} className="site-nav-link" activeProps={{ className: "is-active" }} activeOptions={{ exact: true }}>{item[lang]}</Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"} className="glass rounded-full h-11 px-3.5 py-2 inline-flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
+          <div className="site-header-actions">
+            <button onClick={() => setLang(lang === "ar" ? "en" : "ar")} aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"} className="language-switch">
               {lang === "ar" ? <UkFlag /> : <YemenFlag />}<span lang={lang === "ar" ? "en" : "ar"}>{lang === "ar" ? "English" : "عربي"}</span>
             </button>
-            <button className="lg:hidden h-11 w-11 shrink-0 grid place-items-center" aria-label="Menu" onClick={() => setOpen(!open)}>{open ? <X size={24} /> : <Menu size={24} />}</button>
+            <button className="menu-switch" aria-label={t({ ar: "القائمة", en: "Menu" })} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X size={23} /> : <Menu size={23} />}</button>
           </div>
         </div>
         {open && (
-          <nav className="lg:hidden px-5 pb-5 flex flex-col">
-            {nav.map((n) => (
-              n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); setOpen(false); }} className="py-3 border-b border-border">{n[lang]}</a> : <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-3 border-b border-border" activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>{n[lang]}</Link>
+          <nav className="site-mobile-nav" aria-label={t({ ar: "قائمة الجوال", en: "Mobile navigation" })}>
+            {nav.map((item, index) => item.to === "/quote" ? (
+              <a key={item.to} href={quoteUrl(lang)} target="_blank" rel="noopener noreferrer" onClick={(event) => { event.currentTarget.href = quoteUrl(lang, visibleProduct()); setOpen(false); }}><span>{String(index + 1).padStart(2, "0")}</span>{item[lang]}</a>
+            ) : (
+              <Link key={item.to} to={item.to} onClick={() => setOpen(false)} activeProps={{ className: "is-active" }} activeOptions={{ exact: true }}><span>{String(index + 1).padStart(2, "0")}</span>{item[lang]}</Link>
             ))}
           </nav>
         )}
@@ -105,50 +109,43 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-border bg-night">
-        <div className="mx-auto max-w-7xl px-5 py-14 grid gap-10 md:grid-cols-4 text-sm">
-          <div className="md:col-span-2">
-            <img src={logo} alt={t(brand)} width={824} height={415} loading="lazy" className="w-44" />
-            <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">{t({ ar: "عضو في مجموعة العواضي للتجارة والصناعة — في تجارة الزجاج منذ 1974.", en: "Part of Al-Awadhi Group for Trading and Manufacturing — in the glass trade since 1974." })}</p>
+      <footer className="site-footer">
+        <div className="site-footer-main">
+          <div className="site-footer-brand">
+            <img src={logo} alt={t(brand)} width={824} height={415} loading="lazy" />
+            <p>{t({ ar: "عضو في مجموعة العواضي للتجارة والصناعة — في تجارة الزجاج منذ 1974.", en: "Part of Al-Awadhi Group for Trading and Manufacturing — in the glass trade since 1974." })}</p>
+            <span>PRECISION GLASS · MADE IN YEMEN</span>
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-semibold mb-1">{t({ ar: "روابط", en: "Links" })}</p>
-            {nav.map((n) => n.to === "/quote" ? <a key={n.to} href={quoteUrl(lang)} onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">{n[lang]}</a> : <Link key={n.to} to={n.to} className="text-muted-foreground hover:text-foreground">{n[lang]}</Link>)}
-            <Link to="/quote" className="text-primary">{t({ ar: "نموذج مواصفات الزجاج", en: "Glass specifications form" })}</Link>
+          <div className="site-footer-column">
+            <p className="site-footer-title">{t({ ar: "استكشف", en: "Explore" })}</p>
+            {nav.map((item) => item.to === "/quote" ? <a key={item.to} href={quoteUrl(lang)} onClick={(event) => { event.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer">{item[lang]}</a> : <Link key={item.to} to={item.to}>{item[lang]}</Link>)}
+            <Link to="/quote" className="footer-form-link">{t({ ar: "نموذج مواصفات الزجاج", en: "Glass specifications form" })}</Link>
           </div>
-          <div className="flex flex-col gap-2 text-muted-foreground">
-            <p className="font-semibold mb-1 text-foreground">{t({ ar: "تواصل", en: "Contact" })}</p>
+          <div className="site-footer-column site-footer-contact">
+            <p className="site-footer-title">{t({ ar: "تواصل معنا", en: "Contact us" })}</p>
             <span className="flex gap-2"><MapPin size={16} className="shrink-0 mt-0.5" />{t(address)}</span>
-            {PHONES.map((p) =>
-              contactReady ? (
-                <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></a>
-              ) : (
-                <span key={p} className="flex gap-2"><Phone size={16} /><span dir="ltr">{p}</span></span>
-              )
-            )}
+            {PHONES.map((phone) => contactReady ? <a key={phone} href={`tel:${phone.replace(/\s/g, "")}`} className="flex gap-2"><Phone size={16} /><span dir="ltr">{phone}</span></a> : <span key={phone} className="flex gap-2"><Phone size={16} /><span dir="ltr">{phone}</span></span>)}
             {EMAIL && <a href={`mailto:${EMAIL}`} className="flex gap-2"><Mail size={16} />{EMAIL}</a>}
             <GoogleReviewsLink className="mt-2 self-start" />
           </div>
         </div>
-        <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} Al-Awadhi for Glass Industry</div>
+        <div className="site-footer-bottom"><span>© {new Date().getFullYear()} Al-Awadhi for Glass Industry</span><span>SANA'A · YEMEN</span></div>
       </footer>
 
-      {contactReady && (
-        <a href={quoteUrl(lang)} onClick={(e) => { e.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition">
-          <MessageCircle size={26} />
-        </a>
-      )}
+      {contactReady && <a href={quoteUrl(lang)} onClick={(event) => { event.currentTarget.href = quoteUrl(lang, visibleProduct()); }} target="_blank" rel="noopener noreferrer" aria-label={t({ ar: "واتساب", en: "WhatsApp" })} className="whatsapp-fab"><MessageCircle size={25} /></a>}
     </div>
   );
 }
 
 export function PageHeader({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {
   return (
-    <section className="bg-night pt-36 pb-16">
-      <div className="mx-auto max-w-7xl px-5">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary">{eyebrow}</p>
-        <h1 className="mt-3 text-4xl md:text-6xl font-bold text-silver leading-tight">{title}</h1>
-        {children && <div className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">{children}</div>}
+    <section className="page-hero">
+      <div className="page-hero-grid" aria-hidden />
+      <div className="page-hero-watermark" aria-hidden>AW / 2026</div>
+      <div className="page-hero-content">
+        <p className="section-eyebrow"><span aria-hidden />{eyebrow}</p>
+        <h1>{title}</h1>
+        {children && <div className="page-hero-description">{children}</div>}
       </div>
     </section>
   );

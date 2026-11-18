@@ -1,8 +1,8 @@
-# 2026 catalog redesign
-- [ ] Establish a distinctive architectural editorial design while preserving dark navy, bilingual content and all existing features.
+# 2026 catalog redesign — final version
+- [ ] Establish a distinctive architectural editorial design mixing cinematic navy with clean white commercial sections, preserving bilingual content and all features.
 - [ ] Rebuild the hero, navigation and shared section styling around the supplied 2026 catalog.
-- [ ] Use seven optimized catalog product photographs in a new Products showcase.
-- [ ] Verify AR/EN at 375px, 412px and desktop, interactions, local media, tests and browser console.
+- [ ] Use seven optimized catalog product photographs in a new Products showcase and homepage strip.
+- [ ] Verify AR/EN at 375px, 412px, 440px and desktop, interactions, local media, tests and browser console.
 
 # Requested additions
 - [x] Hero only: full overlay restored, orbit removed, video plays at 0.5, text bottom-aligned and eyebrow spacing English-only; AR/EN verified at 375/412/440/1280 with no overflow or browser errors, 49 tests pass. Physical iPhone Safari remains unavailable.

@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { QuoteLink } from "@/components/QuoteLink";
 import { GlassComparison } from "@/components/GlassComparison";
 import { PageHeader } from "@/components/SiteShell";
-import { ProductIcon } from "@/components/ProductIcon";
+import { ProductShowcase } from "@/components/ProductShowcase";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useLang } from "@/lib/i18n";
-import { products } from "@/lib/content";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/products")({
@@ -16,18 +15,26 @@ function Products() {
   const { t } = useLang();
   return (
     <>
-      <PageHeader eyebrow={t({ ar: "المنتجات", en: "Products" })} title={t({ ar: "زجاج لكل مشروع", en: "Glass for every project" })} />
-      <section className="mx-auto max-w-7xl px-5 py-20 grid gap-5 md:grid-cols-2">
-        {products.map((p) => (
-          <article key={p.icon} data-quote-product={p.icon} className="reveal glass shine rounded-3xl p-8">
-            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-primary/15 text-primary"><ProductIcon name={p.icon} size={28} /></div>
-            <h2 className="mt-6 text-2xl font-bold">{t(p.name)}</h2>
-            <p className="mt-3 text-muted-foreground leading-relaxed">{t(p.desc)}</p>
-            <QuoteLink product={p.icon} className="mt-6 h-auto p-0 inline-block text-sm text-primary">{t({ ar: "اطلب عرض سعر ←", en: "Request a quote →" })}</QuoteLink>
-          </article>
-        ))}
+      <PageHeader eyebrow={t({ ar: "مجموعة المنتجات", en: "Product collection" })} title={t({ ar: "سبعة منتجات. احتمالات بلا حدود.", en: "Seven products. Endless possibilities." })}>
+        <p>{t({ ar: "حلول زجاجية متكاملة للواجهات والمنازل والمشاريع التجارية، تُصنع في صنعاء وفق مقاساتك ومواصفاتك.", en: "Complete glass solutions for façades, homes and commercial projects, made in Sana'a to your exact dimensions and specifications." })}</p>
+        <div className="page-hero-meta" aria-hidden><span>2026 COLLECTION</span><span>07 PRODUCTS</span><span>MADE IN SANA'A</span></div>
+      </PageHeader>
+
+      <section className="products-catalog-section">
+        <div className="mx-auto max-w-[1440px] px-5">
+          <SectionHeading
+            eyebrow={t({ ar: "صُنع حسب مشروعك", en: "Made for your project" })}
+            title={t({ ar: "اختر الزجاج. واترك الدقة علينا.", en: "Choose the glass. Leave the precision to us." })}
+            description={t({ ar: "من لوح واحد إلى واجهة كاملة، نساعدك في اختيار النوع والسماكة والتشطيب المناسب.", en: "From a single pane to a complete façade, we help you select the right type, thickness and finish." })}
+            index="01—07"
+          />
+          <ProductShowcase />
+        </div>
       </section>
-      <GlassComparison />
+
+      <div className="products-comparison-wrap">
+        <GlassComparison />
+      </div>
     </>
   );
 }
